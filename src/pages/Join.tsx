@@ -1,6 +1,6 @@
 // src/pages/Join.tsx
 import React from 'react';
-import { ExternalLink, Heart, Zap, Users, Target, Award } from 'lucide-react';
+import { ExternalLink, Award } from 'lucide-react';
 import Hero from '../components/Hero';
 
 const Join: React.FC = () => {
@@ -40,7 +40,7 @@ const Join: React.FC = () => {
   ];
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in font-sans">
       {/* HERO */}
       <Hero
         backgroundImage="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
@@ -59,14 +59,14 @@ const Join: React.FC = () => {
         overlayOpacity="bg-black/45"
       />
 
-      {/* Green bubble intro */}
+      {/* Green bubble intro (centered content, consistent spacing) */}
       <section className="bg-white py-12 sm:py-16 md:py-20">
-        <div className="px-4 sm:px-6 md:px-8">
-          <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
+          <div className="bg-[#015e37] text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16 flex flex-col items-center justify-center text-center">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4 sm:mb-6">
               BUILD. <span className="text-[#ffc82e]">RACE.</span> LEARN.
             </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 max-w-5xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 max-w-5xl">
               Join UBC Okanagan’s student-led solar racing team and get real experience in
               design, manufacturing, and clean tech—while competing on an international stage.
             </p>
@@ -74,7 +74,7 @@ const Join: React.FC = () => {
         </div>
       </section>
 
-      {/* Open Positions — 4 subteam cards */}
+      {/* Open Positions — 4 subteam cards (mobile-first, unified spacing) */}
       <section className="py-12 sm:py-16 bg-white">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="mb-6 sm:mb-8">
@@ -112,7 +112,7 @@ const Join: React.FC = () => {
         </div>
       </section>
 
-      {/* SPLIT VIEW — 60/40 */}
+      {/* Split view — consistent with other pages (Montserrat, spacing, colors) */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="grid md:grid-cols-5 gap-6 md:gap-8 items-stretch">
@@ -128,9 +128,9 @@ const Join: React.FC = () => {
                 href={formUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#015e37] text-white px-7 sm:px-8 py-3.5 rounded-full font-semibold shadow-md hover:shadow-lg transition"
+                className="inline-flex items-center gap-2 bg-[#015e37] text-white px-7 sm:px-8 py-3.5 rounded-full font-semibold shadow-md hover:shadow-lg transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#015e37]/40"
               >
-                Open Application Form <ExternalLink className="h-5 w-5" />
+                OPEN APPLICATION FORM <ExternalLink className="h-5 w-5" />
               </a>
 
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">

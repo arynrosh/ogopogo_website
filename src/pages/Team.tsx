@@ -66,7 +66,7 @@ const Team: React.FC = () => {
   }, [filtered, selected]);
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in font-sans">
       {/* Hero */}
       <Hero
         backgroundImage="https://i.ibb.co/n8sd4xZp/solar-web.jpg"
@@ -85,7 +85,7 @@ const Team: React.FC = () => {
         overlayOpacity="bg-black/40"
       />
 
-      {/* Green bubble */}
+      {/* Green bubble (centered content) */}
       <section className="bg-white py-12 sm:py-16 md:py-20">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-[#015e37] text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16 flex flex-col items-center justify-center text-center">
@@ -101,7 +101,6 @@ const Team: React.FC = () => {
           </div>
         </div>
       </section>
-
 
       {/* Filter (mobile horizontal scroll like News) */}
       <section className="bg-white border-b">

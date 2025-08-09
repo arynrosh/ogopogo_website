@@ -24,13 +24,12 @@ const Footer: React.FC = () => {
 
   const year = new Date().getFullYear();
 
-  // same behavior as Header: force scroll to top on navigation
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="bg-[#004126] text-white font-bebas [padding-bottom:env(safe-area-inset-bottom)]">
+    <footer className="bg-[#004126] text-white font-sans [padding-bottom:env(safe-area-inset-bottom)]">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-14 lg:py-16">
-        {/* responsive grid: 1 -> 2 -> 3 -> 4 cols */}
+        {/* Responsive grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
           {/* Brand */}
           <div>
@@ -42,7 +41,7 @@ const Footer: React.FC = () => {
                 loading="lazy"
                 decoding="async"
               />
-              <h3 className="text-lg sm:text-xl font-bold" style={{ color: '#ffc82e' }}>
+              <h3 className="text-lg sm:text-xl font-bold text-[#ffc82e]">
                 OGOPOGO SOLAR
               </h3>
             </div>
@@ -68,7 +67,7 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">Quick Links</h4>
+            <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">QUICK LINKS</h4>
             <nav className="grid grid-cols-2 sm:grid-cols-1 gap-3">
               {quickLinks.map((link) => (
                 <Link
@@ -85,7 +84,7 @@ const Footer: React.FC = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">Contact Us</h4>
+            <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">CONTACT US</h4>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-[#ffc82e] mt-0.5 flex-shrink-0" />
@@ -120,7 +119,7 @@ const Footer: React.FC = () => {
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">Stay Updated</h4>
+            <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">STAY UPDATED</h4>
             <p className="text-gray-300 mb-4 text-sm sm:text-base">
               Get the latest news about our solar racing journey and upcoming events.
             </p>

@@ -6,8 +6,8 @@ import Hero from '../components/Hero';
 type Tier = {
   name: string;
   icon: React.ComponentType<{ className?: string }>;
-  textColor: string;     // e.g., 'text-amber-600'
-  lineBgColor: string;   // e.g., 'bg-amber-300'
+  textColor: string;
+  lineBgColor: string;
   sponsors: {
     name: string;
     logo: string;
@@ -108,7 +108,6 @@ const sponsorTiers: Tier[] = [
   },
 ];
 
-// Consistent logo sizing per tier (adjust if you want bigger/smaller)
 const logoHeights: Record<string, string> = {
   'Platinum Sponsor': 'h-40 sm:h-48 md:h-56',
   'Gold Sponsor': 'h-36 sm:h-44 md:h-48',
@@ -118,7 +117,7 @@ const logoHeights: Record<string, string> = {
 
 const Sponsors: React.FC = () => {
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in font-montserrat">
       {/* HERO */}
       <Hero
         backgroundImage="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
@@ -172,7 +171,7 @@ const Sponsors: React.FC = () => {
           {sponsorTiers.map((tier) =>
             tier.sponsors.length ? (
               <div key={tier.name} className="mb-12 sm:mb-16 md:mb-20">
-                {/* Heading with lines + icon */}
+                {/* Heading */}
                 <div className="flex items-center gap-4 mb-8 md:mb-10">
                   <div className={`flex-1 h-[3px] rounded-full ${tier.lineBgColor}`} />
                   <div className="flex items-center gap-2">
@@ -182,7 +181,7 @@ const Sponsors: React.FC = () => {
                   <div className={`flex-1 h-[3px] rounded-full ${tier.lineBgColor}`} />
                 </div>
 
-                {/* Logos grid with stable aspect ratio */}
+                {/* Logos grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 place-items-center">
                   {tier.sponsors.map((s) => (
                     <a

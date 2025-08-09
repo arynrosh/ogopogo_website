@@ -53,39 +53,67 @@ const projects: Project[] = [
       'https://images.pexels.com/photos/9875445/pexels-photo-9875445.jpeg?auto=compress&cs=tinysrgb&w=1200&h=675&fit=crop',
     ],
     timeline: [
-      { name: 'Phase 1 — Feasibility & Research', window: 'Sept 1 – Sept 14', bullets: [
-        'Study prior prototypes; explore reuse options',
-        'Outline technical goals, early BOM, constraints',
-        'Assign leads for Mech, Elec, Software, Documentation',
-      ]},
-      { name: 'Phase 2 — Design & Scoping', window: 'Sept 15 – Sept 30', bullets: [
-        'Draft system schematics and initial 3D CAD',
-        'Define MVP to demonstrate motion, charging, controls',
-        'Budget range + donation/salvage candidates',
-      ]},
-      { name: 'Phase 3 — Proposal & Outreach', window: 'Oct 1 – Oct 5', bullets: [
-        'Finalize proposal for UBC Professional Aid Fund',
-        'Begin external sponsor outreach',
-        'Prep pitch deck, one-pager, simple landing page',
-      ]},
-      { name: 'Phase 4 — Workspace & Logistics', window: 'Oct 6 – Oct 20', bullets: [
-        'Apply for UBC garage or secure shared workspace',
-        'Draft safety plan and team operations agreement',
-      ]},
-      { name: 'Phase 5 — Procurement, Build & Integration', window: 'Oct 21 – Feb 29', bullets: [
-        'Purchase/collect parts as funding arrives',
-        'Build frame, steering, drivetrain, solar array',
-        'Integrate wiring, BMS, MPPT, controls; early low-speed tests',
-      ]},
-      { name: 'Phase 6 — Testing, Debugging & Validation', window: 'Mar 1 – Mar 31', bullets: [
-        'Full-system tests: drive, charge, brake, telemetry',
-        'Debug + tune hardware/software; complete safety checklist',
-      ]},
-      { name: 'Phase 7 — Demo, Documentation & Handoff', window: 'Apr 1 – Apr 30', bullets: [
-        'Internal/public demo for faculty & sponsors',
-        'Finalize build report, design files, test data, media',
-        'Archive + onboard next cohort',
-      ]},
+      {
+        name: 'Phase 1 — Feasibility & Research',
+        window: 'Sept 1 – Sept 14',
+        bullets: [
+          'Study prior prototypes; explore reuse options',
+          'Outline technical goals, early BOM, constraints',
+          'Assign leads for Mech, Elec, Software, Documentation',
+        ],
+      },
+      {
+        name: 'Phase 2 — Design & Scoping',
+        window: 'Sept 15 – Sept 30',
+        bullets: [
+          'Draft system schematics and initial 3D CAD',
+          'Define MVP to demonstrate motion, charging, controls',
+          'Budget range + donation/salvage candidates',
+        ],
+      },
+      {
+        name: 'Phase 3 — Proposal & Outreach',
+        window: 'Oct 1 – Oct 5',
+        bullets: [
+          'Finalize proposal for UBC Professional Aid Fund',
+          'Begin external sponsor outreach',
+          'Prep pitch deck, one-pager, simple landing page',
+        ],
+      },
+      {
+        name: 'Phase 4 — Workspace & Logistics',
+        window: 'Oct 6 – Oct 20',
+        bullets: [
+          'Apply for UBC garage or secure shared workspace',
+          'Draft safety plan and team operations agreement',
+        ],
+      },
+      {
+        name: 'Phase 5 — Procurement, Build & Integration',
+        window: 'Oct 21 – Feb 29',
+        bullets: [
+          'Purchase/collect parts as funding arrives',
+          'Build frame, steering, drivetrain, solar array',
+          'Integrate wiring, BMS, MPPT, controls; early low-speed tests',
+        ],
+      },
+      {
+        name: 'Phase 6 — Testing, Debugging & Validation',
+        window: 'Mar 1 – Mar 31',
+        bullets: [
+          'Full-system tests: drive, charge, brake, telemetry',
+          'Debug + tune hardware/software; complete safety checklist',
+        ],
+      },
+      {
+        name: 'Phase 7 — Demo, Documentation & Handoff',
+        window: 'Apr 1 – Apr 30',
+        bullets: [
+          'Internal/public demo for faculty & sponsors',
+          'Finalize build report, design files, test data, media',
+          'Archive + onboard next cohort',
+        ],
+      },
     ],
   },
 ];
@@ -104,7 +132,7 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in font-sans">
       {/* HERO */}
       <Hero
         backgroundImage="https://i.ibb.co/n8sd4xZp/solar-web.jpg"
@@ -220,7 +248,6 @@ const Projects: React.FC = () => {
                   <div className="grid grid-cols-1 gap-4">
                     {active.images.map((src, i) => (
                       <div key={`${src}-${i}`} className="overflow-hidden rounded-xl group">
-                        {/* FIX: make the wrapper relative so the absolutely-positioned image gets a height */}
                         <div className="relative w-full aspect-[16/9]">
                           <img
                             src={src}

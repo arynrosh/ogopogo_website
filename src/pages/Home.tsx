@@ -8,8 +8,8 @@ const Home: React.FC = () => {
   const posts = blogPosts.slice(0, 3);
 
   return (
-    <div className="animate-fade-in">
-      {/* Full-screen Hero (contentless on Home) */}
+    <div className="animate-fade-in font-sans">
+      {/* Full-screen Hero */}
       <Hero backgroundImage="https://i.ibb.co/n8sd4xZp/solar-web.jpg" />
 
       {/* Mission + Pillars */}
@@ -98,7 +98,6 @@ const Home: React.FC = () => {
                 className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col"
               >
                 <Link to={`/news#post-${post.id}`} className="block focus:outline-none focus:ring-2 focus:ring-black/10">
-                  {/* Responsive media wrapper */}
                   <div className="relative w-full overflow-hidden">
                     <div className="w-full aspect-[16/9]">
                       <img
@@ -137,7 +136,7 @@ const Home: React.FC = () => {
             ))}
           </div>
 
-          {/* Mobile "View all" (only below md=1180) */}
+          {/* Mobile "View all" */}
           <div className="md:hidden mt-8">
             <Link
               to="/news"

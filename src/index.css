@@ -1,21 +1,30 @@
+/* src/index.css */
+
+/* Import fonts FIRST (must precede all other statements) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Tailwind layers */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-.font-bebas {
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 0.05em;
+/* Base font family (maps to tailwind.config.js -> fontFamily.sans/display) */
+@layer base {
+  html {
+    font-family: Montserrat, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
 }
 
-/* Utility classes for better text handling */
+/* Utility: line clamp */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -23,7 +32,16 @@
   overflow: hidden;
 }
 
-/* Ensure images are responsive */
+/* Utility: hide scrollbars (used in horizontal chip rows) */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* Responsive images */
 img {
   max-width: 100%;
   height: auto;
@@ -31,18 +49,14 @@ img {
 
 /* Better mobile touch targets */
 @media (max-width: 768px) {
-  button, a {
+  button,
+  a {
     min-height: 44px;
   }
 }
 
+/* Animations */
 @keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
 }

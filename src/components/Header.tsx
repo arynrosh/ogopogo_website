@@ -20,7 +20,6 @@ const Header: React.FC = () => {
     { name: 'BLOG ARCHIVE', path: '/news' },
   ];
 
-  // Scroll state (for tablet/desktop transparency → green)
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
     onScroll();
@@ -28,14 +27,12 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close menus on route change
   useEffect(() => {
     setIsMenuOpen(false);
     setAboutOpen(false);
     setAboutMobileOpen(false);
   }, [location.pathname]);
 
-  // Close desktop dropdown on outside click / ESC
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (!aboutRef.current) return;
@@ -59,12 +56,9 @@ const Header: React.FC = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   const isActive = (path: string) => location.pathname === path;
 
-  // MOBILE base: solid green; TABLET/DESKTOP: transparent until scrolled
   const headerClass = [
-    // base = mobile
-    'fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-bebas',
-    'bg-[#004126] shadow-lg',                 // mobile (<md)
-    // tablet/desktop defaults
+    'fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-sans',
+    'bg-[#004126] shadow-lg',
     isScrolled
       ? 'md:bg-[#004126] md:backdrop-blur-md md:shadow-lg'
       : 'md:bg-transparent md:shadow-none md:backdrop-blur-0',
@@ -107,7 +101,7 @@ const Header: React.FC = () => {
           </Link>
         </div>
 
-        {/* Tablet/Desktop Nav (md and up) */}
+        {/* Tablet/Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-6 xl:space-x-8 absolute left-1/2 -translate-x-1/2 text-lg font-bold">
           <Link
             to="/"
@@ -127,6 +121,8 @@ const Header: React.FC = () => {
             onMouseLeave={closeAboutWithDelay}
           >
             <button
+              aria-haspopup="menu"
+              aria-expanded={aboutOpen}
               className={`uppercase tracking-widest transition-all duration-300 hover:scale-105 flex items-center gap-1 pb-1 ${
                 location.pathname.startsWith('/about') ||
                 location.pathname.startsWith('/team') ||
@@ -140,11 +136,10 @@ const Header: React.FC = () => {
               <ChevronDown className="h-4 w-4" />
             </button>
 
-            {/* Spacer for hover-out */}
             <div className="absolute left-1/2 -translate-x-1/2 top-full w-48 h-3" />
 
-            {/* Dropdown menu */}
             <div
+              role="menu"
               className={`absolute left-1/2 -translate-x-1/2 mt-8 min-w-[240px] rounded-2xl overflow-hidden
                 border shadow-2xl ${dropdownShell}
                 transition-all duration-150 ${
@@ -156,7 +151,6 @@ const Header: React.FC = () => {
               onMouseLeave={closeAboutWithDelay}
             >
               {[
-                // { to: '/about', label: 'OVERVIEW' },
                 { to: '/team', label: 'OUR TEAM' },
                 { to: '/projects', label: 'OUR PROJECTS' },
               ].map((link) => (
@@ -200,7 +194,7 @@ const Header: React.FC = () => {
           </Link>
         </div>
 
-        {/* Mobile toggle (<md) */}
+        {/* Mobile toggle */}
         <button
           onClick={() => setIsMenuOpen((s) => !s)}
           className="md:hidden p-2 rounded-md text-white hover:text-[#ffc82e] hover:bg-white/10 transition-colors duration-300"
@@ -210,7 +204,7 @@ const Header: React.FC = () => {
         </button>
       </div>
 
-      {/* Mobile Nav (only <md) */}
+      {/* Mobile Nav */}
       {isMenuOpen && (
         <div className="md:hidden absolute top-20 left-0 right-0 bg-[#004126] border-t border-white/10">
           <nav className="px-4 py-6 space-y-2">
@@ -228,14 +222,15 @@ const Header: React.FC = () => {
             <button
               onClick={() => setAboutMobileOpen((s) => !s)}
               className="w-full flex items-center justify-between font-bold uppercase tracking-widest py-2 px-2 rounded-md text-white hover:bg-white/10"
+              aria-expanded={aboutMobileOpen}
+              aria-controls="about-mobile-accordion"
             >
               <span>ABOUT</span>
               <ChevronDown className={`h-4 w-4 transition-transform ${aboutMobileOpen ? 'rotate-180' : ''}`} />
             </button>
             {aboutMobileOpen && (
-              <div className="ml-3 mt-1 space-y-1">
+              <div id="about-mobile-accordion" className="ml-3 mt-1 space-y-1">
                 {[
-                  { to: '/about', label: 'Overview' },
                   { to: '/team', label: 'Our Team' },
                   { to: '/projects', label: 'Our Projects' },
                 ].map((link) => (
@@ -243,7 +238,7 @@ const Header: React.FC = () => {
                     key={link.to}
                     to={link.to}
                     onClick={() => { scrollToTop(); setIsMenuOpen(false); }}
-                    className="block text-[#ffc82e] py-2 px-2 hover:bg-white/10"
+                    className="block text-[#ffc82e] py-2 px-2 hover:bg-white/10 rounded"
                   >
                     {link.label}
                   </Link>

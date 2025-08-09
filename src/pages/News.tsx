@@ -82,10 +82,9 @@ const News: React.FC = () => {
   }, [filteredPosts]);
 
   useEffect(() => {
-    const hash = location.hash;
-    if (!hash) return;
+    if (!location.hash) return;
     const t = setTimeout(() => {
-      const el = document.querySelector(hash) as HTMLElement | null;
+      const el = document.querySelector(location.hash) as HTMLElement | null;
       if (!el) return;
       const headerOffset = 90;
       const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
@@ -113,7 +112,8 @@ const News: React.FC = () => {
   };
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in font-sans">
+      {/* HERO */}
       <Hero
         backgroundImage="https://images.pexels.com/photos/9875408/pexels-photo-9875408.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
         title={
@@ -131,7 +131,7 @@ const News: React.FC = () => {
         overlayOpacity="bg-black/45"
       />
 
-      {/* Search + Filter */}
+      {/* SEARCH + FILTER */}
       <section className="py-12 bg-white border-b">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="flex flex-col md:flex-row gap-6 items-stretch md:items-center justify-between">
@@ -167,7 +167,7 @@ const News: React.FC = () => {
         </div>
       </section>
 
-      {/* Archive */}
+      {/* POSTS ARCHIVE */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           {Object.keys(groupedByYear).length === 0 ? (
@@ -260,7 +260,7 @@ const News: React.FC = () => {
         </div>
       </section>
 
-      {/* Newsletter */}
+      {/* NEWSLETTER */}
       <section className="bg-white py-12 sm:py-16 md:py-20">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16">
