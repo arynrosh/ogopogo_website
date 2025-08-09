@@ -101,7 +101,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center space-x-8 absolute left-1/2 -translate-x-1/2 text-lg font-bold">
+        <nav className="hidden lg:flex items-center space-x-4 xl:space-x-8 absolute left-1/2 -translate-x-1/2 text-base xl:text-lg font-bold">
           {/* HOME */}
           <Link
             to="/"
@@ -189,11 +189,11 @@ const Header: React.FC = () => {
         </nav>
 
         {/* Join Us */}
-        <div className="hidden lg:flex font-bold">
+        <div className="hidden lg:flex font-bold flex-shrink-0">
           <Link
             to="/join"
             onClick={scrollToTop}
-            className="uppercase tracking-widest px-6 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+            className="uppercase tracking-widest px-4 xl:px-6 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg transform hover:scale-105 text-sm xl:text-base"
             style={{ backgroundColor: '#ffc82e', color: '#FFFFFF' }}
           >
             JOIN US!
@@ -213,11 +213,11 @@ const Header: React.FC = () => {
       {/* Mobile Nav */}
       {isMenuOpen && (
         <div
-          className={`lg:hidden absolute top-20 left-0 right-0 border-t transition-colors duration-300 ${
+          className={`lg:hidden fixed top-20 left-0 right-0 bottom-0 z-40 border-t transition-colors duration-300 overflow-y-auto ${
             isScrolled ? 'bg-[#004126]/95 border-white/10' : 'bg-[#004126]/85 border-white/10'
           }`}
         >
-          <nav className="px-4 py-6 space-y-2">
+          <nav className="px-4 py-6 space-y-2 min-h-full">
             <Link
               to="/"
               onClick={() => { scrollToTop(); setIsMenuOpen(false); }}
@@ -238,13 +238,13 @@ const Header: React.FC = () => {
             {aboutMobileOpen && (
               <div className="ml-3 mt-1 space-y-1">
                 <Link to="/about" onClick={() => { scrollToTop(); setIsMenuOpen(false); }} className="block text-[#ffc82e] py-2 px-2 hover:bg-white/10">
-                  Overview
+                  OVERVIEW
                 </Link>
                 <Link to="/team" onClick={() => { scrollToTop(); setIsMenuOpen(false); }} className="block text-[#ffc82e] py-2 px-2 hover:bg-white/10">
-                  Our Team
+                  OUR TEAM
                 </Link>
                 <Link to="/projects" onClick={() => { scrollToTop(); setIsMenuOpen(false); }} className="block text-[#ffc82e] py-2 px-2 hover:bg-white/10">
-                  Our Projects
+                  OUR PROJECTS
                 </Link>
               </div>
             )}
@@ -267,10 +267,10 @@ const Header: React.FC = () => {
             <Link
               to="/join"
               onClick={() => { scrollToTop(); setIsMenuOpen(false); }}
-              className="mt-4 block text-center font-bold uppercase tracking-widest px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg"
+              className="mt-6 block text-center font-bold uppercase tracking-widest px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg"
               style={{ backgroundColor: '#ffc82e', color: '#FFFFFF' }}
             >
-              Join Us
+              JOIN US
             </Link>
           </nav>
         </div>

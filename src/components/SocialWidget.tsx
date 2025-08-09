@@ -48,8 +48,8 @@ const SocialWidget: React.FC = () => {
   return (
     <aside
       className="
-        hidden md:flex
-        fixed right-4 lg:right-6 top-1/2 -translate-y-1/2 z-40
+        hidden lg:flex
+        fixed right-3 lg:right-4 xl:right-6 top-1/2 -translate-y-1/2 z-40
         flex-col items-center gap-3
         transition-colors duration-300
       "
@@ -58,7 +58,7 @@ const SocialWidget: React.FC = () => {
       {/* Pill container */}
       <div
         className="
-          flex flex-col gap-2 p-2 rounded-2xl backdrop-blur
+          flex flex-col gap-1.5 lg:gap-2 p-1.5 lg:p-2 rounded-xl lg:rounded-2xl backdrop-blur
           border shadow-lg transition-all duration-300
         "
         style={containerStyle}
@@ -72,7 +72,7 @@ const SocialWidget: React.FC = () => {
             aria-label={label}
             className="
               group grid place-items-center
-              w-11 h-11 rounded-xl text-white
+              w-9 h-9 lg:w-10 lg:h-10 xl:w-11 xl:h-11 rounded-lg lg:rounded-xl text-white
               transition-all duration-300
               border hover:-translate-y-0.5 hover:shadow-lg
               focus:outline-none focus:ring-2 focus:ring-[#ffc82e]/80
@@ -80,13 +80,13 @@ const SocialWidget: React.FC = () => {
             style={tileStyle}
             title={label}
           >
-            <Icon className="h-5 w-5 transition-colors duration-300 group-hover:text-[#ffc82e]" />
+            <Icon className="h-4 w-4 lg:h-5 lg:w-5 transition-colors duration-300 group-hover:text-[#ffc82e]" />
           </a>
         ))}
       </div>
 
       {/* Accent line */}
-  <div className="mt-2 h-14 w-[2px] rounded-full" style={{ backgroundColor: '#ffc82e' }} />
+  <div className="mt-1.5 lg:mt-2 h-10 lg:h-12 xl:h-14 w-[2px] rounded-full" style={{ backgroundColor: '#ffc82e' }} />
     </aside>
   );
 };
