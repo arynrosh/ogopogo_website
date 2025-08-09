@@ -1,4 +1,5 @@
 import React from 'react';
+import SocialWidget from './components/SocialWidget';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -8,7 +9,6 @@ import Team from './pages/Team';
 import Sponsors from './pages/Sponsors';
 import News from './pages/News';
 import Join from './pages/Join';
-import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -22,9 +22,9 @@ function App() {
           <Route path="sponsors" element={<Sponsors />} />
           <Route path="news" element={<News />} />
           <Route path="join" element={<Join />} />
-          <Route path="contact" element={<Contact />} />
         </Route>
       </Routes>
+    <SocialWidget />
     </Router>
   );
 }

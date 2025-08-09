@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, CheckCircle, Clock, Target, Trophy, Users, Zap } from 'lucide-react';
+import Hero from '../components/Hero';
 
 const About: React.FC = () => {
   const [activeTimelineIndex, setActiveTimelineIndex] = useState(0);
@@ -10,37 +11,45 @@ const About: React.FC = () => {
       title: 'Team Formation',
       date: '2023',
       status: 'completed',
-      description: 'Ogopogo Solar was founded by passionate UBC Okanagan students with a shared vision of sustainable transportation.',
-      image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-      achievements: ['Team establishment', 'Initial funding secured', 'Workshop space acquired']
+      description:
+        'Ogopogo Solar was founded by passionate UBC Okanagan students with a shared vision of sustainable transportation.',
+      image:
+        'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      achievements: ['Team establishment', 'Initial funding secured', 'Workshop space acquired'],
     },
     {
       id: 2,
       title: 'Demo Vehicle',
       date: '2024',
       status: 'completed',
-      description: 'Successfully built and tested our first prototype solar vehicle, proving our concept and team capabilities.',
-      image: 'https://images.pexels.com/photos/9875416/pexels-photo-9875416.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-      achievements: ['Aerodynamic design completed', 'Solar array integration', 'Test track validation']
+      description:
+        'Successfully built and tested our first prototype solar vehicle, proving our concept and team capabilities.',
+      image:
+        'https://images.pexels.com/photos/9875416/pexels-photo-9875416.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      achievements: ['Aerodynamic design completed', 'Solar array integration', 'Test track validation'],
     },
     {
       id: 3,
       title: 'Solar Car Challenge 2026',
       date: '2026',
       status: 'in-progress',
-      description: 'Competing in the prestigious Solar Car Challenge with our advanced racing vehicle designed for optimal performance.',
-      image: 'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-      achievements: ['Competition registration', 'Advanced vehicle design', 'Team training program']
+      description:
+        'Competing in the prestigious Solar Car Challenge with our advanced racing vehicle designed for optimal performance.',
+      image:
+        'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      achievements: ['Competition registration', 'Advanced vehicle design', 'Team training program'],
     },
     {
       id: 4,
       title: 'Future Goals',
       date: '2027+',
       status: 'planned',
-      description: 'Expanding our impact through research partnerships, technology transfer, and inspiring the next generation.',
-      image: 'https://images.pexels.com/photos/8849322/pexels-photo-8849322.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-      achievements: ['Research partnerships', 'Technology commercialization', 'Education outreach']
-    }
+      description:
+        'Expanding our impact through research partnerships, technology transfer, and inspiring the next generation.',
+      image:
+        'https://images.pexels.com/photos/8849322/pexels-photo-8849322.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      achievements: ['Research partnerships', 'Technology commercialization', 'Education outreach'],
+    },
   ];
 
   const getStatusIcon = (status: string) => {
@@ -62,26 +71,25 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div className="pt-20 animate-fade-in">
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-primary-900 via-dark-900 to-primary-800 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <img
-            src="https://images.pexels.com/photos/8849295/pexels-photo-8849295.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-            alt="Solar engineering"
-            className="w-full h-full object-cover"
-          />
+    <div className="animate-fade-in">
+      {/* Hero */}
+      <Hero
+        backgroundImage="https://i.ibb.co/n8sd4xZp/solar-web.jpg"
+        title={
+        <div className="flex flex-col justify-center items-center min-h-screen">
+        <h2 className="text-center">
+          <span className="block text-9xl md:text-10xl font-extrabold tracking-tight text-white leading-none">
+            ABOUT
+          </span>
+          <span className="block text-9xl md:text-10xl font-extrabold tracking-tight text-[#ffc82e] leading-none whitespace-nowrap">
+            OGOPOGO SOLAR
+          </span>
+        </h2>
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-slide-up">
-            About <span className="text-gold-400">Ogopogo Solar</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            We are UBC Okanagan's premier solar racing team, dedicated to designing and building 
-            cutting-edge solar vehicles that compete in international solar racing competitions.
-          </p>
-        </div>
-      </section>
+        }
+        overlayOpacity="bg-black/40"
+      />
+
 
       {/* Mission & Vision */}
       <section className="py-20 bg-white">
@@ -92,14 +100,14 @@ const About: React.FC = () => {
                 Our <span className="text-primary-600">Mission</span>
               </h2>
               <p className="text-lg text-dark-600 mb-6 leading-relaxed">
-                To advance sustainable transportation through innovative solar vehicle design, 
+                To advance sustainable transportation through innovative solar vehicle design,
                 engineering excellence, and inspiring the next generation of clean energy pioneers.
               </p>
               <h3 className="text-2xl font-bold text-dark-900 mb-4">Our Vision</h3>
               <p className="text-lg text-dark-600 leading-relaxed">
-                A world where sustainable transportation is not just possible, but preferred. 
-                We envision solar-powered vehicles as a cornerstone of clean mobility, 
-                and we're racing to make that future a reality.
+                A world where sustainable transportation is not just possible, but preferred. We
+                envision solar-powered vehicles as a cornerstone of clean mobility, and we're racing
+                to make that future a reality.
               </p>
             </div>
             <div className="animate-slide-in-right">
@@ -113,7 +121,7 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Stats */}
       <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -139,28 +147,28 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Project Timeline */}
+      {/* Timeline */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-dark-900 mb-6">
-              Project <span className="bg-gradient-to-r from-primary-600 to-gold-600 bg-clip-text text-transparent">Timeline</span>
+              Project{' '}
+              <span className="bg-gradient-to-r from-primary-600 to-gold-600 bg-clip-text text-transparent">
+                Timeline
+              </span>
             </h2>
             <p className="text-xl text-dark-600 max-w-3xl mx-auto">
-              From concept to competition - follow our journey to solar racing excellence
+              From concept to competition — follow our journey to solar racing excellence
             </p>
           </div>
 
-          {/* Desktop Timeline */}
+          {/* Desktop */}
           <div className="hidden md:block">
             <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-primary-200 via-gold-200 to-gray-200 transform -translate-y-1/2"></div>
-              
-              {/* Timeline Points */}
+              <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-primary-200 via-gold-200 to-gray-200 transform -translate-y-1/2" />
               <div className="flex justify-between items-center relative z-10">
-                {milestones.map((milestone, index) => (
-                  <div key={milestone.id} className="flex-1 text-center">
+                {milestones.map((m, index) => (
+                  <div key={m.id} className="flex-1 text-center">
                     <button
                       onClick={() => setActiveTimelineIndex(index)}
                       className={`w-16 h-16 rounded-full border-4 flex items-center justify-center mx-auto mb-4 transition-all duration-300 ${
@@ -169,26 +177,32 @@ const About: React.FC = () => {
                           : 'border-gray-300 bg-white hover:border-primary-300'
                       }`}
                     >
-                      {getStatusIcon(milestone.status)}
+                      {getStatusIcon(m.status)}
                     </button>
                     <div className="space-y-2">
-                      <h3 className={`font-bold ${activeTimelineIndex === index ? 'text-primary-600' : 'text-dark-700'}`}>
-                        {milestone.title}
+                      <h3
+                        className={`font-bold ${
+                          activeTimelineIndex === index ? 'text-primary-600' : 'text-dark-700'
+                        }`}
+                      >
+                        {m.title}
                       </h3>
-                      <p className="text-sm text-dark-500">{milestone.date}</p>
+                      <p className="text-sm text-dark-500">{m.date}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Active Milestone Details */}
+            {/* Active details */}
             <div className="mt-16 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-xl p-8">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <div className="flex items-center space-x-3 mb-4">
                     <Calendar className="h-6 w-6 text-primary-500" />
-                    <span className="text-primary-600 font-semibold">{milestones[activeTimelineIndex].date}</span>
+                    <span className="text-primary-600 font-semibold">
+                      {milestones[activeTimelineIndex].date}
+                    </span>
                   </div>
                   <h3 className="text-3xl font-bold text-dark-900 mb-4">
                     {milestones[activeTimelineIndex].title}
@@ -199,10 +213,10 @@ const About: React.FC = () => {
                   <div className="space-y-2">
                     <h4 className="font-semibold text-dark-800">Key Achievements:</h4>
                     <ul className="space-y-1">
-                      {milestones[activeTimelineIndex].achievements.map((achievement, idx) => (
+                      {milestones[activeTimelineIndex].achievements.map((a, idx) => (
                         <li key={idx} className="flex items-center space-x-2 text-dark-600">
                           <CheckCircle className="h-4 w-4 text-primary-500" />
-                          <span>{achievement}</span>
+                          <span>{a}</span>
                         </li>
                       ))}
                     </ul>
@@ -219,34 +233,30 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          {/* Mobile Timeline */}
+          {/* Mobile */}
           <div className="md:hidden space-y-8">
-            {milestones.map((milestone, index) => (
-              <div key={milestone.id} className="bg-white rounded-2xl shadow-lg p-6">
+            {milestones.map((m) => (
+              <div key={m.id} className="bg-white rounded-2xl shadow-lg p-6">
                 <div className="flex items-start space-x-4 mb-4">
                   <div className="flex-shrink-0">
                     <div className="w-12 h-12 rounded-full border-4 border-primary-500 bg-primary-500 flex items-center justify-center">
-                      {getStatusIcon(milestone.status)}
+                      {getStatusIcon(m.status)}
                     </div>
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center space-x-2 mb-2">
-                      <h3 className="text-xl font-bold text-dark-900">{milestone.title}</h3>
+                      <h3 className="text-xl font-bold text-dark-900">{m.title}</h3>
                       <span className="text-sm text-primary-600 bg-primary-100 px-2 py-1 rounded-full">
-                        {milestone.date}
+                        {m.date}
                       </span>
                     </div>
-                    <p className="text-dark-600 mb-4">{milestone.description}</p>
-                    <img
-                      src={milestone.image}
-                      alt={milestone.title}
-                      className="rounded-lg mb-4 w-full"
-                    />
+                    <p className="text-dark-600 mb-4">{m.description}</p>
+                    <img src={m.image} alt={m.title} className="rounded-lg mb-4 w-full" />
                     <div className="space-y-1">
-                      {milestone.achievements.map((achievement, idx) => (
+                      {m.achievements.map((a, idx) => (
                         <div key={idx} className="flex items-center space-x-2 text-sm text-dark-600">
                           <CheckCircle className="h-4 w-4 text-primary-500" />
-                          <span>{achievement}</span>
+                          <span>{a}</span>
                         </div>
                       ))}
                     </div>
@@ -259,7 +269,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Competition Goals */}
-      <section className="py-20 bg-gradient-to-br from-primary-50 to-gold-50">
+  <section className="py-20 bg-gradient-to-br from-primary-50 to-gold-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-dark-900 mb-6">
@@ -270,36 +280,36 @@ const About: React.FC = () => {
             <div className="animate-slide-in-left">
               <h3 className="text-3xl font-bold text-dark-900 mb-6">Solar Car Challenge 2026</h3>
               <p className="text-lg text-dark-600 mb-6 leading-relaxed">
-                Our primary goal is to compete in the Solar Car Challenge 2026, one of the most 
-                prestigious solar racing competitions in North America. This multi-day endurance 
+                Our primary goal is to compete in the Solar Car Challenge 2026, one of the most
+                prestigious solar racing competitions in North America. This multi-day endurance
                 race will test every aspect of our vehicle design and team preparation.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-primary-500 rounded-full" />
                   <span className="text-dark-700">Complete 3,000+ km race distance</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-primary-500 rounded-full" />
                   <span className="text-dark-700">Achieve top 10 finish in our class</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-primary-500 rounded-full" />
                   <span className="text-dark-700">Demonstrate innovative solar technology</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-primary-500 rounded-full" />
                   <span className="text-dark-700">Inspire sustainable transportation adoption</span>
                 </div>
               </div>
             </div>
-            <div className="animate-slide-in-right">
-              <img
-                src="https://images.pexels.com/photos/9875408/pexels-photo-9875408.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
-                alt="Solar car competition"
-                className="rounded-2xl shadow-2xl"
-              />
-            </div>
+              <div className="animate-slide-in-right">
+                <img
+                  src="https://images.pexels.com/photos/9875408/pexels-photo-9875408.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+                  alt="Solar car competition"
+                  className="rounded-2xl shadow-2xl"
+                />
+              </div>
           </div>
         </div>
       </section>
