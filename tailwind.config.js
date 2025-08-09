@@ -2,10 +2,15 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    // 👉 Breakpoints: mobile < 1180px, tablet/desktop ≥ 1180px
+    screens: {
+      sm: '640px',
+      md: '1180px', // ← your cutoff
+      lg: '1280px',
+      xl: '1536px',
+      '2xl': '1920px',
+    },
     extend: {
-      screens: {
-        'xs': '475px',
-      },
       colors: {
         primary: {
           50: '#f0fdf4',

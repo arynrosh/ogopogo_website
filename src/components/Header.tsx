@@ -17,9 +17,10 @@ const Header: React.FC = () => {
   const navItems = [
     { name: 'HOME', path: '/' },
     { name: 'SPONSORS', path: '/sponsors' },
-    { name: 'NEWS', path: '/news' },
+    { name: 'BLOG ARCHIVE', path: '/news' },
   ];
 
+  // Scroll state (for tablet/desktop transparency → green)
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
     onScroll();
@@ -27,12 +28,14 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close menus on route change
   useEffect(() => {
     setIsMenuOpen(false);
     setAboutOpen(false);
     setAboutMobileOpen(false);
   }, [location.pathname]);
 
+  // Close desktop dropdown on outside click / ESC
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (!aboutRef.current) return;
@@ -54,22 +57,26 @@ const Header: React.FC = () => {
   }, []);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
   const isActive = (path: string) => location.pathname === path;
 
-  const headerChrome = isScrolled
-    ? 'bg-[#004126] backdrop-blur-md shadow-lg'
-    : 'bg-transparent';
+  // MOBILE base: solid green; TABLET/DESKTOP: transparent until scrolled
+  const headerClass = [
+    // base = mobile
+    'fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-bebas',
+    'bg-[#004126] shadow-lg',                 // mobile (<md)
+    // tablet/desktop defaults
+    isScrolled
+      ? 'md:bg-[#004126] md:backdrop-blur-md md:shadow-lg'
+      : 'md:bg-transparent md:shadow-none md:backdrop-blur-0',
+  ].join(' ');
 
   const linkBase = 'text-white hover:text-[#ffc82e]';
   const linkActive = 'text-[#ffc82e] border-b-2 border-[#ffc82e]';
 
-  const dropdownShell =
-    isScrolled
-      ? 'bg-[#004126] border-[#00331E]'
-      : 'bg-white/10 backdrop-blur-xl border-white/20';
-  const dropdownItemHover =
-    isScrolled ? 'hover:bg-[#00331E]' : 'hover:bg-white/10';
+  const dropdownShell = isScrolled
+    ? 'bg-[#004126] border-[#00331E]'
+    : 'bg-white/10 backdrop-blur-xl border-white/20';
+  const dropdownItemHover = isScrolled ? 'hover:bg-[#00331E]' : 'hover:bg-white/10';
 
   const openAboutNow = () => {
     if (closeTimer.current) {
@@ -84,8 +91,8 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-bebas ${headerChrome}`}>
-      <div className="w-full relative flex items-center justify-between h-20 px-6 lg:px-10">
+    <header className={headerClass}>
+      <div className="w-full relative flex items-center justify-between h-20 px-4 sm:px-6 lg:px-10">
         {/* Logo */}
         <div className="flex-shrink-0" id="nav-logo-anchor">
           <Link to="/" onClick={scrollToTop} className="flex items-center space-x-3 font-bold">
@@ -94,15 +101,14 @@ const Header: React.FC = () => {
               alt="Ogopogo Solar Logo"
               className="h-10 w-auto"
             />
-            <span className="uppercase tracking-widest text-lg text-[#ffc82e] whitespace-nowrap">
+            <span className="uppercase tracking-widest text-base sm:text-lg text-[#ffc82e] whitespace-nowrap">
               OGOPOGO SOLAR
             </span>
           </Link>
         </div>
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center space-x-4 xl:space-x-8 absolute left-1/2 -translate-x-1/2 text-base xl:text-lg font-bold">
-          {/* HOME */}
+        {/* Tablet/Desktop Nav (md and up) */}
+        <nav className="hidden md:flex items-center space-x-6 xl:space-x-8 absolute left-1/2 -translate-x-1/2 text-lg font-bold">
           <Link
             to="/"
             onClick={scrollToTop}
@@ -134,8 +140,10 @@ const Header: React.FC = () => {
               <ChevronDown className="h-4 w-4" />
             </button>
 
+            {/* Spacer for hover-out */}
             <div className="absolute left-1/2 -translate-x-1/2 top-full w-48 h-3" />
 
+            {/* Dropdown menu */}
             <div
               className={`absolute left-1/2 -translate-x-1/2 mt-8 min-w-[240px] rounded-2xl overflow-hidden
                 border shadow-2xl ${dropdownShell}
@@ -147,31 +155,23 @@ const Header: React.FC = () => {
               onMouseEnter={openAboutNow}
               onMouseLeave={closeAboutWithDelay}
             >
-              <Link
-                to="/about"
-                onClick={scrollToTop}
-                className={`block px-4 py-3 text-white hover:text-[#ffc82e] ${dropdownItemHover} transition-colors duration-150`}
-              >
-                OVERVIEW
-              </Link>
-              <Link
-                to="/team"
-                onClick={scrollToTop}
-                className={`block px-4 py-3 text-white hover:text-[#ffc82e] ${dropdownItemHover} transition-colors duration-150`}
-              >
-                OUR TEAM
-              </Link>
-              <Link
-                to="/projects"
-                onClick={scrollToTop}
-                className={`block px-4 py-3 text-white hover:text-[#ffc82e] ${dropdownItemHover} transition-colors duration-150`}
-              >
-                OUR PROJECTS
-              </Link>
+              {[
+                // { to: '/about', label: 'OVERVIEW' },
+                { to: '/team', label: 'OUR TEAM' },
+                { to: '/projects', label: 'OUR PROJECTS' },
+              ].map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={scrollToTop}
+                  className={`block px-4 py-3 text-white hover:text-[#ffc82e] ${dropdownItemHover} transition-colors duration-150`}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
 
-          {/* Other items */}
           {navItems
             .filter((n) => n.path !== '/')
             .map((item) => (
@@ -188,36 +188,32 @@ const Header: React.FC = () => {
             ))}
         </nav>
 
-        {/* Join Us */}
-        <div className="hidden lg:flex font-bold flex-shrink-0">
+        {/* Tablet/Desktop CTA */}
+        <div className="hidden md:flex font-bold">
           <Link
             to="/join"
             onClick={scrollToTop}
-            className="uppercase tracking-widest px-4 xl:px-6 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg transform hover:scale-105 text-sm xl:text-base"
+            className="uppercase tracking-widest px-6 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg transform hover:scale-105"
             style={{ backgroundColor: '#ffc82e', color: '#FFFFFF' }}
           >
             JOIN US!
           </Link>
         </div>
 
-        {/* Mobile toggle */}
+        {/* Mobile toggle (<md) */}
         <button
           onClick={() => setIsMenuOpen((s) => !s)}
-          className="lg:hidden p-2 rounded-md text-white hover:text-[#ffc82e] hover:bg-white/10 transition-colors duration-300"
+          className="md:hidden p-2 rounded-md text-white hover:text-[#ffc82e] hover:bg-white/10 transition-colors duration-300"
           aria-label="Toggle menu"
         >
           {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Mobile Nav (only <md) */}
       {isMenuOpen && (
-        <div
-          className={`lg:hidden fixed top-20 left-0 right-0 bottom-0 z-40 border-t transition-colors duration-300 overflow-y-auto ${
-            isScrolled ? 'bg-[#004126]/95 border-white/10' : 'bg-[#004126]/85 border-white/10'
-          }`}
-        >
-          <nav className="px-4 py-6 space-y-2 min-h-full">
+        <div className="md:hidden absolute top-20 left-0 right-0 bg-[#004126] border-t border-white/10">
+          <nav className="px-4 py-6 space-y-2">
             <Link
               to="/"
               onClick={() => { scrollToTop(); setIsMenuOpen(false); }}
@@ -228,6 +224,7 @@ const Header: React.FC = () => {
               HOME
             </Link>
 
+            {/* Mobile About accordion */}
             <button
               onClick={() => setAboutMobileOpen((s) => !s)}
               className="w-full flex items-center justify-between font-bold uppercase tracking-widest py-2 px-2 rounded-md text-white hover:bg-white/10"
@@ -237,15 +234,20 @@ const Header: React.FC = () => {
             </button>
             {aboutMobileOpen && (
               <div className="ml-3 mt-1 space-y-1">
-                <Link to="/about" onClick={() => { scrollToTop(); setIsMenuOpen(false); }} className="block text-[#ffc82e] py-2 px-2 hover:bg-white/10">
-                  OVERVIEW
-                </Link>
-                <Link to="/team" onClick={() => { scrollToTop(); setIsMenuOpen(false); }} className="block text-[#ffc82e] py-2 px-2 hover:bg-white/10">
-                  OUR TEAM
-                </Link>
-                <Link to="/projects" onClick={() => { scrollToTop(); setIsMenuOpen(false); }} className="block text-[#ffc82e] py-2 px-2 hover:bg-white/10">
-                  OUR PROJECTS
-                </Link>
+                {[
+                  { to: '/about', label: 'Overview' },
+                  { to: '/team', label: 'Our Team' },
+                  { to: '/projects', label: 'Our Projects' },
+                ].map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={() => { scrollToTop(); setIsMenuOpen(false); }}
+                    className="block text-[#ffc82e] py-2 px-2 hover:bg-white/10"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
               </div>
             )}
 
@@ -267,10 +269,10 @@ const Header: React.FC = () => {
             <Link
               to="/join"
               onClick={() => { scrollToTop(); setIsMenuOpen(false); }}
-              className="mt-6 block text-center font-bold uppercase tracking-widest px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg"
+              className="mt-4 block text-center font-bold uppercase tracking-widest px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg"
               style={{ backgroundColor: '#ffc82e', color: '#FFFFFF' }}
             >
-              JOIN US
+              Join Us
             </Link>
           </nav>
         </div>

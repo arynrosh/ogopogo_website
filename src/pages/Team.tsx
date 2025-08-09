@@ -48,7 +48,6 @@ const FILTERS: { value: Discipline | typeof ALL; label: string }[] = [
   { value: 'Business', label: 'BUSINESS' },
 ];
 
-// order when ALL is selected
 const ORDER: Discipline[] = ['Mechanical', 'Electrical', 'Software', 'Business'];
 
 const Team: React.FC = () => {
@@ -73,11 +72,11 @@ const Team: React.FC = () => {
         backgroundImage="https://i.ibb.co/n8sd4xZp/solar-web.jpg"
         title={
           <div className="flex flex-col justify-center items-center min-h-screen">
-            <h2 className="text-center">
-              <span className="block text-9xl md:text-10xl font-extrabold tracking-tight text-white leading-none">
+            <h2 className="text-center leading-none">
+              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white">
                 MEET
               </span>
-              <span className="block text-9xl md:text-10xl font-extrabold tracking-tight text-[#ffc82e] leading-none whitespace-nowrap">
+              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-[#ffc82e] whitespace-nowrap">
                 THE TEAM
               </span>
             </h2>
@@ -87,72 +86,83 @@ const Team: React.FC = () => {
       />
 
       {/* Green bubble */}
-      <section className="bg-white py-16">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#015e37] text-white rounded-[32px] shadow-xl p-8 sm:p-12 lg:p-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+      <section className="bg-white py-12 sm:py-16 md:py-20">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
+          <div className="bg-[#015e37] text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16 flex flex-col items-center justify-center text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4 md:mb-6">
               <span className="text-white">DRIVEN BY CURIOSITY, </span>
               <span className="text-[#ffc82e]">POWERED BY THE SUN.</span>
             </h2>
-            <p className="text-lg md:text-xl leading-relaxed text-white/90 max-w-5xl">
-              Ogopogo Solar is a student-led team at UBC Okanagan. We design, build, and race
-              solar-powered vehicles to advance clean mobility, prove what renewable energy can do,
-              and develop the next generation of engineers and innovators.
+            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 max-w-5xl">
+              Ogopogo Solar is a student-led team at UBC Okanagan. We design, build, and race solar-powered vehicles
+              to advance clean mobility, prove what renewable energy can do, and develop the next generation of engineers
+              and innovators.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Filter (matches News style) */}
+
+      {/* Filter (mobile horizontal scroll like News) */}
       <section className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-wrap justify-center gap-2">
-            {FILTERS.map(({ value, label }) => (
-              <button
-                key={label}
-                onClick={() => setSelected(value)}
-                className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
-                  selected === value
-                    ? 'bg-[#ffc82e] text-white shadow-lg'
-                    : 'bg-gray-100 text-dark-700 hover:bg-gray-200'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8 py-8">
+          <div className="-mx-4 md:mx-0 px-4 md:px-0">
+            <div className="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 overflow-x-auto no-scrollbar">
+              {FILTERS.map(({ value, label }) => (
+                <button
+                  key={label}
+                  onClick={() => setSelected(value)}
+                  className={`px-4 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap ${
+                    selected === value
+                      ? 'bg-[#ffc82e] text-white shadow-lg'
+                      : 'bg-gray-100 text-dark-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Team Sections */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           {(selected === ALL ? ORDER : [selected as Discipline]).map((disciplineName) => {
             const teamMembers = (grouped as Record<string, Member[]>)[disciplineName] || [];
             if (!teamMembers.length) return null;
 
             return (
-              <div key={disciplineName} className="mb-16">
-                <h2 className="text-4xl font-extrabold text-[#1F2A44] mb-10 border-b-4 border-[#ffc82e] inline-block pb-2">
+              <div key={disciplineName} className="mb-12 md:mb-16">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1F2A44] mb-6 md:mb-10 border-b-4 border-[#ffc82e] inline-block pb-2">
                   {disciplineName.toUpperCase()}
                 </h2>
 
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {/* Mobile: 2 per row; small screens and up: 3; desktop: 4 */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
                   {teamMembers.map((m) => (
                     <article
                       key={m.name}
-                      className="rounded-[32px] bg-white shadow-xl ring-1 ring-black/5 hover:shadow-2xl transition-all duration-300"
+                      className="rounded-[32px] bg-white shadow-xl ring-1 ring-black/5 hover:shadow-2xl transition-all duration-300 overflow-hidden"
                     >
-                      <div className="p-6 pb-0">
+                      <div className="p-4 sm:p-6 pb-0">
                         <div className="relative rounded-[28px] overflow-hidden">
-                          <img src={m.image} alt={m.name} className="h-[340px] w-full object-cover" />
-                          <div className="absolute top-3 right-3 flex gap-2">
+                          {/* Responsive image height: tighter on mobile */}
+                          <img
+                            src={m.image}
+                            alt={m.name}
+                            className="w-full h-44 sm:h-56 md:h-[340px] object-cover"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 flex gap-2">
                             {m.linkedin && (
                               <a
                                 href={m.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="grid h-9 w-9 place-items-center rounded-md bg-black/50 text-white hover:bg-black/60 backdrop-blur-sm"
+                                className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-md bg-black/50 text-white hover:bg-black/60 backdrop-blur-sm"
                                 aria-label={`${m.name} on LinkedIn`}
                               >
                                 <Linkedin className="h-4 w-4" />
@@ -161,7 +171,7 @@ const Team: React.FC = () => {
                             {m.email && (
                               <a
                                 href={`mailto:${m.email}`}
-                                className="grid h-9 w-9 place-items-center rounded-md bg-black/50 text-white hover:bg-black/60 backdrop-blur-sm"
+                                className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-md bg-black/50 text-white hover:bg-black/60 backdrop-blur-sm"
                                 aria-label={`Email ${m.name}`}
                               >
                                 <Mail className="h-4 w-4" />
@@ -171,10 +181,10 @@ const Team: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="px-8 pt-6 pb-10 text-center">
-                        <h3 className="text-3xl font-extrabold tracking-tight text-[#1F2A44]">{m.name}</h3>
-                        <p className="mt-2 text-lg text-[#4A5974]">{m.role}</p>
-                        <p className="mt-1 text-base text-[#7B8AA1]">{m.discipline}</p>
+                      <div className="px-4 sm:px-8 pt-4 sm:pt-6 pb-6 sm:pb-10 text-center">
+                        <h3 className="text-lg sm:text-2xl font-extrabold tracking-tight text-[#1F2A44]">{m.name}</h3>
+                        <p className="mt-1 sm:mt-2 text-sm sm:text-lg text-[#4A5974]">{m.role}</p>
+                        <p className="mt-0.5 sm:mt-1 text-xs sm:text-base text-[#7B8AA1]">{m.discipline}</p>
                       </div>
                     </article>
                   ))}

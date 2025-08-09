@@ -1,20 +1,11 @@
 // src/pages/Join.tsx
 import React from 'react';
-import {
-  ExternalLink, GraduationCap, Heart, Zap, Users, Target, Award,
-} from 'lucide-react';
+import { ExternalLink, Heart, Zap, Users, Target, Award } from 'lucide-react';
 import Hero from '../components/Hero';
 
 const Join: React.FC = () => {
   const formUrl =
     'https://docs.google.com/forms/d/e/1FAIpQLSf6t7dIonuQrMJzpCJQUvvRn1OjqS5PglvScyKDP2Cb3sr9wg/viewform';
-
-  const teamCulture = [
-    { icon: Zap, title: 'Innovation-Driven', description: 'We push boundaries and embrace creative solutions to tough problems.' },
-    { icon: Users, title: 'Collaborative', description: 'Every voice matters. We build across disciplines, together.' },
-    { icon: Target, title: 'Goal-Oriented', description: 'Ambitious targets, clear milestones, real outcomes.' },
-    { icon: Heart, title: 'Passionate', description: 'We love sustainable tech, racing, and learning by doing.' },
-  ];
 
   const subteams: {
     team: 'Mechanical' | 'Electrical' | 'Software' | 'Business';
@@ -55,11 +46,11 @@ const Join: React.FC = () => {
         backgroundImage="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
         title={
           <div className="flex flex-col justify-center items-center min-h-screen">
-            <h2 className="text-center">
-              <span className="block text-9xl md:text-10xl font-extrabold tracking-tight text-white leading-none">
+            <h2 className="text-center leading-none">
+              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white">
                 JOIN
               </span>
-              <span className="block text-9xl md:text-10xl font-extrabold tracking-tight text-[#ffc82e] leading-none whitespace-nowrap">
+              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-[#ffc82e] whitespace-nowrap">
                 OUR TEAM
               </span>
             </h2>
@@ -69,13 +60,13 @@ const Join: React.FC = () => {
       />
 
       {/* Green bubble intro */}
-      <section className="bg-white py-16">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 lg:p-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+      <section className="bg-white py-12 sm:py-16 md:py-20">
+        <div className="px-4 sm:px-6 md:px-8">
+          <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4 sm:mb-6">
               BUILD. <span className="text-[#ffc82e]">RACE.</span> LEARN.
             </h2>
-            <p className="text-lg md:text-xl leading-relaxed text-white/90 max-w-5xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 max-w-5xl mx-auto">
               Join UBC Okanagan’s student-led solar racing team and get real experience in
               design, manufacturing, and clean tech—while competing on an international stage.
             </p>
@@ -84,10 +75,10 @@ const Join: React.FC = () => {
       </section>
 
       {/* Open Positions — 4 subteam cards */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <h2 className="text-4xl font-extrabold text-[#1F2A44]">OPEN POSITIONS</h2>
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1F2A44]">OPEN POSITIONS</h2>
             <p className="text-[#4A5974] mt-1">Explore subteams and what they’re focused on.</p>
           </div>
 
@@ -121,28 +112,28 @@ const Join: React.FC = () => {
         </div>
       </section>
 
-      {/* SPLIT VIEW — 60/40 (What Happens Next? now in the same green) */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-5 gap-8 items-stretch">
+      {/* SPLIT VIEW — 60/40 */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
+          <div className="grid md:grid-cols-5 gap-6 md:gap-8 items-stretch">
             {/* 40% — Ready to Apply? */}
-            <div className="md:col-span-2 rounded-3xl border border-gray-200 bg-white p-10 shadow-lg">
-              <h2 className="text-3xl font-extrabold text-[#1F2A44] mb-3">
+            <div className="md:col-span-2 rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 shadow-lg">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1F2A44] mb-2 sm:mb-3">
                 READY TO <span className="text-[#015e37]">APPLY?</span>
               </h2>
-              <p className="text-[#4A5974] mb-8">
+              <p className="text-[#4A5974] mb-6 sm:mb-8">
                 Submit your application through our Google Form. It only takes a few minutes.
               </p>
               <a
                 href={formUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#015e37] text-white px-8 py-3.5 rounded-full font-semibold shadow-md hover:shadow-lg transition"
+                className="inline-flex items-center gap-2 bg-[#015e37] text-white px-7 sm:px-8 py-3.5 rounded-full font-semibold shadow-md hover:shadow-lg transition"
               >
                 Open Application Form <ExternalLink className="h-5 w-5" />
               </a>
 
-              <div className="mt-8 grid sm:grid-cols-2 gap-4">
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {['All disciplines welcome', 'Flexible commitment', 'Real hardware & code', 'Compete internationally'].map(
                   (b, i) => (
                     <div key={i} className="flex items-center gap-2 text-[#1F2A44]">
@@ -154,13 +145,13 @@ const Join: React.FC = () => {
               </div>
             </div>
 
-            {/* 60% — What Happens Next? (green like the bubble) */}
-            <div className="md:col-span-3 rounded-3xl bg-[#015e37] p-10 shadow-lg">
-              <h2 className="text-3xl font-extrabold text-white mb-6">
+            {/* 60% — What Happens Next? */}
+            <div className="md:col-span-3 rounded-3xl bg-[#015e37] p-8 sm:p-10 shadow-lg">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-4 sm:mb-6">
                 WHAT HAPPENS <span className="text-[#ffc82e]">NEXT?</span>
               </h2>
 
-              <div className="space-y-6">
+              <div className="space-y-5 sm:space-y-6">
                 {[
                   {
                     step: '1',
@@ -193,7 +184,7 @@ const Join: React.FC = () => {
                 ))}
               </div>
 
-              <div className="mt-8 flex items-center gap-2 text-sm text-white/90">
+              <div className="mt-6 sm:mt-8 flex items-center gap-2 text-sm text-white/90">
                 <Award className="h-4 w-4 text-[#ffc82e]" />
                 <span>We aim to respond within 5–7 days.</span>
               </div>

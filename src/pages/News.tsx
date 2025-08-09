@@ -7,93 +7,42 @@ import Hero from '../components/Hero';
 export const blogPosts = [
   {
     id: 1,
-    title: 'Breaking Ground: Our First Solar Panel Installation',
+    title: 'Ogopogo Solar Unveils New Test Vehicle',
     excerpt:
-      'The team successfully installed our first high-efficiency solar array on the demo vehicle, marking a major milestone in our journey toward the Solar Car Challenge 2026.',
-    content:
-      "After months of planning and preparation, we've successfully completed the installation of our first solar array on Genesis, our demo vehicle. This milestone represents countless hours of research, design, and careful implementation by our electrical systems team.",
+      'Our team proudly introduces the first stage of our solar-electric test vehicle — a crucial step toward competing on the global stage.',
     image:
-      'https://images.pexels.com/photos/9875408/pexels-photo-9875408.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-    date: '2024-03-15',
-    readTime: '5 min read',
+      'https://images.pexels.com/photos/9818553/pexels-photo-9818553.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+    date: '2025-08-01',
+    readTime: '4 min read',
+    author: 'Aryan Roshan',
     category: 'Engineering',
-    author: 'Marcus Rodriguez',
-    tags: ['Solar Technology', 'Engineering', 'Milestone'],
+    tags: ['Solar Car', 'Engineering', 'Prototype'],
   },
   {
     id: 2,
-    title: 'Aerodynamics Testing: Wind Tunnel Results Exceed Expectations',
+    title: 'Preparing for the 2026 Solar Car Challenge',
     excerpt:
-      'Our latest wind tunnel tests show significant improvements in drag coefficient, bringing us closer to our performance goals for the competition vehicle.',
-    content:
-      'The results from our recent wind tunnel testing session at UBC Vancouver have exceeded our expectations. Our aerodynamics team, led by Emma Thompson, achieved a drag coefficient of 0.18 for our demo vehicle - a remarkable achievement that validates our design approach.',
+      'We’re shifting our timeline to meet the 2026 Solar Car Challenge — here’s what that means for our build phases and testing schedule.',
     image:
-      'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-    date: '2024-03-08',
-    readTime: '8 min read',
-    category: 'Engineering',
-    author: 'Emma Thompson',
-    tags: ['Aerodynamics', 'Testing', 'Performance'],
+      'https://images.pexels.com/photos/1106468/pexels-photo-1106468.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+    date: '2025-07-15',
+    readTime: '3 min read',
+    author: 'Team Ogopogo',
+    category: 'Competition',
+    tags: ['Competition', 'Timeline', 'Planning'],
   },
   {
     id: 3,
-    title: 'Community Outreach: Inspiring Young Engineers',
+    title: 'Community Outreach: Inspiring the Next Generation',
     excerpt:
-      'We visited local high schools to share our passion for sustainable engineering and renewable energy with the next generation of innovators.',
-    content:
-      'Our community outreach program reached over 200 high school students this month. Team members presented at three local schools, demonstrating solar technology and sharing their experiences in engineering and sustainable transportation.',
+      'Our outreach program aims to spark interest in renewable energy and engineering among local students through interactive workshops.',
     image:
-      'https://images.pexels.com/photos/8849295/pexels-photo-8849295.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-    date: '2024-02-28',
-    readTime: '4 min read',
+      'https://images.pexels.com/photos/3184303/pexels-photo-3184303.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+    date: '2025-06-20',
+    readTime: '2 min read',
+    author: 'Samantha Lee',
     category: 'Community',
-    author: 'Alex Morrison',
-    tags: ['Outreach', 'Education', 'Community'],
-  },
-  {
-    id: 4,
-    title: 'New Partnership: Tesla Energy Solutions Joins Our Mission',
-    excerpt:
-      "We're excited to announce our partnership with Tesla Energy Solutions, who will provide battery technology and charging infrastructure support.",
-    content:
-      'Tesla Energy Solutions has joined Ogopogo Solar as our newest Platinum Partner. This partnership will provide us with cutting-edge battery technology and access to their charging infrastructure expertise, significantly advancing our competition vehicle development.',
-    image:
-      'https://images.pexels.com/photos/8849322/pexels-photo-8849322.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-    date: '2024-02-20',
-    readTime: '3 min read',
-    category: 'Partnerships',
-    author: 'Alex Morrison',
-    tags: ['Partnership', 'Tesla', 'Battery Technology'],
-  },
-  {
-    id: 5,
-    title: 'Team Spotlight: Meet Our New Software Engineer',
-    excerpt:
-      'Priya Patel joins our team as Software & Controls Engineer, bringing expertise in embedded systems and data analysis.',
-    content:
-      "We're thrilled to welcome Priya Patel to the Ogopogo Solar team. As our new Software & Controls Engineer, Priya brings extensive experience in embedded systems, having previously developed mobile applications with over 100,000 downloads.",
-    image:
-      'https://images.pexels.com/photos/3767411/pexels-photo-3767411.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-    date: '2024-02-15',
-    readTime: '6 min read',
-    category: 'Team',
-    author: 'Sarah Chen',
-    tags: ['Team', 'Software', 'New Member'],
-  },
-  {
-    id: 6,
-    title: 'Solar Car Challenge 2026: Registration Complete',
-    excerpt:
-      "We've officially registered for the Solar Car Challenge 2026, marking the beginning of our intensive preparation phase.",
-    content:
-      "After months of preparation and planning, we've successfully completed our registration for the Solar Car Challenge 2026. This prestigious competition will test every aspect of our vehicle design and team preparation over a multi-day endurance race.",
-    image:
-      'https://images.pexels.com/photos/9875445/pexels-photo-9875445.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-    date: '2024-02-10',
-    readTime: '7 min read',
-    category: 'Competition',
-    author: 'Sarah Chen',
-    tags: ['Competition', 'Solar Car Challenge', 'Registration'],
+    tags: ['Community', 'STEM', 'Education'],
   },
 ];
 
@@ -136,9 +85,12 @@ const News: React.FC = () => {
     const hash = location.hash;
     if (!hash) return;
     const t = setTimeout(() => {
-      const el = document.querySelector(hash);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
+      const el = document.querySelector(hash) as HTMLElement | null;
+      if (!el) return;
+      const headerOffset = 90;
+      const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }, 80);
     return () => clearTimeout(t);
   }, [location, filteredPosts.length]);
 
@@ -166,11 +118,11 @@ const News: React.FC = () => {
         backgroundImage="https://images.pexels.com/photos/9875408/pexels-photo-9875408.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
         title={
           <div className="flex flex-col justify-center items-center min-h-screen">
-            <h2 className="text-center">
-              <span className="block text-9xl md:text-10xl font-extrabold tracking-tight text-white leading-none">
+            <h2 className="text-center leading-none">
+              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white">
                 BLOG
               </span>
-              <span className="block text-9xl md:text-10xl font-extrabold tracking-tight text-[#ffc82e] leading-none whitespace-nowrap">
+              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-[#ffc82e] whitespace-nowrap">
                 ARCHIVE
               </span>
             </h2>
@@ -181,9 +133,9 @@ const News: React.FC = () => {
 
       {/* Search + Filter */}
       <section className="py-12 bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-            <div className="relative flex-1 max-w-md">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
+          <div className="flex flex-col md:flex-row gap-6 items-stretch md:items-center justify-between">
+            <div className="relative flex-1 max-w-none md:max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
                 type="text"
@@ -194,40 +146,42 @@ const News: React.FC = () => {
               />
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
-                    selectedCategory === category
-                      ? 'bg-[#ffc82e] text-white shadow-lg'
-                      : 'bg-gray-100 text-dark-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
+            <div className="w-full md:w-auto -mx-4 md:mx-0 px-4">
+              <div className="flex md:flex-wrap gap-2 overflow-x-auto no-scrollbar snap-x snap-mandatory">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`snap-start px-4 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap ${
+                      selectedCategory === category
+                        ? 'bg-[#ffc82e] text-white shadow-lg'
+                        : 'bg-gray-100 text-dark-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Archive */}
-      <section className="py-16 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           {Object.keys(groupedByYear).length === 0 ? (
             <p className="text-center text-gray-600">No posts match your filters.</p>
           ) : (
             Object.entries(groupedByYear).map(([year, posts]) => (
-              <div key={year} className="mb-16">
-                <div className="flex items-center gap-4 mb-8">
+              <div key={year} className="mb-12 md:mb-16">
+                <div className="flex items-center gap-4 mb-6 md:mb-8">
                   <div className="flex-1 h-px bg-gray-200" />
-                  <h2 className="text-3xl font-extrabold text-dark-900">{year}</h2>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-dark-900">{year}</h2>
                   <div className="flex-1 h-px bg-gray-200" />
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                   {posts.map((post, idx) => (
                     <article
                       key={post.id}
@@ -235,30 +189,29 @@ const News: React.FC = () => {
                       className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
                       style={{ animationDelay: `${idx * 0.05}s` }}
                     >
-                      <div className="relative overflow-hidden">
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
+                      <div className="relative w-full overflow-hidden">
+                        <div className="w-full aspect-[16/9]">
+                          <img
+                            src={post.image}
+                            alt={post.title}
+                            loading="lazy"
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        </div>
                         <div className="absolute top-4 left-4">
-                          <span
-                            className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColor(
-                              post.category
-                            )}`}
-                          >
+                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColor(post.category)}`}>
                             {post.category}
                           </span>
                         </div>
                       </div>
 
                       <div className="p-6">
-                        <div className="flex items-center text-sm text-dark-500 mb-3 space-x-4">
-                          <div className="flex items-center space-x-1">
+                        <div className="flex items-center text-sm text-dark-500 mb-3 gap-4">
+                          <div className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />
                             <span>{formatDate(post.date)}</span>
                           </div>
-                          <div className="flex items-center space-x-1">
+                          <div className="flex items-center gap-1">
                             <Clock className="h-4 w-4" />
                             <span>{post.readTime}</span>
                           </div>
@@ -273,13 +226,13 @@ const News: React.FC = () => {
                         </p>
 
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-center gap-2">
                             <User className="h-4 w-4 text-dark-400" />
                             <span className="text-sm text-dark-600">{post.author}</span>
                           </div>
                           <a
                             href={`#post-${post.id}`}
-                            className="inline-flex items-center space-x-2 text-primary-600 font-semibold hover:text-primary-700 transition-colors group"
+                            className="inline-flex items-center gap-2 text-primary-600 font-semibold hover:text-primary-700 transition-colors group"
                           >
                             <span>Read More</span>
                             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -290,7 +243,7 @@ const News: React.FC = () => {
                           {post.tags.slice(0, 3).map((tag, tagIndex) => (
                             <span
                               key={tagIndex}
-                              className="inline-flex items-center space-x-1 px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs"
+                              className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs"
                             >
                               <Tag className="h-3 w-3" />
                               <span>{tag}</span>
@@ -308,13 +261,13 @@ const News: React.FC = () => {
       </section>
 
       {/* Newsletter */}
-      <section className="bg-white py-16">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 lg:p-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+      <section className="bg-white py-12 sm:py-16 md:py-20">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
+          <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4 md:mb-6">
               STAY <span className="text-[#ffc82e]">UPDATED</span>
             </h2>
-            <p className="text-lg md:text-xl leading-relaxed text-white/90 max-w-3xl mx-auto mb-8">
+            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 max-w-3xl mx-auto mb-6 md:mb-8">
               Subscribe to our newsletter to get the latest updates on our solar racing journey.
             </p>
             <div className="max-w-md mx-auto">
