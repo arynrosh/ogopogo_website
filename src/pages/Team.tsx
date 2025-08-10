@@ -49,6 +49,53 @@ const FILTERS: { value: Discipline | typeof ALL; label: string }[] = [
 ];
 
 const ORDER: Discipline[] = ['Mechanical', 'Electrical', 'Software', 'Business'];
+const EXEC_ORDER: string[] = ['Founder', 'Co-Founder', 'Team Captain'];
+const execs: Member[] = members
+  .filter((m) => EXEC_ORDER.includes(m.role))
+  .sort((a, b) => EXEC_ORDER.indexOf(a.role) - EXEC_ORDER.indexOf(b.role));
+
+const Card: React.FC<{ member: Member }> = ({ member: m }) => (
+  <article className="rounded-[32px] bg-white shadow-xl ring-1 ring-black/5 hover:shadow-2xl transition-all duration-300 overflow-hidden">
+    <div className="p-4 sm:p-6 pb-0">
+      <div className="relative rounded-[28px] overflow-hidden">
+        <img
+          src={m.image}
+          alt={m.name}
+          className="w-full aspect-square object-cover rounded-2xl"
+          loading="lazy"
+          decoding="async"
+        />
+        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 flex gap-2">
+          {m.linkedin && (
+            <a
+              href={m.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-md bg-black/50 text-white hover:bg-black/60 backdrop-blur-sm"
+              aria-label={`${m.name} on LinkedIn`}
+            >
+              <Linkedin className="h-4 w-4" />
+            </a>
+          )}
+          {m.email && (
+            <a
+              href={`mailto:${m.email}`}
+              className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-md bg-black/50 text-white hover:bg-black/60 backdrop-blur-sm"
+              aria-label={`Email ${m.name}`}
+            >
+              <Mail className="h-4 w-4" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+    <div className="px-4 sm:px-8 pt-4 sm:pt-6 pb-6 sm:pb-10 text-center">
+      <h3 className="text-lg sm:text-2xl font-extrabold tracking-tight text-[#1F2A44]">{m.name}</h3>
+      <p className="mt-1 sm:mt-2 text-sm sm:text-lg text-[#4A5974]">{m.role}</p>
+      <p className="mt-0.5 sm:mt-1 text-xs sm:text-base text-[#7B8AA1]">{m.discipline}</p>
+    </div>
+  </article>
+);
 
 const Team: React.FC = () => {
   const [selected, setSelected] = useState<Discipline | typeof ALL>(ALL);
@@ -85,7 +132,7 @@ const Team: React.FC = () => {
         overlayOpacity="bg-black/40"
       />
 
-      {/* Green bubble (centered content) */}
+      {/* Green bubble */}
       <section className="bg-white py-12 sm:py-16 md:py-20">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-[#015e37] text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16 flex flex-col items-center justify-center text-center">
@@ -102,7 +149,35 @@ const Team: React.FC = () => {
         </div>
       </section>
 
-      {/* Filter (mobile horizontal scroll like News) */}
+      {/* Executive Committee */}
+      <section className="bg-white">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8 py-10 sm:py-12">
+          <h2 className="text-center mb-6 md:mb-10">
+            <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1F2A44] border-b-4 border-[#ffc82e] pb-2 inline-block">
+              EXECUTIVE COMMITTEE
+            </span>
+          </h2>
+
+          {/* Mobile: 2/row, last centered; sm: 3/row; md+: 4/row */}
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
+            {execs.map((m) => (
+              <div
+                key={m.name}
+                className="
+                  w-[calc(50%-0.5rem)]
+                  sm:w-[calc(33.333%-1rem)]
+                  md:w-[calc(25%-1.5rem)]
+                  max-w-xs
+                "
+              >
+                <Card member={m} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Filter */}
       <section className="bg-white border-b">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8 py-8">
           <div className="-mx-4 md:mx-0 px-4 md:px-0">
@@ -112,9 +187,7 @@ const Team: React.FC = () => {
                   key={label}
                   onClick={() => setSelected(value)}
                   className={`px-4 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap ${
-                    selected === value
-                      ? 'bg-[#ffc82e] text-white shadow-lg'
-                      : 'bg-gray-100 text-dark-700 hover:bg-gray-200'
+                    selected === value ? 'bg-[#ffc82e] text-white shadow-lg' : 'bg-gray-100 text-dark-700 hover:bg-gray-200'
                   }`}
                 >
                   {label}
@@ -125,7 +198,7 @@ const Team: React.FC = () => {
         </div>
       </section>
 
-      {/* Team Sections */}
+      {/* Team Sections (ALL subteams use centered flex like EC) */}
       <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           {(selected === ALL ? ORDER : [selected as Discipline]).map((disciplineName) => {
@@ -134,58 +207,26 @@ const Team: React.FC = () => {
 
             return (
               <div key={disciplineName} className="mb-12 md:mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1F2A44] mb-6 md:mb-10 border-b-4 border-[#ffc82e] inline-block pb-2">
-                  {disciplineName.toUpperCase()}
+                <h2 className="text-center mb-6 md:mb-10">
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1F2A44] border-b-4 border-[#ffc82e] pb-2 inline-block">
+                    {disciplineName.toUpperCase()}
+                  </span>
                 </h2>
 
-                {/* Mobile: 2 per row; small screens and up: 3; desktop: 4 */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+                {/* Same responsive, centered flex layout for ALL subteams */}
+                <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
                   {teamMembers.map((m) => (
-                    <article
+                    <div
                       key={m.name}
-                      className="rounded-[32px] bg-white shadow-xl ring-1 ring-black/5 hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                      className="
+                        w-[calc(50%-0.5rem)]
+                        sm:w-[calc(33.333%-1rem)]
+                        md:w-[calc(25%-1.5rem)]
+                        max-w-xs
+                      "
                     >
-                      <div className="p-4 sm:p-6 pb-0">
-                        <div className="relative rounded-[28px] overflow-hidden">
-                          {/* Responsive image height: tighter on mobile */}
-                          <img
-                            src={m.image}
-                            alt={m.name}
-                            className="w-full h-44 sm:h-56 md:h-[340px] object-cover"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 flex gap-2">
-                            {m.linkedin && (
-                              <a
-                                href={m.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-md bg-black/50 text-white hover:bg-black/60 backdrop-blur-sm"
-                                aria-label={`${m.name} on LinkedIn`}
-                              >
-                                <Linkedin className="h-4 w-4" />
-                              </a>
-                            )}
-                            {m.email && (
-                              <a
-                                href={`mailto:${m.email}`}
-                                className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-md bg-black/50 text-white hover:bg-black/60 backdrop-blur-sm"
-                                aria-label={`Email ${m.name}`}
-                              >
-                                <Mail className="h-4 w-4" />
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="px-4 sm:px-8 pt-4 sm:pt-6 pb-6 sm:pb-10 text-center">
-                        <h3 className="text-lg sm:text-2xl font-extrabold tracking-tight text-[#1F2A44]">{m.name}</h3>
-                        <p className="mt-1 sm:mt-2 text-sm sm:text-lg text-[#4A5974]">{m.role}</p>
-                        <p className="mt-0.5 sm:mt-1 text-xs sm:text-base text-[#7B8AA1]">{m.discipline}</p>
-                      </div>
-                    </article>
+                      <Card member={m} />
+                    </div>
                   ))}
                 </div>
               </div>
