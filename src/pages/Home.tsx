@@ -10,7 +10,23 @@ const Home: React.FC = () => {
   return (
     <div className="animate-fade-in font-sans">
       {/* Full-screen Hero */}
-      <Hero backgroundImage="https://i.ibb.co/n8sd4xZp/solar-web.jpg" />
+      <Hero
+      backgroundImage="https://i.ibb.co/n8sd4xZp/solar-web.jpg"
+      title={
+        <div className="flex flex-col justify-center items-center min-h-screen">
+          <h2 className="text-center leading-none">
+            <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white">
+              RIDE THE LEGEND.
+            </span>
+            <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-[#ffc82e] whitespace-nowrap">
+              RACE THE SUN.
+            </span>
+          </h2>
+        </div>
+      }
+      overlayOpacity="bg-black/40"
+    />
+
 
       {/* Mission + Pillars */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">

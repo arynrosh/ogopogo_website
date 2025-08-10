@@ -124,7 +124,7 @@ const Team: React.FC = () => {
                 MEET
               </span>
               <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-[#ffc82e] whitespace-nowrap">
-                THE TEAM
+                OUR TEAM
               </span>
             </h2>
           </div>

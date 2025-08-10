@@ -140,10 +140,10 @@ const Projects: React.FC = () => {
           <div className="flex flex-col justify-center items-center min-h-screen">
             <h2 className="text-center leading-none">
               <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white">
-                IN THE
+                PROJECT
               </span>
               <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-[#ffc82e] whitespace-nowrap">
-                WORKS
+                PORTFOLIO
               </span>
             </h2>
           </div>
