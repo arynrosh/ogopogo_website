@@ -3,8 +3,8 @@ import React from 'react';
 
 interface HeroProps {
   backgroundImage: string;
-  title?: string;
-  subtitle?: string;
+  title?: React.ReactNode;
+  subtitle?: React.ReactNode;
   overlayOpacity?: string; // e.g., 'bg-black/50'
 }
 
