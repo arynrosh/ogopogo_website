@@ -23,9 +23,8 @@ function useIsDesktop() {
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1180px) and (pointer: fine)');
     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    // set once in case SSR/hydration
     setIsDesktop(mq.matches);
-    // add listener
+
     if (mq.addEventListener) {
       mq.addEventListener('change', handler);
       return () => mq.removeEventListener('change', handler);
@@ -46,40 +45,47 @@ function App() {
 
   return (
     <Router>
-      {/* Desktop-only custom cursor */}
-      {isDesktop && (
-        <AnimatedCursor
-          innerSize={8}
-          outerSize={35}
-          color="255, 200, 46"   // Ogopogo Solar yellow
-          outerAlpha={0.3}
-          innerScale={1}
-          outerScale={2}
-          clickables={[
-            'a',
-            'button',
-            '.link',
-            'input',
-            'textarea',
-            'select',
-            '.custom-clickable'
-          ]}
-        />
-      )}
+      {/* Page scaffold: ensures content fills the viewport; footer sits flush at bottom */}
+      <div className="flex min-h-screen flex-col">
+        {/* Desktop-only custom cursor */}
+        {isDesktop && (
+          <AnimatedCursor
+            innerSize={8}
+            outerSize={35}
+            color="255, 200, 46"   // Ogopogo Solar yellow
+            outerAlpha={0.3}
+            innerScale={1}
+            outerScale={2}
+            clickables={[
+              'a',
+              'button',
+              '.link',
+              'input',
+              'textarea',
+              'select',
+              '.custom-clickable',
+            ]}
+          />
+        )}
 
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="projects" element={<Projects />} />
-          <Route path="team" element={<Team />} />
-          <Route path="sponsors" element={<Sponsors />} />
-          <Route path="news" element={<News />} />
-          <Route path="join" element={<Join />} />
-        </Route>
-      </Routes>
+        {/* Routes fill remaining space; Layout should render <main className="flex-grow"> internally */}
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="about" element={<About />} />
+              <Route path="projects" element={<Projects />} />
+              <Route path="team" element={<Team />} />
+              <Route path="sponsors" element={<Sponsors />} />
+              <Route path="news" element={<News />} />
+              <Route path="join" element={<Join />} />
+            </Route>
+          </Routes>
+        </div>
 
-      <SocialWidget />
+        {/* Fixed/overlay widget (doesn't affect layout height) */}
+        <SocialWidget />
+      </div>
     </Router>
   );
 }

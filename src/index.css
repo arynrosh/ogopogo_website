@@ -8,6 +8,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Layout / viewport fixes (prevents white gap at the bottom on iOS) ===== */
+html, body, #root { height: 100%; }
+html { height: -webkit-fill-available; }                 /* iOS Safari */
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;                    /* iOS Safari */
+  background-color: #004126;                             /* matches footer so the safe-area isn't white */
+}
+#root { display: flex; flex-direction: column; }          /* lets App.tsx flex-grow fill screen */
+
 /* Base font family (maps to tailwind.config.js -> fontFamily.sans/display) */
 @layer base {
   html {
@@ -16,6 +26,19 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
+
+  /* ===== Fluid Typography (global utilities) ===== */
+  .fluid-hero-1 { font-size: clamp(2rem, 7vw, 7rem); }        /* 32px → 112px */
+  .fluid-hero-2 { font-size: clamp(2rem, 7.5vw, 7.5rem); }    /* 32px → 120px */
+  .fluid-h1     { font-size: clamp(1.75rem, 3.5vw, 3.25rem); }/* 28px → 52px */
+  .fluid-h2     { font-size: clamp(1.125rem, 2.2vw, 1.5rem); }/* 18px → 24px */
+  .fluid-body   { font-size: clamp(0.95rem, 1.2vw, 1.125rem);}/* 15.2px → 18px */
+  .fluid-small  { font-size: clamp(0.8rem, 1vw, 0.95rem); }   /* 12.8px → 15.2px */
+  .fluid-cta    { font-size: clamp(1.75rem, 3.8vw, 3rem); }   /* 28px → 48px */
+  .fluid-btn    { font-size: clamp(0.95rem, 1.2vw, 1.0625rem);}/* 15.2px → 17px */
+
+  /* Better multi-line breaks for big headings */
+  .balance { text-wrap: balance; }
 }
 
 /* Utility: line clamp */
@@ -33,26 +56,15 @@
 }
 
 /* Utility: hide scrollbars (used in horizontal chip rows) */
-.no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
-}
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
 
 /* Responsive images */
-img {
-  max-width: 100%;
-  height: auto;
-}
+img { max-width: 100%; height: auto; }
 
 /* Better mobile touch targets */
 @media (max-width: 768px) {
-  button,
-  a {
-    min-height: 44px;
-  }
+  button, a { min-height: 44px; }
 }
 
 /* Animations */
@@ -60,3 +72,19 @@ img {
   0% { opacity: 0; transform: scale(0.9); }
   100% { opacity: 1; transform: scale(1); }
 }
+
+/* ===== Sponsors marquee (global) ===== */
+@keyframes sponsor-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: inline-flex;
+  gap: 1.5rem;
+  animation: sponsor-marquee 20s linear infinite;
+  will-change: transform;
+}
+@media (max-width: 640px) {
+  .marquee-track { animation-duration: 14s; }
+}
+.marquee-paused { animation-play-state: paused; }

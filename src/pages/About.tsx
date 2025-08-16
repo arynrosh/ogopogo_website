@@ -1,315 +1,227 @@
-import React, { useState } from 'react';
-import { Calendar, CheckCircle, Clock, Target, Trophy, Users, Zap } from 'lucide-react';
+// src/pages/About.tsx
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Hero from '../components/Hero';
+import { ArrowRight } from 'lucide-react';
 
 const About: React.FC = () => {
-  const [activeTimelineIndex, setActiveTimelineIndex] = useState(0);
+  const navigate = useNavigate();
 
-  const milestones = [
-    {
-      id: 1,
-      title: 'Team Formation',
-      date: '2023',
-      status: 'completed',
-      description:
-        'Ogopogo Solar was founded by passionate UBC Okanagan students with a shared vision of sustainable transportation.',
-      image:
-        'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-      achievements: ['Team establishment', 'Initial funding secured', 'Workshop space acquired'],
-    },
-    {
-      id: 2,
-      title: 'Demo Vehicle',
-      date: '2024',
-      status: 'completed',
-      description:
-        'Successfully built and tested our first prototype solar vehicle, proving our concept and team capabilities.',
-      image:
-        'https://images.pexels.com/photos/9875416/pexels-photo-9875416.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-      achievements: ['Aerodynamic design completed', 'Solar array integration', 'Test track validation'],
-    },
-    {
-      id: 3,
-      title: 'Solar Car Challenge 2026',
-      date: '2026',
-      status: 'in-progress',
-      description:
-        'Competing in the prestigious Solar Car Challenge with our advanced racing vehicle designed for optimal performance.',
-      image:
-        'https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-      achievements: ['Competition registration', 'Advanced vehicle design', 'Team training program'],
-    },
-    {
-      id: 4,
-      title: 'Future Goals',
-      date: '2027+',
-      status: 'planned',
-      description:
-        'Expanding our impact through research partnerships, technology transfer, and inspiring the next generation.',
-      image:
-        'https://images.pexels.com/photos/8849322/pexels-photo-8849322.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-      achievements: ['Research partnerships', 'Technology commercialization', 'Education outreach'],
-    },
-  ];
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return <CheckCircle className="h-6 w-6 text-primary-500" />;
-      case 'in-progress':
-        return <Clock className="h-6 w-6 text-gold-500" />;
-      default:
-        return <Target className="h-6 w-6 text-gray-400" />;
+  const smoothNavigate = (to: string) => (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch {
+      window.scrollTo(0, 0);
     }
+    const prefersReduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setTimeout(() => navigate(to), prefersReduced ? 0 : 450);
   };
 
-  const stats = [
-    { number: '25+', label: 'Team Members', icon: Users },
-    { number: '5', label: 'Disciplines', icon: Zap },
-    { number: '1000+', label: 'Hours of Work', icon: Clock },
-    { number: '2026', label: 'Competition Year', icon: Trophy },
-  ];
-
   return (
-    <div className="animate-fade-in">
-      {/* Hero */}
+    <div className="animate-fade-in font-sans">
+      {/* HERO */}
       <Hero
         backgroundImage="https://i.ibb.co/n8sd4xZp/solar-web.jpg"
         title={
-        <div className="flex flex-col justify-center items-center min-h-screen">
-        <h2 className="text-center">
-          <span className="block text-9xl md:text-10xl font-extrabold tracking-tight text-white leading-none">
-            ABOUT
-          </span>
-          <span className="block text-9xl md:text-10xl font-extrabold tracking-tight text-[#ffc82e] leading-none whitespace-nowrap">
-            OGOPOGO SOLAR
-          </span>
-        </h2>
-        </div>
+          <div className="flex flex-col justify-center items-center min-h-screen">
+            <h2 className="text-center leading-none">
+              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white">
+                OUR STORY
+              </span>
+              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-[#ffc82e] whitespace-nowrap">
+                OGOPOGO SOLAR
+              </span>
+            </h2>
+          </div>
         }
         overlayOpacity="bg-black/40"
       />
 
-
-      {/* Mission & Vision */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="animate-slide-in-left">
-              <h2 className="text-4xl font-bold text-dark-900 mb-6">
-                Our <span className="text-primary-600">Mission</span>
-              </h2>
-              <p className="text-lg text-dark-600 mb-6 leading-relaxed">
-                To advance sustainable transportation through innovative solar vehicle design,
-                engineering excellence, and inspiring the next generation of clean energy pioneers.
-              </p>
-              <h3 className="text-2xl font-bold text-dark-900 mb-4">Our Vision</h3>
-              <p className="text-lg text-dark-600 leading-relaxed">
-                A world where sustainable transportation is not just possible, but preferred. We
-                envision solar-powered vehicles as a cornerstone of clean mobility, and we're racing
-                to make that future a reality.
-              </p>
-            </div>
-            <div className="animate-slide-in-right">
-              <img
-                src="https://images.pexels.com/photos/9875445/pexels-photo-9875445.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
-                alt="Solar car racing"
-                className="rounded-2xl shadow-2xl"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-dark-900 mb-6">
-              By the <span className="text-primary-600">Numbers</span>
+      {/* MISSION & VISION — Split Card */}
+      <section className="py-16 sm:py-20 bg-white px-4 sm:px-6 md:px-8">
+        <div className="max-w-4xl mx-auto shadow-xl rounded-2xl overflow-hidden">
+          {/* Mission (Top - Green) */}
+          <div className="bg-[#015e37] text-white text-center p-8 sm:p-10">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">
+              OUR <span className="text-[#ffc82e]">MISSION</span>
             </h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-slide-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="bg-gradient-to-br from-primary-600 to-gold-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <stat.icon className="h-8 w-8 text-white" />
-                </div>
-                <div className="text-4xl font-bold text-primary-600 mb-2">{stat.number}</div>
-                <div className="text-dark-600 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-dark-900 mb-6">
-              Project{' '}
-              <span className="bg-gradient-to-r from-primary-600 to-gold-600 bg-clip-text text-transparent">
-                Timeline
-              </span>
-            </h2>
-            <p className="text-xl text-dark-600 max-w-3xl mx-auto">
-              From concept to competition — follow our journey to solar racing excellence
+            <p className="text-base sm:text-lg leading-relaxed max-w-2xl mx-auto text-white/95">
+              We design, build, and race solar-powered vehicles to advance clean mobility,
+              prove what renewable energy can do, and develop the next generation of
+              engineers and innovators.
             </p>
           </div>
 
-          {/* Desktop */}
-          <div className="hidden md:block">
-            <div className="relative">
-              <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-primary-200 via-gold-200 to-gray-200 transform -translate-y-1/2" />
-              <div className="flex justify-between items-center relative z-10">
-                {milestones.map((m, index) => (
-                  <div key={m.id} className="flex-1 text-center">
-                    <button
-                      onClick={() => setActiveTimelineIndex(index)}
-                      className={`w-16 h-16 rounded-full border-4 flex items-center justify-center mx-auto mb-4 transition-all duration-300 ${
-                        activeTimelineIndex === index
-                          ? 'border-primary-500 bg-primary-500 shadow-lg scale-110'
-                          : 'border-gray-300 bg-white hover:border-primary-300'
-                      }`}
-                    >
-                      {getStatusIcon(m.status)}
-                    </button>
-                    <div className="space-y-2">
-                      <h3
-                        className={`font-bold ${
-                          activeTimelineIndex === index ? 'text-primary-600' : 'text-dark-700'
-                        }`}
-                      >
-                        {m.title}
-                      </h3>
-                      <p className="text-sm text-dark-500">{m.date}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Active details */}
-            <div className="mt-16 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-xl p-8">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                  <div className="flex items-center space-x-3 mb-4">
-                    <Calendar className="h-6 w-6 text-primary-500" />
-                    <span className="text-primary-600 font-semibold">
-                      {milestones[activeTimelineIndex].date}
-                    </span>
-                  </div>
-                  <h3 className="text-3xl font-bold text-dark-900 mb-4">
-                    {milestones[activeTimelineIndex].title}
-                  </h3>
-                  <p className="text-dark-600 mb-6 leading-relaxed">
-                    {milestones[activeTimelineIndex].description}
-                  </p>
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-dark-800">Key Achievements:</h4>
-                    <ul className="space-y-1">
-                      {milestones[activeTimelineIndex].achievements.map((a, idx) => (
-                        <li key={idx} className="flex items-center space-x-2 text-dark-600">
-                          <CheckCircle className="h-4 w-4 text-primary-500" />
-                          <span>{a}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-                <div>
-                  <img
-                    src={milestones[activeTimelineIndex].image}
-                    alt={milestones[activeTimelineIndex].title}
-                    className="rounded-xl shadow-lg w-full"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile */}
-          <div className="md:hidden space-y-8">
-            {milestones.map((m) => (
-              <div key={m.id} className="bg-white rounded-2xl shadow-lg p-6">
-                <div className="flex items-start space-x-4 mb-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full border-4 border-primary-500 bg-primary-500 flex items-center justify-center">
-                      {getStatusIcon(m.status)}
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <h3 className="text-xl font-bold text-dark-900">{m.title}</h3>
-                      <span className="text-sm text-primary-600 bg-primary-100 px-2 py-1 rounded-full">
-                        {m.date}
-                      </span>
-                    </div>
-                    <p className="text-dark-600 mb-4">{m.description}</p>
-                    <img src={m.image} alt={m.title} className="rounded-lg mb-4 w-full" />
-                    <div className="space-y-1">
-                      {m.achievements.map((a, idx) => (
-                        <div key={idx} className="flex items-center space-x-2 text-sm text-dark-600">
-                          <CheckCircle className="h-4 w-4 text-primary-500" />
-                          <span>{a}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {/* Vision (Bottom - White) */}
+          <div className="bg-white text-center p-8 sm:p-10">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6" style={{ color: '#015e37' }}>
+              OUR <span style={{ color: '#ffc82e' }}>VISION</span>
+            </h3>
+            <p className="text-base sm:text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">
+              A future where sustainable transportation is the norm — solar vehicles on our
+              roads, inspiring innovation and proving that clean energy can drive high
+              performance.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Competition Goals */}
-  <section className="py-20 bg-gradient-to-br from-primary-50 to-gold-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-dark-900 mb-6">
-              Competition <span className="text-primary-600">Goals</span>
+      {/* OUR JOURNEY — Short Narrative */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
+              HOW WE <span style={{ color: '#015e37' }}>GOT HERE</span>
             </h2>
+            <p className="mt-4 text-gray-700 text-base sm:text-lg leading-relaxed">
+              Ogopogo Solar started with a simple belief: sunlight can move us forward.
+              From first sketches and scrappy prototypes to a focused plan for competition,
+              we’ve grown by building, testing, and learning fast — together. Our approach
+              is pragmatic and hands-on: prove it on the bench, validate it on the road,
+              and share what we learn along the way.
+            </p>
           </div>
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-slide-in-left">
-              <h3 className="text-3xl font-bold text-dark-900 mb-6">Solar Car Challenge 2026</h3>
-              <p className="text-lg text-dark-600 mb-6 leading-relaxed">
-                Our primary goal is to compete in the Solar Car Challenge 2026, one of the most
-                prestigious solar racing competitions in North America. This multi-day endurance
-                race will test every aspect of our vehicle design and team preparation.
+        </div>
+      </section>
+
+      {/* COMPETITIONS — Text + Image Cards */}
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
+              WHERE WE <span style={{ color: '#015e37' }}>RACE</span>
+            </h2>
+            <p className="mt-3 text-gray-600 max-w-3xl mx-auto">
+              World-class events that push engineering, endurance, and efficiency to the limit.
+            </p>
+          </div>
+
+          {/* Bridgestone World Solar Challenge */}
+          <article className="grid md:grid-cols-2 gap-6 md:gap-10 items-center rounded-3xl bg-white p-6 sm:p-8 shadow-lg ring-1 ring-gray-100 mb-8">
+            <div className="order-2 md:order-1">
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                Bridgestone World Solar Challenge
+              </h3>
+              <p className="mt-3 text-gray-700 leading-relaxed">
+                The pinnacle of solar racing: ~3,000 km across the Australian Outback from
+                Darwin to Adelaide. It’s the global benchmark for aerodynamics, energy
+                efficiency, and reliability under extreme conditions.
               </p>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full" />
-                  <span className="text-dark-700">Complete 3,000+ km race distance</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full" />
-                  <span className="text-dark-700">Achieve top 10 finish in our class</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full" />
-                  <span className="text-dark-700">Demonstrate innovative solar technology</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full" />
-                  <span className="text-dark-700">Inspire sustainable transportation adoption</span>
-                </div>
-              </div>
+              <ul className="mt-4 space-y-2 text-gray-800">
+                {[
+                  'Elite international field and standards',
+                  'Multi-day endurance, harsh climate, strict regs',
+                  'Innovation under real race pressure',
+                ].map((l) => (
+                  <li key={l} className="flex items-start gap-2">
+                    <span className="mt-2 inline-block w-2 h-2 rounded-full" style={{ backgroundColor: '#015e37' }} />
+                    <span>{l}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-              <div className="animate-slide-in-right">
-                <img
-                  src="https://images.pexels.com/photos/9875408/pexels-photo-9875408.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
-                  alt="Solar car competition"
-                  className="rounded-2xl shadow-2xl"
-                />
-              </div>
+            <div className="order-1 md:order-2 rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-100">
+              <img
+                src="https://images.pexels.com/photos/9875445/pexels-photo-9875445.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop"
+                alt="Bridgestone World Solar Challenge"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </article>
+
+          {/* American Solar Challenge */}
+          <article className="grid md:grid-cols-2 gap-6 md:gap-10 items-center rounded-3xl bg-white p-6 sm:p-8 shadow-lg ring-1 ring-gray-100 mb-8">
+            <div className="rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-100">
+              <img
+                src="https://images.pexels.com/photos/9875408/pexels-photo-9875408.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop"
+                alt="American Solar Challenge"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                American Solar Challenge
+              </h3>
+              <p className="mt-3 text-gray-700 leading-relaxed">
+                A cross-country road rally on public highways in the United States. Teams
+                manage energy, weather, traffic, and logistics over long daily stages —
+                a true systems and operations test.
+              </p>
+              <ul className="mt-4 space-y-2 text-gray-800">
+                {[
+                  'Open-road conditions: traffic, terrain, weather',
+                  'Charging strategy + reliability are critical',
+                  'Ops, planning, and teamwork decide outcomes',
+                ].map((l) => (
+                  <li key={l} className="flex items-start gap-2">
+                    <span className="mt-2 inline-block w-2 h-2 rounded-full" style={{ backgroundColor: '#015e37' }} />
+                    <span>{l}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+
+          {/* Solar Car Challenge */}
+          <article className="grid md:grid-cols-2 gap-6 md:gap-10 items-center rounded-3xl bg-white p-6 sm:p-8 shadow-lg ring-1 ring-gray-100">
+            <div className="order-2 md:order-1">
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                Solar Car Challenge
+              </h3>
+              <p className="mt-3 text-gray-700 leading-relaxed">
+                An educational series with scrutineering, track events, and road stages.
+                It’s the ideal proving ground for emerging teams — validate fundamentals,
+                build confidence, and bring new members up to race-ready speed.
+              </p>
+              <ul className="mt-4 space-y-2 text-gray-800">
+                {[
+                  'Excellent on-ramp for prototypes',
+                  'Strong focus on safety and fundamentals',
+                  'Teaches race operations the right way',
+                ].map((l) => (
+                  <li key={l} className="flex items-start gap-2">
+                    <span className="mt-2 inline-block w-2 h-2 rounded-full" style={{ backgroundColor: '#015e37' }} />
+                    <span>{l}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="order-1 md:order-2 rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-100">
+              <img
+                src="https://images.pexels.com/photos/9818553/pexels-photo-9818553.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop"
+                alt="Solar Car Challenge"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </article>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-12 sm:py-16 md:py-20 text-white" style={{ backgroundColor: '#015e37' }}>
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 tracking-wide">
+            READY TO SHAPE THE <span className="text-[#ffc82e]">FUTURE?</span>
+          </h2>
+
+          <p className="text-base sm:text-lg md:text-xl text-white/85 mb-8 sm:mb-10 max-w-3xl mx-auto">
+            Join a team that builds, tests, and races — and learns fast doing it.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+            <Link
+              to="/join"
+              onClick={smoothNavigate('/join')}
+              className="uppercase tracking-widest font-bold px-8 sm:px-10 py-3.5 sm:py-4 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white/60"
+              style={{ backgroundColor: '#ffc82e', color: '#FFFFFF' }}
+            >
+              Join Our Team
+              <ArrowRight className="ml-2 h-5 w-5 inline-block" />
+            </Link>
           </div>
         </div>
       </section>

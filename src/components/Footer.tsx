@@ -23,12 +23,12 @@ const Footer: React.FC = () => {
   ];
 
   const year = new Date().getFullYear();
-
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="bg-[#004126] text-white font-sans [padding-bottom:env(safe-area-inset-bottom)]">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-14 lg:py-16">
+    // Use only safe-area padding on the bottom to avoid a visible gap on iOS
+    <footer className="bg-[#004126] text-white font-sans pb-[env(safe-area-inset-bottom)]">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14">
         {/* Responsive grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
           {/* Brand */}
@@ -144,9 +144,11 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-[#00331E] mt-10 sm:mt-12 pt-6 sm:pt-8">
+        <div className="border-t border-[#00331E] mt-8 sm:mt-10 pt-6 sm:pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-xs sm:text-sm">© {year} Ogopogo Solar Racing Team. All rights reserved.</p>
+            <p className="text-gray-400 text-xs sm:text-sm">
+              © {year} Ogopogo Solar Racing Team. All rights reserved.
+            </p>
             <div className="flex flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm">
               <a href="#" className="text-gray-400 hover:text-[#ffc82e] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffc82e] rounded">
                 Privacy Policy

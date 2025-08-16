@@ -3,50 +3,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Calendar, Clock, ArrowRight, Tag, User, Search } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
+import { blogPosts, blogCategories } from '../data/blogs'; // <-- now using data folder
 
-export const blogPosts = [
-  {
-    id: 1,
-    title: 'Ogopogo Solar Unveils New Test Vehicle',
-    excerpt:
-      'Our team proudly introduces the first stage of our solar-electric test vehicle — a crucial step toward competing on the global stage.',
-    image:
-      'https://images.pexels.com/photos/9818553/pexels-photo-9818553.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-    date: '2025-08-01',
-    readTime: '4 min read',
-    author: 'Aryan Roshan',
-    category: 'Engineering',
-    tags: ['Solar Car', 'Engineering', 'Prototype'],
-  },
-  {
-    id: 2,
-    title: 'Preparing for the 2026 Solar Car Challenge',
-    excerpt:
-      'We’re shifting our timeline to meet the 2026 Solar Car Challenge — here’s what that means for our build phases and testing schedule.',
-    image:
-      'https://images.pexels.com/photos/1106468/pexels-photo-1106468.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-    date: '2025-07-15',
-    readTime: '3 min read',
-    author: 'Team Ogopogo',
-    category: 'Competition',
-    tags: ['Competition', 'Timeline', 'Planning'],
-  },
-  {
-    id: 3,
-    title: 'Community Outreach: Inspiring the Next Generation',
-    excerpt:
-      'Our outreach program aims to spark interest in renewable energy and engineering among local students through interactive workshops.',
-    image:
-      'https://images.pexels.com/photos/3184303/pexels-photo-3184303.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-    date: '2025-06-20',
-    readTime: '2 min read',
-    author: 'Samantha Lee',
-    category: 'Community',
-    tags: ['Community', 'STEM', 'Education'],
-  },
-];
-
-const categories = ['All', 'Engineering', 'Competition', 'Team', 'Community', 'Partnerships'];
+const categories = ['All', ...blogCategories];
 
 const News: React.FC = () => {
   const location = useLocation();
@@ -115,14 +74,17 @@ const News: React.FC = () => {
     <div className="animate-fade-in font-sans">
       {/* HERO */}
       <Hero
-        backgroundImage="https://images.pexels.com/photos/9875408/pexels-photo-9875408.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
+        backgroundImage="https://i.ibb.co/B5CGFzsV/Get-Paid-Stock-com-6898dccd36be1.jpg"
         title={
-          <div className="flex flex-col justify-center items-center min-h-screen">
-            <h2 className="text-center leading-none">
-              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white">
+          <div className="flex flex-col justify-center items-center min-h-screen px-4">
+            <h2 className="text-center leading-[0.88] tracking-tight balance">
+              <span className="block font-extrabold text-white break-words fluid-hero-1">
                 BLOG
               </span>
-              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-[#ffc82e] whitespace-nowrap">
+              <span
+                className="block font-extrabold break-words fluid-hero-2"
+                style={{ color: '#ffc82e' }}
+              >
                 ARCHIVE
               </span>
             </h2>
@@ -142,7 +104,7 @@ const News: React.FC = () => {
                 placeholder="Search posts..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors fluid-body"
               />
             </div>
 
@@ -152,7 +114,7 @@ const News: React.FC = () => {
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`snap-start px-4 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap ${
+                    className={`snap-start px-4 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap fluid-btn ${
                       selectedCategory === category
                         ? 'bg-[#ffc82e] text-white shadow-lg'
                         : 'bg-gray-100 text-dark-700 hover:bg-gray-200'
@@ -171,13 +133,13 @@ const News: React.FC = () => {
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           {Object.keys(groupedByYear).length === 0 ? (
-            <p className="text-center text-gray-600">No posts match your filters.</p>
+            <p className="text-center text-gray-600 fluid-body">No posts match your filters.</p>
           ) : (
             Object.entries(groupedByYear).map(([year, posts]) => (
               <div key={year} className="mb-12 md:mb-16">
                 <div className="flex items-center gap-4 mb-6 md:mb-8">
                   <div className="flex-1 h-px bg-gray-200" />
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-dark-900">{year}</h2>
+                  <h2 className="font-extrabold text-dark-900 fluid-h1">{year}</h2>
                   <div className="flex-1 h-px bg-gray-200" />
                 </div>
 
@@ -199,14 +161,18 @@ const News: React.FC = () => {
                           />
                         </div>
                         <div className="absolute top-4 left-4">
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColor(post.category)}`}>
+                          <span
+                            className={`px-3 py-1 rounded-full font-medium fluid-small ${getCategoryColor(
+                              post.category
+                            )}`}
+                          >
                             {post.category}
                           </span>
                         </div>
                       </div>
 
                       <div className="p-6">
-                        <div className="flex items-center text-sm text-dark-500 mb-3 gap-4">
+                        <div className="flex items-center text-dark-500 mb-3 gap-4 fluid-small">
                           <div className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />
                             <span>{formatDate(post.date)}</span>
@@ -217,22 +183,22 @@ const News: React.FC = () => {
                           </div>
                         </div>
 
-                        <h3 className="text-xl font-bold text-dark-900 mb-2 group-hover:text-primary-600 transition-colors">
+                        <h3 className="font-bold text-dark-900 mb-2 group-hover:text-primary-600 transition-colors fluid-h2">
                           {post.title}
                         </h3>
 
-                        <p className="text-dark-600 mb-4 leading-relaxed line-clamp-3">
+                        <p className="text-dark-600 mb-4 leading-relaxed line-clamp-3 fluid-body">
                           {post.excerpt}
                         </p>
 
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             <User className="h-4 w-4 text-dark-400" />
-                            <span className="text-sm text-dark-600">{post.author}</span>
+                            <span className="text-dark-600 fluid-small">{post.author}</span>
                           </div>
                           <a
                             href={`#post-${post.id}`}
-                            className="inline-flex items-center gap-2 text-primary-600 font-semibold hover:text-primary-700 transition-colors group"
+                            className="inline-flex items-center gap-2 text-primary-600 font-semibold hover:text-primary-700 transition-colors group fluid-btn"
                           >
                             <span>Read More</span>
                             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -243,7 +209,7 @@ const News: React.FC = () => {
                           {post.tags.slice(0, 3).map((tag, tagIndex) => (
                             <span
                               key={tagIndex}
-                              className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs"
+                              className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 text-gray-700 rounded fluid-small"
                             >
                               <Tag className="h-3 w-3" />
                               <span>{tag}</span>
@@ -264,10 +230,10 @@ const News: React.FC = () => {
       <section className="bg-white py-12 sm:py-16 md:py-20">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4 md:mb-6">
+            <h2 className="font-extrabold leading-tight mb-4 md:mb-6 fluid-h1">
               STAY <span className="text-[#ffc82e]">UPDATED</span>
             </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 max-w-3xl mx-auto mb-6 md:mb-8">
+            <p className="text-white/90 max-w-3xl mx-auto mb-6 md:mb-8 fluid-body">
               Subscribe to our newsletter to get the latest updates on our solar racing journey.
             </p>
             <div className="max-w-md mx-auto">
@@ -275,13 +241,13 @@ const News: React.FC = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-[#ffc82e] focus:border-[#ffc82e] transition-colors text-white placeholder-gray-300"
+                  className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-[#ffc82e] focus:border-[#ffc82e] transition-colors text-white placeholder-gray-300 fluid-body"
                 />
-                <button className="inline-flex items-center justify-center rounded-full px-8 py-3.5 text-lg font-semibold bg-[#ffc82e] text-white shadow-md hover:shadow-lg transition">
+                <button className="inline-flex items-center justify-center rounded-full px-8 py-3.5 font-semibold bg-[#ffc82e] text-white shadow-md hover:shadow-lg transition fluid-btn">
                   SUBSCRIBE
                 </button>
               </div>
-              <p className="text-sm text-white/70 mt-4">
+              <p className="text-white/70 mt-4 fluid-small">
                 No spam, unsubscribe at any time. We respect your privacy.
               </p>
             </div>

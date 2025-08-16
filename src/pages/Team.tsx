@@ -90,9 +90,9 @@ const Card: React.FC<{ member: Member }> = ({ member: m }) => (
       </div>
     </div>
     <div className="px-4 sm:px-8 pt-4 sm:pt-6 pb-6 sm:pb-10 text-center">
-      <h3 className="text-lg sm:text-2xl font-extrabold tracking-tight text-[#1F2A44]">{m.name}</h3>
-      <p className="mt-1 sm:mt-2 text-sm sm:text-lg text-[#4A5974]">{m.role}</p>
-      <p className="mt-0.5 sm:mt-1 text-xs sm:text-base text-[#7B8AA1]">{m.discipline}</p>
+      <h3 className="font-extrabold tracking-tight text-[#1F2A44] fluid-h2">{m.name}</h3>
+      <p className="mt-1 sm:mt-2 text-[#4A5974] fluid-body">{m.role}</p>
+      <p className="mt-0.5 sm:mt-1 text-[#7B8AA1] fluid-small">{m.discipline}</p>
     </div>
   </article>
 );
@@ -118,12 +118,10 @@ const Team: React.FC = () => {
       <Hero
         backgroundImage="https://i.ibb.co/n8sd4xZp/solar-web.jpg"
         title={
-          <div className="flex flex-col justify-center items-center min-h-screen">
-            <h2 className="text-center leading-none">
-              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-white">
-                MEET
-              </span>
-              <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-[#ffc82e] whitespace-nowrap">
+          <div className="flex flex-col justify-center items-center min-h-screen px-4">
+            <h2 className="text-center leading-[0.88] tracking-tight balance">
+              <span className="block font-extrabold text-white break-words fluid-hero-1">MEET</span>
+              <span className="block font-extrabold break-words fluid-hero-2" style={{ color: '#ffc82e' }}>
                 OUR TEAM
               </span>
             </h2>
@@ -136,12 +134,12 @@ const Team: React.FC = () => {
       <section className="bg-white py-12 sm:py-16 md:py-20">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-[#015e37] text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16 flex flex-col items-center justify-center text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4 md:mb-6">
+            <h2 className="font-extrabold leading-tight mb-4 md:mb-6 fluid-h1">
               <span className="text-white">DRIVEN BY CURIOSITY, </span>
               <span className="text-[#ffc82e]">POWERED BY THE SUN.</span>
             </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 max-w-5xl">
-              Ogopogo Solar is a student-led team at UBC Okanagan. We design, build, and race solar-powered vehicles
+            <p className="leading-relaxed text-white/90 max-w-5xl fluid-body">
+              We design, build, and race solar-powered vehicles
               to advance clean mobility, prove what renewable energy can do, and develop the next generation of engineers
               and innovators.
             </p>
@@ -153,7 +151,7 @@ const Team: React.FC = () => {
       <section className="bg-white">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8 py-10 sm:py-12">
           <h2 className="text-center mb-6 md:mb-10">
-            <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1F2A44] border-b-4 border-[#ffc82e] pb-2 inline-block">
+            <span className="font-extrabold text-[#1F2A44] border-b-4 border-[#ffc82e] pb-2 inline-block fluid-h1">
               EXECUTIVE COMMITTEE
             </span>
           </h2>
@@ -186,7 +184,7 @@ const Team: React.FC = () => {
                 <button
                   key={label}
                   onClick={() => setSelected(value)}
-                  className={`px-4 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap ${
+                  className={`px-4 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap fluid-btn ${
                     selected === value ? 'bg-[#ffc82e] text-white shadow-lg' : 'bg-gray-100 text-dark-700 hover:bg-gray-200'
                   }`}
                 >
@@ -198,7 +196,7 @@ const Team: React.FC = () => {
         </div>
       </section>
 
-      {/* Team Sections (ALL subteams use centered flex like EC) */}
+      {/* Team Sections */}
       <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           {(selected === ALL ? ORDER : [selected as Discipline]).map((disciplineName) => {
@@ -208,12 +206,11 @@ const Team: React.FC = () => {
             return (
               <div key={disciplineName} className="mb-12 md:mb-16">
                 <h2 className="text-center mb-6 md:mb-10">
-                  <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1F2A44] border-b-4 border-[#ffc82e] pb-2 inline-block">
+                  <span className="font-extrabold text-[#1F2A44] border-b-4 border-[#ffc82e] pb-2 inline-block fluid-h1">
                     {disciplineName.toUpperCase()}
                   </span>
                 </h2>
 
-                {/* Same responsive, centered flex layout for ALL subteams */}
                 <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
                   {teamMembers.map((m) => (
                     <div
