@@ -65,9 +65,10 @@ const Header: React.FC = () => {
   const linkBase = 'text-white hover:text-[#ffc82e]';
   const linkActive = 'text-[#ffc82e] border-b-2 border-[#ffc82e]';
 
-  // Remove backdrop-blur entirely (expensive). Keep opaque shells for menu.
-  const dropdownShell = 'bg-[#004126] bg-opacity-95 border-[#00331E]';
-  const dropdownItemHover = 'hover:bg-[#00331E]';
+  const dropdownShell = isScrolled
+    ? 'bg-[#004126] border-[#00331E]'
+    : 'bg-white/10 backdrop-blur-xl border-white/20';
+  const dropdownItemHover = isScrolled ? 'hover:bg-[#00331E]' : 'hover:bg-white/10';
 
   const openAboutNow = () => {
     if (closeTimer.current) {

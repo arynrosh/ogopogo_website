@@ -12,8 +12,21 @@ import {
   EXEC_ORDER,
 } from '../data/team';
 
+/** Exec roles shown in EXECUTIVE COMMITTEE */
+const EXEC_TITLES = new Set(EXEC_ORDER);
+
+/** Exec check */
+const isExec = (m: Member) => EXEC_TITLES.has(m.role);
+
+/** Leadership heuristic so execs can also appear in grids (if they have a discipline) */
+const isLeadership = (m: Member) => {
+  const r = m.role.toLowerCase();
+  return r.includes('lead') || r.includes('captain');
+};
+
+/** Execs section */
 const execs: Member[] = members
-  .filter((m) => EXEC_ORDER.includes(m.role))
+  .filter(isExec)
   .sort((a, b) => EXEC_ORDER.indexOf(a.role) - EXEC_ORDER.indexOf(b.role));
 
 const Card: React.FC<{ member: Member }> = memo(({ member: m }) => (
@@ -54,7 +67,6 @@ const Card: React.FC<{ member: Member }> = memo(({ member: m }) => (
     <div className="px-4 sm:px-8 pt-4 sm:pt-6 pb-6 sm:pb-10 text-center">
       <h3 className="font-extrabold tracking-tight text-[#1F2A44] fluid-h2">{m.name}</h3>
       <p className="mt-1 sm:mt-2 text-[#4A5974] fluid-body">{m.role}</p>
-      <p className="mt-0.5 sm:mt-1 text-[#7B8AA1] fluid-small">{m.discipline}</p>
     </div>
   </article>
 ));
@@ -63,17 +75,58 @@ Card.displayName = 'Card';
 const Team: React.FC = () => {
   const [selected, setSelected] = useState<Discipline | typeof ALL>(ALL);
 
-  const filtered = useMemo(
-    () => (selected === ALL ? members : members.filter((m) => m.discipline === selected)),
-    [selected]
-  );
+  /**
+   * Filter for grid:
+   * - If ALL: start with everyone.
+   * - If a discipline selected: only that discipline.
+   * Then: exclude execs unless they’re leaders (and they must still have a discipline to appear in a grid).
+   */
+  const filtered = useMemo(() => {
+    const base =
+      selected === ALL ? members : members.filter((m) => m.discipline === selected);
 
+    return base.filter((m) => {
+      if (!isExec(m)) return true;
+      // Execs only appear in grids if they are also leaders AND have a discipline
+      return isLeadership(m) && !!m.discipline;
+    });
+  }, [selected]);
+
+  /**
+   * Group by discipline for sections. Members without a discipline are skipped safely.
+   */
   const grouped = useMemo(() => {
-    if (selected !== ALL) return { [selected]: filtered } as Record<string, Member[]>;
-    const groups = { Mechanical: [] as Member[], Electrical: [] as Member[], Software: [] as Member[], Business: [] as Member[] };
-    filtered.forEach((m) => { (groups as any)[m.discipline].push(m); });
-    return groups as Record<Discipline, Member[]>;
+    const emptyGroups: Record<Discipline, Member[]> = {
+      Mechanical: [],
+      Electrical: [],
+      Software: [],
+      Business: [],
+    };
+
+    if (selected !== ALL) {
+      // Single section view — filtered already constrained by discipline
+      const single = filtered.filter((m) => m.discipline === selected);
+      return { ...emptyGroups, [selected]: single } as Record<Discipline, Member[]>;
+    }
+
+    // ALL view — bucket by existing discipline only
+    const groups = { ...emptyGroups };
+    filtered.forEach((m) => {
+      if (!m.discipline) return; // skip unassigned
+      groups[m.discipline].push(m);
+    });
+    return groups;
   }, [filtered, selected]);
+
+  /**
+   * Which sections to render:
+   * - ALL view: only show disciplines that actually have members (prevents empty blocks).
+   * - Single view: just the selected one.
+   */
+  const keysToRender: Discipline[] =
+    selected === ALL
+      ? ORDER.filter((k) => grouped[k]?.length)
+      : [selected as Discipline];
 
   return (
     <div className="animate-fade-in font-sans">
@@ -175,8 +228,8 @@ const Team: React.FC = () => {
         style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 1200px' }}
       >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
-          {(selected === ALL ? ORDER : [selected as Discipline]).map((disciplineName) => {
-            const teamMembers = (grouped as Record<string, Member[]>)[disciplineName] || [];
+          {keysToRender.map((disciplineName) => {
+            const teamMembers = grouped[disciplineName] || [];
             if (!teamMembers.length) return null;
 
             return (

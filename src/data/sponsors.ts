@@ -39,22 +39,14 @@ export const sponsorTiers: Tier[] = [
     textColor: "text-amber-600",
     lineBgColor: "bg-amber-300",
     sponsors: [
-      {
-        name: "SolarMax Industries",
-        logo:
-          "https://images.pexels.com/photos/9875445/pexels-photo-9875445.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop",
-        description: "High-efficiency solar panel manufacturer",
-        website: "https://solarmax.com",
-        partnership: "Solar panel technology and optimization",
-      },
-      {
-        name: "AeroTech Solutions",
-        logo:
-          "https://images.pexels.com/photos/159298/gears-cogs-machine-machinery-159298.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop",
-        description: "Aerodynamic consulting and wind tunnel services",
-        website: "https://aerotech.com",
-        partnership: "Aerodynamic testing and consultation",
-      },
+      // {
+      //   name: "SolarMax Industries",
+      //   logo:
+      //     "https://images.pexels.com/photos/9875445/pexels-photo-9875445.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop",
+      //   description: "High-efficiency solar panel manufacturer",
+      //   website: "https://solarmax.com",
+      //   partnership: "Solar panel technology and optimization",
+      // },
     ],
   },
   {
@@ -69,14 +61,6 @@ export const sponsorTiers: Tier[] = [
         description: "Lightweight composite materials supplier",
         website: "https://www.emsclad.com/",
         partnership: "Carbon fiber and composite materials",
-      },
-      {
-        name: "Future Electronics",
-        logo:
-          "https://images.pexels.com/photos/159201/circuit-circuit-board-resistor-computer-159201.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop",
-        description: "Electronic components and systems",
-        website: "https://futureelectronics.com",
-        partnership: "Electronic components and PCB manufacturing",
       },
     ],
   },

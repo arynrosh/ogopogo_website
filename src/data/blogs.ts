@@ -82,7 +82,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       'November 2nd, 2024 marks a major milestone: the launch of our official website — a central hub for our projects, people, and mission.',
     image: 'https://i.ibb.co/600rv4Cn/we-are-hiring-6.png',
-    date: '2024-11-02',
+    date: '2025-08-18',
     readTime: '5 min read',
     author: 'Ryan Li & Aryan Roshan',
     category: 'Community',

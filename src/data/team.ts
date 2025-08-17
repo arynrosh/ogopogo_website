@@ -5,7 +5,7 @@ export type Discipline = 'Mechanical' | 'Electrical' | 'Software' | 'Business';
 export type Member = {
   name: string;
   role: string;
-  discipline: Discipline;
+  discipline?: Discipline; // optional now
   image: string;
   email?: string;
   linkedin?: string;
@@ -13,31 +13,87 @@ export type Member = {
 
 // Primary team roster
 export const members: Member[] = [
+  // Execs
+  {
+    name: 'Clement Halim',
+    role: 'Founder',
+    image: 'https://i.ibb.co/6b8JfB7/clem.jpg',
+    linkedin: 'https://www.linkedin.com/in/clement-halim',
+    email: '#',
+  },
+  {
+    name: 'Alan Zhu',
+    role: 'Co-Founder',
+    image: 'https://i.ibb.co/TH7RZ4Q/alan.jpgp',
+    linkedin: 'https://www.linkedin.com/in/alanzhu55b972174/',
+    email: 'Alanzhu1122@gmail.com',
+  },
+  {
+    name: 'Aryan Roshan',
+    role: 'Team Captain',
+    image: 'https://i.ibb.co/kgrzzvD/aryan-roshan.jpg',
+    linkedin: 'https://www.linkedin.com/in/arynrosh',
+    email: 'arynrosh@gmail.com',
+  },
+
   // Business
-  { name: 'Clement Halim', role: 'Founder', discipline: 'Business', image: 'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'clement@ogopogosolar.ca' },
-  { name: 'Alex Morrison', role: 'Business & Outreach Manager', discipline: 'Business', image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'alex@ogopogosolar.ca' },
-  { name: 'Sofia Li', role: 'Marketing Lead', discipline: 'Business', image: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'sofia@ogopogosolar.ca' },
-  { name: 'Ryan Brooks', role: 'Sponsorship Coordinator', discipline: 'Business', image: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'ryan@ogopogosolar.ca' },
+  {
+    name: 'Aryan Choudhary',
+    role: 'Finance Lead',
+    discipline: 'Business',
+    image: 'https://i.ibb.co/Ss9gc8w/aryan-c-captain.jpg',
+    linkedin: 'https://www.linkedin.com/in/aryankchoudhary',
+    email: 'Aryan1712@hotmail.com',
+  },
+  {
+    name: 'Jiayi Chen',
+    role: 'Marketing Lead',
+    discipline: 'Business',
+    image: 'https://i.ibb.co/M511Fk2/jiayi.webp',
+    linkedin: 'https://www.linkedin.com/in/jiayi-chen-8800711ba/',
+    email: 'jiayicheen0810@gmail.com',
+  },
 
   // Mechanical
-  { name: 'Aryan Choudhary', role: 'Team Captain', discipline: 'Mechanical', image: 'https://images.pexels.com/photos/3756681/pexels-photo-3756681.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'aryan@ogopogosolar.ca' },
-  { name: 'Emma Thompson', role: 'Aerodynamics Engineer', discipline: 'Mechanical', image: 'https://images.pexels.com/photos/1300402/pexels-photo-1300402.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'emma@ogopogosolar.ca' },
-  { name: 'Liam Patel', role: 'Chassis Designer', discipline: 'Mechanical', image: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'liam@ogopogosolar.ca' },
-  { name: 'Hannah Reed', role: 'Suspension Engineer', discipline: 'Mechanical', image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'hannah@ogopogosolar.ca' },
+  {
+    name: 'Alan Zhu',
+    role: 'Mechanical Lead',
+    discipline: 'Mechanical',
+    image: 'https://i.ibb.co/TH7RZ4Q/alan.jpg',
+    linkedin: 'https://www.linkedin.com/in/alanzhu55b972174/',
+    email: 'Alanzhu1122@gmail.com',
+  },
 
   // Electrical
-  { name: 'Marcus Rodriguez', role: 'Electrical Systems Lead', discipline: 'Electrical', image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'marcus@ogopogosolar.ca' },
-  { name: 'Isabella Green', role: 'Battery Systems Engineer', discipline: 'Electrical', image: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'isabella@ogopogosolar.ca' },
-  { name: 'Noah White', role: 'Power Electronics Specialist', discipline: 'Electrical', image: 'https://images.pexels.com/photos/2379006/pexels-photo-2379006.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'noah@ogopogosolar.ca' },
-  { name: 'Mia Scott', role: 'Solar Array Engineer', discipline: 'Electrical', image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'mia@ogopogosolar.ca' },
+  {
+    name: 'Ran Tao',
+    role: 'Electrical Lead',
+    discipline: 'Electrical',
+    image: 'https://i.ibb.co/1RQdFTn/ran-tao.jpg',
+    linkedin: 'https://www.linkedin.com/in/ran-tao-755bb91a2/',
+    email: 'tao.ran@student.ubc.ca',
+  },
+  {
+    name: 'Ryan Li',
+    role: 'Electrical Co-Lead',
+    discipline: 'Electrical',
+    image: 'https://i.ibb.co/0hTVjkB/ryan.webp',
+    linkedin: 'https://www.linkedin.com/in/ryanduduli',
+    email: 'ryanduduli@gmail.com',
+  },
 
   // Software
-  { name: 'Alan Zhu', role: 'Co-Founder', discipline: 'Software', image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'alan@ogopogosolar.ca' },
-  { name: 'Priya Patel', role: 'Software & Controls Engineer', discipline: 'Software', image: 'https://images.pexels.com/photos/3767411/pexels-photo-3767411.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'priya@ogopogosolar.ca' },
-  { name: 'Ethan James', role: 'Telemetry Developer', discipline: 'Software', image: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop', linkedin: '#', email: 'ethan@ogopogosolar.ca' },
+  {
+    name: 'Aryan Roshan',
+    role: 'Software Lead',
+    discipline: 'Software',
+    image: 'https://i.ibb.co/kgrzzvD/aryan-roshan.jpg',
+    linkedin: 'https://www.linkedin.com/in/arynrosh',
+    email: 'arynrosh@gmail.com',
+  },
 ];
 
-// UI helpers (export if you want to keep this logic centralized)
+// UI helpers
 export const ALL = 'All' as const;
 export const ORDER: Discipline[] = ['Mechanical', 'Electrical', 'Software', 'Business'];
 export const EXEC_ORDER: string[] = ['Founder', 'Co-Founder', 'Team Captain'];
