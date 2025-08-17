@@ -23,16 +23,16 @@ type Project = {
 const projects: Project[] = [
   {
     id: 1,
-    slug: 'solkin',
-    title: 'PROJECT SOLKIN',
-    shortLabel: 'SOLKIN',
+    slug: 'checkpoint',
+    title: "PROJECT 'CHECKPOINT'",
+    shortLabel: 'CHECKPOINT',
     status: 'Planned',
     window: '2025–2027',
     category: 'Prototype / Learning Platform',
     blurb:
-      'Solkin is our minimum-viable, low-cost solar test vehicle. Goal: learn fast, validate core systems, and build credibility for a full race program.',
+      'Checkpoint is our minimum-viable, low-cost solar test vehicle. Goal: learn fast, validate core systems, and build credibility for a full race program.',
     longDescription:
-      'Solkin is the stepping stone to a competitive solar race car. By focusing on a lean, functional prototype, we can validate aerodynamics, power management, battery safety, controls, and integration on real hardware—while creating the media, data, and momentum we need to win grants and sponsorship.',
+      'Checkpoint is the stepping stone to a competitive solar race car. By focusing on a lean, functional prototype, we can validate aerodynamics, power management, battery safety, controls, and integration on real hardware—while creating the media, data, and momentum we need to win grants and sponsorship.',
     objectives: [
       'Build a functional solar-electric test platform',
       'Hands-on learning across mechanical, electrical, and software',
@@ -313,32 +313,34 @@ const Projects: React.FC = () => {
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="py-12 sm:py-16 md:py-20 bg-[#015e37] text-white">
-        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8 text-center">
-          <h2 className="font-bold mb-6 tracking-wide fluid-h1">
-            LIKE <span className="text-[#ffc82e]">WHAT YOU SEE?</span>
-          </h2>
+      {/* FINAL CTA BUBBLE */}
+      <section className="bg-white py-12 sm:py-16 md:py-20">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
+          <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16">
+            <h2 className="font-extrabold leading-tight mb-4 sm:mb-6 fluid-h1">
+              LIKE <span className="text-[#ffc82e]">WHAT YOU SEE?</span>
+            </h2>
 
-          <p className="text-white/85 mb-8 sm:mb-10 max-w-3xl mx-auto fluid-body">
-            Join our team of passionate engineers, designers, and innovators—or power our vision through sponsorship.
-          </p>
+            <p className="text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto fluid-body">
+              Join our team of passionate engineers, designers, and innovators—or power our vision 
+              through sponsorship.
+            </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-            <Link
-              to="/join"
-              className="uppercase tracking-widest font-bold px-8 sm:px-10 py-3.5 sm:py-4 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white/60 fluid-btn"
-              style={{ backgroundColor: '#ffc82e', color: '#FFFFFF' }}
-            >
-              Join Our Team
-            </Link>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+              <Link
+                to="/join"
+                className="inline-flex items-center justify-center rounded-full px-8 sm:px-10 py-3.5 sm:py-4 font-semibold bg-[#ffc82e] text-white shadow-md hover:shadow-lg transition fluid-btn"
+              >
+                JOIN OUR TEAM
+              </Link>
 
-            <Link
-              to="/sponsors"
-              className="uppercase tracking-widest font-bold px-8 sm:px-10 py-3.5 sm:py-4 rounded-full border border-white/30 text-white bg-white/10 backdrop-blur hover:bg-white/15 hover:border-white/50 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/40 fluid-btn"
-            >
-              Sponsorship
-            </Link>
+              <Link
+                to="/sponsors"
+                className="inline-flex items-center justify-center rounded-full px-8 sm:px-10 py-3.5 sm:py-4 font-semibold border border-white/30 text-white bg-white/10 backdrop-blur hover:bg-white/15 hover:border-white/50 transition fluid-btn"
+              >
+                SPONSORSHIP
+              </Link>
+            </div>
           </div>
         </div>
       </section>

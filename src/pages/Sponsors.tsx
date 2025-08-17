@@ -41,13 +41,13 @@ const Sponsors: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <a
-                href="/donate"
+                href="https://gofund.me/210ca0a7"
                 className="inline-flex items-center justify-center rounded-full px-8 py-3.5 font-semibold bg-[#ffc82e] text-white shadow-md hover:shadow-lg transition fluid-btn"
               >
                 DONATIONS
               </a>
               <a
-                href="/sponsorship-package"
+                href="https://drive.google.com/file/d/170FJsR66Nrj7AAkAmwzQ0D0Cfid2Q44d/preview"
                 className="inline-flex items-center justify-center rounded-full px-8 py-3.5 font-semibold bg-[#ffc82e] text-white shadow-md hover:shadow-lg transition fluid-btn"
               >
                 SPONSORSHIP PACKAGE

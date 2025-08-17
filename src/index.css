@@ -88,3 +88,11 @@ img { max-width: 100%; height: auto; }
   .marquee-track { animation-duration: 14s; }
 }
 .marquee-paused { animation-play-state: paused; }
+
+
+/* Optional: site-wide blog prose tuning */
+.prose-news :where(p){ margin-top:1rem; margin-bottom:1rem; line-height:1.85; }
+.prose-news :where(li){ margin-top:.35rem; margin-bottom:.35rem; }
+.prose-news :where(h2){ margin-top:2.25rem; margin-bottom:.75rem; }
+.prose-news :where(h3){ margin-top:1.5rem; margin-bottom:.5rem; }
+.prose-news :where(hr){ margin-top:2rem; margin-bottom:2rem; }

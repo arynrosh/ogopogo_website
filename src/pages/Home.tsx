@@ -291,27 +291,25 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-12 sm:py-16 md:py-20 text-white" style={{ backgroundColor: '#015e37' }}>
-        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8 text-center">
-          <h2 className="font-bold mb-4 sm:mb-6 tracking-wide fluid-cta">
-            READY TO SHAPE THE <span className="text-[#ffc82e]">FUTURE?</span>
-          </h2>
-
-          <p className="text-white/85 mb-8 sm:mb-10 max-w-3xl mx-auto fluid-body">
-            Join our team of passionate engineers, designers, and innovators as we race toward
-            a sustainable tomorrow. Every skill has a place in our mission.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-            <Link
-              to="/join"
-              onClick={smoothNavigate('/join')}
-              className="uppercase tracking-widest font-bold px-8 sm:px-10 py-3.5 sm:py-4 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white/60 fluid-btn"
-              style={{ backgroundColor: '#ffc82e', color: '#FFFFFF' }}
-            >
-              Join Our Team
-            </Link>
+      {/* CTA BUBBLE */}
+      <section className="bg-white py-12 sm:py-16 md:py-20">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
+          <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16">
+            <h2 className="font-extrabold leading-tight mb-4 md:mb-6 fluid-h1">
+              READY TO SHAPE THE <span className="text-[#ffc82e]">FUTURE?</span>
+            </h2>
+            <p className="text-white/90 max-w-3xl mx-auto mb-6 md:mb-8 fluid-body">
+              Join our team of passionate engineers, designers, and innovators as we race
+              toward a sustainable tomorrow. Every skill has a place in our mission.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <a
+                href="/join"
+                className="inline-flex items-center justify-center rounded-full px-8 py-3.5 font-semibold bg-[#ffc82e] text-white shadow-md hover:shadow-lg transition fluid-btn"
+              >
+                JOIN OUR TEAM
+              </a>
+            </div>
           </div>
         </div>
       </section>

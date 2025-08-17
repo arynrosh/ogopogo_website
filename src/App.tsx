@@ -56,6 +56,10 @@ function App() {
             outerAlpha={0.3}
             innerScale={1}
             outerScale={2}
+            // Keep the custom cursor above any portals/modals
+            innerStyle={{ zIndex: 999999 }}
+            outerStyle={{ zIndex: 999999 }}
+            // Treat these as click targets for hover/press effects
             clickables={[
               'a',
               'button',
@@ -64,6 +68,9 @@ function App() {
               'textarea',
               'select',
               '.custom-clickable',
+              // our blog cards + modal surface
+              '.blog-card',
+              '.modal-surface'
             ]}
           />
         )}
