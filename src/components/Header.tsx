@@ -56,21 +56,18 @@ const Header: React.FC = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   const isActive = (path: string) => location.pathname === path;
 
+  // Opaque when scrolled (cheap to paint), transparent when at top (no blur)
   const headerClass = [
-    'fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-sans',
-    'bg-[#004126] shadow-lg',
-    isScrolled
-      ? 'md:bg-[#004126] md:backdrop-blur-md md:shadow-lg'
-      : 'md:bg-transparent md:shadow-none md:backdrop-blur-0',
+    'fixed top-0 left-0 right-0 z-50 transition-colors duration-300 font-sans',
+    isScrolled ? 'bg-[#004126] shadow-lg' : 'bg-transparent',
   ].join(' ');
 
   const linkBase = 'text-white hover:text-[#ffc82e]';
   const linkActive = 'text-[#ffc82e] border-b-2 border-[#ffc82e]';
 
-  const dropdownShell = isScrolled
-    ? 'bg-[#004126] border-[#00331E]'
-    : 'bg-white/10 backdrop-blur-xl border-white/20';
-  const dropdownItemHover = isScrolled ? 'hover:bg-[#00331E]' : 'hover:bg-white/10';
+  // Remove backdrop-blur entirely (expensive). Keep opaque shells for menu.
+  const dropdownShell = 'bg-[#004126] bg-opacity-95 border-[#00331E]';
+  const dropdownItemHover = 'hover:bg-[#00331E]';
 
   const openAboutNow = () => {
     if (closeTimer.current) {
@@ -94,6 +91,8 @@ const Header: React.FC = () => {
               src="https://i.ibb.co/CQBPt1C/ogopogo-logo.webp"
               alt="Ogopogo Solar Logo"
               className="h-10 w-auto"
+              loading="lazy"
+              decoding="async"
             />
             <span className="uppercase tracking-widest text-base sm:text-lg text-[#ffc82e] whitespace-nowrap">
               OGOPOGO SOLAR
@@ -106,7 +105,7 @@ const Header: React.FC = () => {
           <Link
             to="/"
             onClick={scrollToTop}
-            className={`uppercase tracking-widest transition-all duration-300 hover:scale-105 ${
+            className={`uppercase tracking-widest transition-transform duration-150 hover:scale-105 ${
               isActive('/') ? linkActive : linkBase
             } pb-1`}
           >
@@ -123,7 +122,7 @@ const Header: React.FC = () => {
             <button
               aria-haspopup="menu"
               aria-expanded={aboutOpen}
-              className={`uppercase tracking-widest transition-all duration-300 hover:scale-105 flex items-center gap-1 pb-1 ${
+              className={`uppercase tracking-widest transition-transform duration-150 hover:scale-105 flex items-center gap-1 pb-1 ${
                 location.pathname.startsWith('/about') ||
                 location.pathname.startsWith('/team') ||
                 location.pathname.startsWith('/projects')
@@ -136,6 +135,7 @@ const Header: React.FC = () => {
               <ChevronDown className="h-4 w-4" />
             </button>
 
+            {/* Hover gap catcher */}
             <div className="absolute left-1/2 -translate-x-1/2 top-full w-48 h-3" />
 
             <div
@@ -173,7 +173,7 @@ const Header: React.FC = () => {
                 key={item.name}
                 to={item.path}
                 onClick={scrollToTop}
-                className={`uppercase tracking-widest transition-all duration-300 hover:scale-105 ${
+                className={`uppercase tracking-widest transition-transform duration-150 hover:scale-105 ${
                   isActive(item.path) ? linkActive : linkBase
                 } pb-1`}
               >
@@ -187,7 +187,7 @@ const Header: React.FC = () => {
           <Link
             to="/join"
             onClick={scrollToTop}
-            className="uppercase tracking-widest px-6 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+            className="uppercase tracking-widest px-6 py-2.5 rounded-full transition-transform duration-150 hover:shadow-lg hover:scale-105"
             style={{ backgroundColor: '#ffc82e', color: '#FFFFFF' }}
           >
             JOIN US!
@@ -210,7 +210,10 @@ const Header: React.FC = () => {
           <nav className="px-4 py-6 space-y-2">
             <Link
               to="/"
-              onClick={() => { scrollToTop(); setIsMenuOpen(false); }}
+              onClick={() => {
+                scrollToTop();
+                setIsMenuOpen(false);
+              }}
               className={`block font-bold uppercase tracking-widest py-2 px-2 rounded-md ${
                 isActive('/') ? 'text-[#ffc82e] bg-white/5' : 'text-white hover:bg-white/10'
               }`}
@@ -237,7 +240,10 @@ const Header: React.FC = () => {
                   <Link
                     key={link.to}
                     to={link.to}
-                    onClick={() => { scrollToTop(); setIsMenuOpen(false); }}
+                    onClick={() => {
+                      scrollToTop();
+                      setIsMenuOpen(false);
+                    }}
                     className="block text-[#ffc82e] py-2 px-2 hover:bg-white/10 rounded"
                   >
                     {link.label}
@@ -252,7 +258,10 @@ const Header: React.FC = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  onClick={() => { scrollToTop(); setIsMenuOpen(false); }}
+                  onClick={() => {
+                    scrollToTop();
+                    setIsMenuOpen(false);
+                  }}
                   className={`block font-bold uppercase tracking-widest py-2 px-2 rounded-md ${
                     isActive(item.path) ? 'text-[#ffc82e] bg-white/5' : 'text-white hover:bg-white/10'
                   }`}
@@ -263,8 +272,11 @@ const Header: React.FC = () => {
 
             <Link
               to="/join"
-              onClick={() => { scrollToTop(); setIsMenuOpen(false); }}
-              className="mt-4 block text-center font-bold uppercase tracking-widest px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg"
+              onClick={() => {
+                scrollToTop();
+                setIsMenuOpen(false);
+              }}
+              className="mt-4 block text-center font-bold uppercase tracking-widest px-6 py-3 rounded-full transition-transform duration-150 hover:shadow-lg hover:scale-105"
               style={{ backgroundColor: '#ffc82e', color: '#FFFFFF' }}
             >
               Join Us

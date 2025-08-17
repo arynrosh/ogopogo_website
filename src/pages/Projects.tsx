@@ -1,5 +1,5 @@
 // src/pages/Projects.tsx
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, Zap, Gauge, Battery, Wind } from 'lucide-react';
 import Hero from '../components/Hero';
@@ -101,13 +101,15 @@ const Projects: React.FC = () => {
     if (key.includes('speed')) return Gauge;
     if (key.includes('aero') || key.includes('drag')) return Wind;
     return Zap;
-    };
+  };
 
   return (
     <div className="animate-fade-in font-sans">
-      {/* HERO */}
+      {/* HERO (priority for LCP) */}
       <Hero
         backgroundImage="https://i.ibb.co/6kCyq9G/Get-Paid-Stock-com-6898dc43db62c.jpg"
+        sizes="100vw"
+        priority
         title={
           <div className="flex flex-col justify-center items-center min-h-screen px-4">
             <h2 className="text-center leading-[0.88] tracking-tight balance">
@@ -124,7 +126,10 @@ const Projects: React.FC = () => {
       />
 
       {/* OVERVIEW BUBBLE + PROJECT SELECTOR */}
-      <section className="bg-white py-12 sm:py-16 md:py-20">
+      <section
+        className="bg-white py-12 sm:py-16 md:py-20 content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 560px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-[#015e37] text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16 text-center">
             <h2 className="font-extrabold leading-tight mb-4 fluid-h1">
@@ -141,10 +146,10 @@ const Projects: React.FC = () => {
                   <button
                     key={p.id}
                     onClick={() => setActiveIndex(i)}
-                    className={`px-6 sm:px-7 py-3 rounded-full font-semibold uppercase transition-all whitespace-nowrap fluid-btn ${
+                    className={`px-6 sm:px-7 py-3 rounded-full font-semibold uppercase transition-transform duration-150 whitespace-nowrap fluid-btn ${
                       i === activeIndex
                         ? 'bg-[#ffc82e] text-white shadow-lg'
-                        : 'bg-white/10 text-white border border-white/20 hover:bg-white/15'
+                        : 'bg-white/10 text-white border border-white/20 hover:scale-105'
                     }`}
                   >
                     {p.shortLabel}
@@ -157,7 +162,10 @@ const Projects: React.FC = () => {
       </section>
 
       {/* ACTIVE PROJECT DETAIL */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section
+        className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 1200px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
             {/* Header */}
@@ -243,7 +251,10 @@ const Projects: React.FC = () => {
       </section>
 
       {/* TIMELINE */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white">
+      <section
+        className="py-12 sm:py-16 md:py-20 bg-white content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 1100px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="text-center mb-10 md:mb-14">
             <h2 className="font-bold text-dark-900 mb-3 sm:mb-4 fluid-h1">
@@ -285,7 +296,7 @@ const Projects: React.FC = () => {
               {active.timeline.map((ph, idx) => (
                 <div key={ph.name} className={`flex items-center ${idx % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
                   <div className={`w-1/2 ${idx % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                    <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-transform duration-150 hover:scale-[1.01]">
                       <div className={`flex items-center gap-2 text-dark-500 mb-1 fluid-small ${idx % 2 === 0 ? 'justify-end' : 'justify-start'}`}>
                         <span className="inline-flex items-center gap-2">
                           <Calendar className="h-4 w-4" />
@@ -314,7 +325,10 @@ const Projects: React.FC = () => {
       </section>
 
       {/* FINAL CTA BUBBLE */}
-      <section className="bg-white py-12 sm:py-16 md:py-20">
+      <section
+        className="bg-white py-12 sm:py-16 md:py-20 content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 520px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16">
             <h2 className="font-extrabold leading-tight mb-4 sm:mb-6 fluid-h1">
@@ -322,7 +336,7 @@ const Projects: React.FC = () => {
             </h2>
 
             <p className="text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto fluid-body">
-              Join our team of passionate engineers, designers, and innovators—or power our vision 
+              Join our team of passionate engineers, designers, and innovators—or power our vision
               through sponsorship.
             </p>
 
@@ -334,9 +348,10 @@ const Projects: React.FC = () => {
                 JOIN OUR TEAM
               </Link>
 
+              {/* Removed backdrop-blur for cheaper paints; kept translucent look */}
               <Link
                 to="/sponsors"
-                className="inline-flex items-center justify-center rounded-full px-8 sm:px-10 py-3.5 sm:py-4 font-semibold border border-white/30 text-white bg-white/10 backdrop-blur hover:bg-white/15 hover:border-white/50 transition fluid-btn"
+                className="inline-flex items-center justify-center rounded-full px-8 sm:px-10 py-3.5 sm:py-4 font-semibold border border-white/30 text-white bg-white/10 hover:bg-white/15 transition fluid-btn"
               >
                 SPONSORSHIP
               </Link>
@@ -348,4 +363,4 @@ const Projects: React.FC = () => {
   );
 };
 
-export default Projects;
+export default memo(Projects);

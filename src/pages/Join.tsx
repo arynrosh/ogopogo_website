@@ -88,6 +88,7 @@ const PositionCard: React.FC<PositionCardProps> = ({ pos, index, openIndex, setO
         className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
           isOpen ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0'
         }`}
+        style={{ willChange: 'opacity' }}
       >
         {/* only add vertical padding when open to avoid visual gap */}
         <div className={`px-6 ${isOpen ? 'pt-4 pb-6' : 'pb-0'}`}>
@@ -112,9 +113,11 @@ const Join: React.FC = () => {
 
   return (
     <div className="animate-fade-in font-sans">
-      {/* HERO */}
+      {/* HERO (priority for LCP) */}
       <Hero
         backgroundImage="https://i.ibb.co/DD639Dqb/Get-Paid-Stock-com-6898bdff1e402.jpg"
+        sizes="100vw"
+        priority
         title={
           <div className="flex flex-col justify-center items-center min-h-screen px-4">
             <h2 className="text-center leading-[0.88] tracking-tight balance">
@@ -129,7 +132,10 @@ const Join: React.FC = () => {
       />
 
       {/* Intro bubble */}
-      <section className="bg-white py-12 sm:py-16 md:py-20">
+      <section
+        className="bg-white py-12 sm:py-16 md:py-20 content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 360px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-[#015e37] text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16 flex flex-col items-center justify-center text-center">
             <h2 className="font-extrabold leading-tight mb-4 sm:mb-6 fluid-h1">
@@ -143,7 +149,10 @@ const Join: React.FC = () => {
       </section>
 
       {/* Open Positions (2×2; odd last centered) */}
-      <section className="py-12 sm:py-16 bg-white">
+      <section
+        className="py-12 sm:py-16 bg-white content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 1000px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="mb-6 sm:mb-8">
             <h2 className="font-extrabold text-[#1F2A44] fluid-h1">OPEN POSITIONS</h2>
@@ -189,7 +198,10 @@ const Join: React.FC = () => {
       </section>
 
       {/* Split view */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section
+        className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 760px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="grid md:grid-cols-5 gap-6 md:gap-8 items-stretch">
             <div className="md:col-span-2 rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 shadow-lg">

@@ -1,5 +1,5 @@
 // src/pages/Team.tsx
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, memo } from 'react';
 import { Linkedin, Mail } from 'lucide-react';
 import Hero from '../components/Hero';
 import {
@@ -16,7 +16,7 @@ const execs: Member[] = members
   .filter((m) => EXEC_ORDER.includes(m.role))
   .sort((a, b) => EXEC_ORDER.indexOf(a.role) - EXEC_ORDER.indexOf(b.role));
 
-const Card: React.FC<{ member: Member }> = ({ member: m }) => (
+const Card: React.FC<{ member: Member }> = memo(({ member: m }) => (
   <article className="rounded-[32px] bg-white shadow-xl ring-1 ring-black/5 hover:shadow-2xl transition-all duration-300 overflow-hidden">
     <div className="p-4 sm:p-6 pb-0">
       <div className="relative rounded-[28px] overflow-hidden">
@@ -33,7 +33,7 @@ const Card: React.FC<{ member: Member }> = ({ member: m }) => (
               href={m.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-md bg-black/50 text-white hover:bg-black/60 backdrop-blur-sm"
+              className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-md bg-black/60 text-white hover:bg-black/70"
               aria-label={`${m.name} on LinkedIn`}
             >
               <Linkedin className="h-4 w-4" />
@@ -42,7 +42,7 @@ const Card: React.FC<{ member: Member }> = ({ member: m }) => (
           {m.email && (
             <a
               href={`mailto:${m.email}`}
-              className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-md bg-black/50 text-white hover:bg-black/60 backdrop-blur-sm"
+              className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-md bg-black/60 text-white hover:bg-black/70"
               aria-label={`Email ${m.name}`}
             >
               <Mail className="h-4 w-4" />
@@ -57,7 +57,8 @@ const Card: React.FC<{ member: Member }> = ({ member: m }) => (
       <p className="mt-0.5 sm:mt-1 text-[#7B8AA1] fluid-small">{m.discipline}</p>
     </div>
   </article>
-);
+));
+Card.displayName = 'Card';
 
 const Team: React.FC = () => {
   const [selected, setSelected] = useState<Discipline | typeof ALL>(ALL);
@@ -76,9 +77,11 @@ const Team: React.FC = () => {
 
   return (
     <div className="animate-fade-in font-sans">
-      {/* Hero */}
+      {/* Hero (priority for LCP) */}
       <Hero
         backgroundImage="https://i.ibb.co/n8sd4xZp/solar-web.jpg"
+        sizes="100vw"
+        priority
         title={
           <div className="flex flex-col justify-center items-center min-h-screen px-4">
             <h2 className="text-center leading-[0.88] tracking-tight balance">
@@ -93,7 +96,10 @@ const Team: React.FC = () => {
       />
 
       {/* Green bubble */}
-      <section className="bg-white py-12 sm:py-16 md:py-20">
+      <section
+        className="bg-white py-12 sm:py-16 md:py-20 content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 420px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-[#015e37] text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16 flex flex-col items-center justify-center text-center">
             <h2 className="font-extrabold leading-tight mb-4 md:mb-6 fluid-h1">
@@ -110,7 +116,10 @@ const Team: React.FC = () => {
       </section>
 
       {/* Executive Committee */}
-      <section className="bg-white">
+      <section
+        className="bg-white content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 720px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8 py-10 sm:py-12">
           <h2 className="text-center mb-6 md:mb-10">
             <span className="font-extrabold text-[#1F2A44] border-b-4 border-[#ffc82e] pb-2 inline-block fluid-h1">
@@ -137,7 +146,10 @@ const Team: React.FC = () => {
       </section>
 
       {/* Filter */}
-      <section className="bg-white border-b">
+      <section
+        className="bg-white border-b content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 180px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8 py-8">
           <div className="-mx-4 md:mx-0 px-4 md:px-0">
             <div className="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 overflow-x-auto no-scrollbar">
@@ -145,8 +157,8 @@ const Team: React.FC = () => {
                 <button
                   key={label}
                   onClick={() => setSelected(value)}
-                  className={`px-4 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap fluid-btn ${
-                    selected === value ? 'bg-[#ffc82e] text-white shadow-lg' : 'bg-gray-100 text-dark-700 hover:bg-gray-200'
+                  className={`px-4 py-2 rounded-full font-medium transition-transform duration-150 whitespace-nowrap fluid-btn ${
+                    selected === value ? 'bg-[#ffc82e] text-white shadow-lg' : 'bg-gray-100 text-dark-700 hover:scale-105'
                   }`}
                 >
                   {label}
@@ -158,7 +170,10 @@ const Team: React.FC = () => {
       </section>
 
       {/* Team Sections */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white">
+      <section
+        className="py-12 sm:py-16 md:py-20 bg-white content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 1200px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           {(selected === ALL ? ORDER : [selected as Discipline]).map((disciplineName) => {
             const teamMembers = (grouped as Record<string, Member[]>)[disciplineName] || [];

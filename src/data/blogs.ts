@@ -80,7 +80,7 @@ export const blogPosts: BlogPost[] = [
     id: 4,
     title: 'Ogopogo Solar Launches Its Website: A New Digital Chapter',
     excerpt:
-      'We’re proud to announce the launch of our new website — a central hub for our projects, people, and mission.',
+      'November 2nd, 2024 marks a major milestone: the launch of our official website — a central hub for our projects, people, and mission.',
     image: 'https://i.ibb.co/600rv4Cn/we-are-hiring-6.png',
     date: '2024-11-02',
     readTime: '5 min read',
@@ -88,22 +88,44 @@ export const blogPosts: BlogPost[] = [
     category: 'Community',
     tags: ['Website', 'Team', 'Announcement'],
     contentBlocks: [
-      { type: 'p', text: 'November 2nd, 2024 marked a milestone for Ogopogo Solar.' },
-      { type: 'p', text: 'Just over a year since our founding, we’ve launched our very own website — a vision long in the making that is now reality.' },
-      { type: 'p', text: 'The journey wasn’t without challenges. Our software leads, Ryan Li and Aryan Roshan, navigated debugging headaches and scheduling delays to bring this platform online.' },
-      { type: 'h3', text: 'What You’ll Find on the Website' },
-      { type: 'ul', items: [
-        'Project Showcase: updates on engineering approaches, designs, and goals.',
-        'Team Spotlights: profiles of the people who make Ogopogo Solar possible.',
-        'Event Updates: races, workshops, and community outreach.',
-        'Blog & News: stories, milestones, and competition insights.',
-        'Join Us: ways to get involved and contribute.',
-      ]},
-      { type: 'p', text: 'With this launch, we’re building a stronger community around solar technology.' },
-      { type: 'p', text: 'Explore our projects, connect with our team, and join us as we drive toward a cleaner tomorrow.' },
-      { type: 'quote', text: 'Welcome to Ogopogo Solar — where every visit supports a brighter, cleaner future!' },
-    ],
-  },
+      {
+        type: 'p',
+        text:
+          'November 2nd, 2024, marks an exciting milestone for Ogopogo Solar. Just over a year since its inauguration, Ogopogo Solar proudly launched its very own website — a vision that was long in the making but is now a reality.'
+      },
+      {
+        type: 'p',
+        text:
+          'The journey to bring this project online wasn’t without its challenges. Our software leads, Ryan Li and Aryan Roshan, overcame numerous hurdles — from debugging complex syntax errors to navigating scheduling delays — to make this online presence possible.'
+      },
+      {
+        type: 'p',
+        text:
+          'The launch of our website represents more than just a digital home; it’s a powerful platform that allows us to share our work, goals, and mission with a wider audience. Our website is designed as a central hub for anyone interested in solar car technology, sustainability, and the mission of Ogopogo Solar. Here’s a glimpse of what you can explore:'
+      },
+      { type: 'h3', text: 'What You Can Explore' },
+      {
+        type: 'ul',
+        items: [
+          'Project Showcase — Discover the latest on our solar car projects, with insights into our engineering approaches, designs, and ambitious goals.',
+          'Team Spotlights — Meet the talented individuals behind Ogopogo Solar and learn about the roles they play in bringing our projects to life.',
+          'Event Updates — Stay informed about upcoming races, workshops, and community outreach initiatives that promote renewable energy.',
+          'Blog & News — Read about our milestones, explore solar technology topics, and catch up on competition updates.',
+          'Join Us — Passionate about renewable energy and innovation? Find out how you can get involved and be part of our journey.'
+        ]
+      },
+      {
+        type: 'p',
+        text:
+          'With our website launch, we’re excited to build a stronger community around sustainable energy and solar technology. Dive into our projects, connect with our team, and be part of our drive toward a greener tomorrow.'
+      },
+      {
+        type: 'quote',
+        text:
+          'Welcome to Ogopogo Solar — where every visit supports a brighter, cleaner future!'
+      }
+    ]
+  }
 ];
 
 export const blogCategories = ['Engineering', 'Competition', 'Team', 'Community', 'Partnerships'] as const;

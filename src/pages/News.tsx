@@ -78,10 +78,12 @@ const News: React.FC = () => {
   };
 
   return (
-    <div className="animate-fade-in font-sans">
-      {/* HERO */}
+    <div className="animate-fade-in font-sans custom-cursor">
+      {/* HERO (priority for LCP) */}
       <Hero
         backgroundImage="https://i.ibb.co/B5CGFzsV/Get-Paid-Stock-com-6898dccd36be1.jpg"
+        sizes="100vw"
+        priority
         title={
           <div className="flex flex-col justify-center items-center min-h-[100svh] px-4">
             <h2 className="text-center leading-[0.88] tracking-tight balance">
@@ -107,6 +109,7 @@ const News: React.FC = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors fluid-body"
+                aria-label="Search blog posts"
               />
             </div>
 
@@ -121,6 +124,7 @@ const News: React.FC = () => {
                         ? 'bg-[#ffc82e] text-white shadow-lg'
                         : 'bg-gray-100 text-dark-700 hover:bg-gray-200'
                     }`}
+                    aria-pressed={selectedCategory === category}
                   >
                     {category}
                   </button>
@@ -132,7 +136,10 @@ const News: React.FC = () => {
       </section>
 
       {/* POSTS */}
-      <section className="pt-20 sm:pt-20 md:pt-20 bg-gradient-to-br from-gray-50 to-white">
+      <section
+        className="pt-20 sm:pt-20 md:pt-20 bg-gradient-to-br from-gray-50 to-white content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 1400px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           {Object.keys(groupedByYear).length === 0 ? (
             <p className="text-center text-gray-600 fluid-body">No posts match your filters.</p>
@@ -155,11 +162,12 @@ const News: React.FC = () => {
                       onClick={() => openFromCard(post)}
                       onKeyDown={(e) => onCardKeyDown(e, post)}
                       className="
-                        blog-card cursor-none
+                        blog-card
                         group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden
                         focus:outline-none focus-visible:ring-2 focus-visible:ring-[#015e37]/40
                       "
                       style={{ animationDelay: `${idx * 0.05}s` }}
+                      aria-label={`Open post: ${post.title}`}
                     >
                       <div className="relative w-full overflow-hidden">
                         <div className="w-full aspect-[16/9]">
@@ -167,6 +175,7 @@ const News: React.FC = () => {
                             src={post.image}
                             alt={post.title}
                             loading="lazy"
+                            decoding="async"
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                           />
                         </div>
@@ -181,7 +190,7 @@ const News: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="p-6">
+                      <div className="p-6 cursor-none">
                         <div className="flex items-center text-dark-500 mb-3 gap-4 fluid-small">
                           <div className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />
@@ -201,7 +210,6 @@ const News: React.FC = () => {
                           {post.excerpt}
                         </p>
 
-                        {/* author row only (no Read More button) */}
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             <User className="h-4 w-4 text-dark-400" />
@@ -229,8 +237,12 @@ const News: React.FC = () => {
           )}
         </div>
       </section>
+
       {/* NEWSLETTER */}
-      <section className="bg-white pb-20 sm:pb-20 md:pb-20">
+      <section
+        className="bg-white pb-20 sm:pb-20 md:pb-20 content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 420px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4 md:mb-6">
@@ -245,6 +257,7 @@ const News: React.FC = () => {
                   type="email"
                   placeholder="Enter your email"
                   className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-[#ffc82e] focus:border-[#ffc82e] transition-colors text-white placeholder-gray-300"
+                  aria-label="Email address"
                 />
                 <button className="inline-flex items-center justify-center rounded-full px-8 py-3.5 text-lg font-semibold bg-[#ffc82e] text-white shadow-md hover:shadow-lg transition">
                   SUBSCRIBE
@@ -258,14 +271,16 @@ const News: React.FC = () => {
         </div>
       </section>
 
-      {/* Reader Modal */}
+      {/* MODAL (custom cursor active inside too) */}
       {activePost && (
-        <BlogReaderModal
-          post={activePost}
-          onClose={() => setActivePost(null)}
-          getCategoryColor={getCategoryColor}
-          formatDate={formatDate}
-        />
+        <div className="custom-cursor">
+          <BlogReaderModal
+            post={activePost}
+            onClose={() => setActivePost(null)}
+            getCategoryColor={getCategoryColor}
+            formatDate={formatDate}
+          />
+        </div>
       )}
     </div>
   );

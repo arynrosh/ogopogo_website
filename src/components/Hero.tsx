@@ -1,8 +1,15 @@
 // src/components/Hero.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 
 interface HeroProps {
   backgroundImage: string;
+  /** Optional responsive sources (e.g., "hero-800.avif 800w, hero-1600.avif 1600w") */
+  srcSet?: string;
+  /** Sizes hint for responsive images; default covers full-bleed hero */
+  sizes?: string;
+  /** Mark this hero image as high priority for LCP (default: true) */
+  priority?: boolean;
+
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   overlayOpacity?: string; // e.g., 'bg-black/50'
@@ -15,6 +22,9 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({
   backgroundImage,
+  srcSet,
+  sizes = '100vw',
+  priority = true,
   title,
   subtitle,
   overlayOpacity = 'bg-black/50',
@@ -27,7 +37,7 @@ const Hero: React.FC<HeroProps> = ({
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
     setVH();
-    window.addEventListener('resize', setVH);
+    window.addEventListener('resize', setVH, { passive: true });
     window.addEventListener('orientationchange', setVH);
     return () => {
       window.removeEventListener('resize', setVH);
@@ -41,8 +51,7 @@ const Hero: React.FC<HeroProps> = ({
       // Use the custom var; fall back to modern dvh/svh, then vh.
       style={{
         minHeight: 'calc(var(--vh, 1vh) * 100)',
-        // Safety net for browsers supporting the new units
-        // @ts-expect-error — CSS supports these even if TS doesn't know the tokens
+        // @ts-expect-error modern viewport units (some TS configs don't know these tokens)
         minHeightFallback: '100dvh',
       }}
     >
@@ -50,9 +59,18 @@ const Hero: React.FC<HeroProps> = ({
       <div className="absolute inset-0 z-0">
         <img
           src={backgroundImage}
-          alt=""
+          alt="" // decorative
           className="w-full h-full object-cover"
           style={{ objectPosition: focus }}
+          // Performance / LCP hints:
+          // Only set loading="lazy" when *not* priority, otherwise keep it eager.
+          {...(!priority ? { loading: 'lazy' as const } : {})}
+          decoding="async"
+          // fetchPriority is a strong LCP hint for Chrome-based browsers
+          // (ignored elsewhere, safe to include)
+          fetchPriority={priority ? 'high' : 'auto'}
+          // Responsive sources if provided
+          {...(srcSet ? { srcSet, sizes } : {})}
         />
         <div className={`absolute inset-0 ${overlayOpacity}`} />
       </div>
@@ -76,4 +94,4 @@ const Hero: React.FC<HeroProps> = ({
   );
 };
 
-export default Hero;
+export default memo(Hero);

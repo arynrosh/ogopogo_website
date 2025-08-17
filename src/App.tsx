@@ -1,16 +1,18 @@
 // src/App.tsx
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import AnimatedCursor from 'react-animated-cursor';
 import SocialWidget from './components/SocialWidget';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import Home from './pages/Home';
-import About from './pages/About';
-import Projects from './pages/Projects';
-import Team from './pages/Team';
-import Sponsors from './pages/Sponsors';
-import News from './pages/News';
-import Join from './pages/Join';
+
+// === Lazy-loaded routes (code-splitting) ===
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Projects = lazy(() => import('./pages/Projects'));
+const Team = lazy(() => import('./pages/Team'));
+const Sponsors = lazy(() => import('./pages/Sponsors'));
+const News = lazy(() => import('./pages/News'));
+const Join = lazy(() => import('./pages/Join'));
 
 // Hook: only show cursor on desktop (>=1180px) AND fine pointer (i.e., a mouse)
 function useIsDesktop() {
@@ -40,22 +42,37 @@ function useIsDesktop() {
   return isDesktop;
 }
 
+// Hook: respect reduced motion
+function usePrefersReducedMotion() {
+  const [prefers, setPrefers] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onChange = () => setPrefers(mq.matches);
+    onChange();
+    mq.addEventListener?.('change', onChange);
+    return () => mq.removeEventListener?.('change', onChange);
+  }, []);
+  return prefers;
+}
+
 function App() {
   const isDesktop = useIsDesktop();
+  const reducedMotion = usePrefersReducedMotion();
 
   return (
     <Router>
       {/* Page scaffold: ensures content fills the viewport; footer sits flush at bottom */}
       <div className="flex min-h-screen flex-col">
-        {/* Desktop-only custom cursor */}
-        {isDesktop && (
+        {/* Desktop-only custom cursor, disabled if user prefers reduced motion */}
+        {isDesktop && !reducedMotion && (
           <AnimatedCursor
-            innerSize={8}
-            outerSize={35}
-            color="255, 200, 46"   // Ogopogo Solar yellow
-            outerAlpha={0.3}
-            innerScale={1}
-            outerScale={2}
+            innerSize={6}
+            outerSize={28}
+            color="255, 200, 46"     // Ogopogo Solar yellow
+            outerAlpha={0.28}
+            innerScale={0.9}
+            outerScale={1.6}
             // Keep the custom cursor above any portals/modals
             innerStyle={{ zIndex: 999999 }}
             outerStyle={{ zIndex: 999999 }}
@@ -68,26 +85,29 @@ function App() {
               'textarea',
               'select',
               '.custom-clickable',
-              // our blog cards + modal surface
+              // blog cards + modal surface
               '.blog-card',
-              '.modal-surface'
+              '.modal-surface',
             ]}
+            trailingSpeed={6} // lighter workload
           />
         )}
 
         {/* Routes fill remaining space; Layout should render <main className="flex-grow"> internally */}
         <div className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="about" element={<About />} />
-              <Route path="projects" element={<Projects />} />
-              <Route path="team" element={<Team />} />
-              <Route path="sponsors" element={<Sponsors />} />
-              <Route path="news" element={<News />} />
-              <Route path="join" element={<Join />} />
-            </Route>
-          </Routes>
+          <Suspense fallback={<div className="p-8 text-white">Loading…</div>}>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="projects" element={<Projects />} />
+                <Route path="team" element={<Team />} />
+                <Route path="sponsors" element={<Sponsors />} />
+                <Route path="news" element={<News />} />
+                <Route path="join" element={<Join />} />
+              </Route>
+            </Routes>
+          </Suspense>
         </div>
 
         {/* Fixed/overlay widget (doesn't affect layout height) */}

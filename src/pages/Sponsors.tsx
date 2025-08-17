@@ -8,9 +8,11 @@ const logoHeight = 'h-40 sm:h-48 md:h-56'; // one consistent size for ALL logos
 const Sponsors: React.FC = () => {
   return (
     <div className="animate-fade-in font-sans">
-      {/* HERO */}
+      {/* HERO (priority for LCP) */}
       <Hero
         backgroundImage="https://i.ibb.co/Vc40mxZM/Get-Paid-Stock-com-6898b8c59c166.jpg"
+        sizes="100vw"
+        priority
         title={
           <div className="flex flex-col justify-center items-center min-h-screen px-4">
             <h2 className="text-center leading-[0.88] tracking-tight balance">
@@ -30,7 +32,10 @@ const Sponsors: React.FC = () => {
       />
 
       {/* CTA BUBBLE */}
-      <section className="bg-white py-12 sm:py-16 md:py-20">
+      <section
+        className="bg-white py-12 sm:py-16 md:py-20 content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 420px' }}
+      >
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-8">
           <div className="bg-[#015e37] text-center text-white rounded-[32px] shadow-xl p-8 sm:p-12 md:p-16">
             <h2 className="font-extrabold leading-tight mb-4 md:mb-6 fluid-h1">
@@ -42,12 +47,16 @@ const Sponsors: React.FC = () => {
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <a
                 href="https://gofund.me/210ca0a7"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-full px-8 py-3.5 font-semibold bg-[#ffc82e] text-white shadow-md hover:shadow-lg transition fluid-btn"
               >
                 DONATIONS
               </a>
               <a
                 href="https://drive.google.com/file/d/170FJsR66Nrj7AAkAmwzQ0D0Cfid2Q44d/preview"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-full px-8 py-3.5 font-semibold bg-[#ffc82e] text-white shadow-md hover:shadow-lg transition fluid-btn"
               >
                 SPONSORSHIP PACKAGE
@@ -58,7 +67,10 @@ const Sponsors: React.FC = () => {
       </section>
 
       {/* TIERS */}
-      <section className="pb-16 sm:pb-20 md:pb-24 bg-white">
+      <section
+        className="pb-16 sm:pb-20 md:pb-24 bg-white content-auto"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: '1000px 900px' }}
+      >
         <div className="mx-auto w-full max-w-screen-lg md:max-w-screen-xl px-4 sm:px-6 md:px-8">
           {sponsorTiers.map((tier) =>
             tier.sponsors.length ? (
@@ -75,7 +87,7 @@ const Sponsors: React.FC = () => {
                   <div className={`flex-1 h-[3px] rounded-full ${tier.lineBgColor}`} />
                 </div>
 
-                {/* Logos grid (logos only — uniform height, no outer card) */}
+                {/* Logos grid (uniform height, no outer card) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 place-items-center">
                   {tier.sponsors.map((s) => (
                     <a
@@ -90,6 +102,7 @@ const Sponsors: React.FC = () => {
                         src={s.logo}
                         alt={s.name}
                         loading="lazy"
+                        decoding="async"
                         className={`${logoHeight} w-auto object-contain transition-transform duration-300 hover:scale-105 hover:drop-shadow-lg`}
                       />
                     </a>
