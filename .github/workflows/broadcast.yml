@@ -1,0 +1,48 @@
+name: Broadcast on blog update
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/data/blogs.ts'
+  workflow_dispatch:
+    inputs:
+      id:
+        description: 'Post ID to send (optional)'
+        required: false
+        type: string
+      force:
+        description: 'Force resend (true/false)'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['false','true']
+
+jobs:
+  broadcast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+
+      # Push trigger → send latest (no force)
+      - name: Send latest on push
+        if: github.event_name == 'push'
+        run: npm run broadcast:latest
+        env:
+          BROADCAST_KEY: ${{ secrets.BROADCAST_KEY }}
+
+      # Manual trigger → optional id + force
+      - name: Send via manual dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          export BROADCAST_KEY="${{ secrets.BROADCAST_KEY }}"
+          ARGS=""
+          if [ -n "${{ inputs.id }}" ]; then ARGS="$ARGS --id ${{ inputs.id }}"; fi
+          if [ "${{ inputs.force }}" = "true" ]; then export BROADCAST_FORCE=1; fi
+          node -r ts-node/register scripts/broadcast-latest.ts $ARGS

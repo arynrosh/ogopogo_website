@@ -81,7 +81,7 @@ export const blogPosts: BlogPost[] = [
     title: 'Ogopogo Solar Launches Its Website: A New Digital Chapter',
     excerpt:
       'November 2nd, 2024 marks a major milestone: the launch of our official website — a central hub for our projects, people, and mission.',
-    image: 'https://i.ibb.co/600rv4Cn/we-are-hiring-6.png',
+    image: 'https://i.ibb.co/ccNqCCM6/we-are-hiring-7.png',
     date: '2025-08-18',
     readTime: '5 min read',
     author: 'Ryan Li & Aryan Roshan',
@@ -124,6 +124,31 @@ export const blogPosts: BlogPost[] = [
         text:
           'Welcome to Ogopogo Solar — where every visit supports a brighter, cleaner future!'
       }
+    ]
+  },
+  {
+    id: 5,
+    title: 'Shakedown Test: Rolling Chassis #1 Results',
+    excerpt:
+      'We completed our first 10 km shakedown to validate drivetrain efficiency, thermal headroom, and telemetry reliability.',
+    image:
+      'https://images.pexels.com/photos/2449455/pexels-photo-2449455.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+    date: '2025-08-18',
+    readTime: '4 min read',
+    author: 'Team Ogopogo',
+    category: 'Engineering',
+    tags: ['Testing', 'Telemetry', 'Battery'],
+    contentBlocks: [
+      { type: 'p', text: 'Today we took Rolling Chassis #1 out for a controlled 10 km shakedown. The goal: verify that power electronics, battery thermal limits, and live telemetry behave under light load.' },
+      { type: 'h3', text: 'Test Goals' },
+      { type: 'ul', items: ['Confirm drivetrain efficiency at low-to-mid speeds', 'Validate pack temps under continuous 2–4 kW draw', 'Exercise telemetry pipeline end-to-end'] },
+      { type: 'hr' },
+      { type: 'h3', text: 'Early Results' },
+      { type: 'p', text: 'Average electrical power draw was ~2.8 kW at 32–36 km/h with no aero installed. Peak cell temps remained 12°C below our warning threshold. No packet loss in the telemetry stream after enabling message batching.' },
+      { type: 'img', src: 'https://images.pexels.com/photos/373965/pexels-photo-373965.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop', alt: 'Laptop showing live telemetry charts' },
+      { type: 'h3', text: 'What’s Next' },
+      { type: 'ul', items: ['Add provisional aero and repeat run', 'Longer endurance loop with hill section', 'Thermal mapping at higher ambient temps'] },
+      { type: 'quote', text: 'A quiet first pass is exactly what we wanted—no surprises, just data.' }
     ]
   }
 ];

@@ -3,8 +3,8 @@ import { Instagram, Facebook, Linkedin } from 'lucide-react';
 
 const links = [
   { href: 'https://instagram.com/ogopogosolar', label: 'Instagram', Icon: Instagram },
-  { href: 'https://facebook.com/ogopogosolar', label: 'Facebook', Icon: Facebook },
-  { href: 'https://linkedin.com/company/ogopogo-solar', label: 'LinkedIn', Icon: Linkedin },
+  { href: 'https://www.facebook.com/profile.php?id=61552190377924', label: 'Facebook', Icon: Facebook },
+  { href: 'https://www.linkedin.com/company/ogopogosolar/', label: 'LinkedIn', Icon: Linkedin },
 ];
 
 const HEADER_GREEN = '#004126';

@@ -1,7 +1,7 @@
 // src/pages/News.tsx
 import React, { useEffect, useMemo, useState } from 'react';
 import { Calendar, Clock, Tag, User, Search } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Hero from '../components/Hero';
 import BlogReaderModal from '../components/BlogReaderModal';
 import { blogPosts, blogCategories, type BlogPost } from '../data/blogs';
@@ -10,10 +10,16 @@ const categories = ['All', ...blogCategories];
 
 const News: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
   const [activePost, setActivePost] = useState<BlogPost | null>(null);
+
+  // Newsletter form state (from earlier hookup)
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
 
   const postsSorted = useMemo(
     () => [...blogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
@@ -42,6 +48,19 @@ const News: React.FC = () => {
     return Object.fromEntries(Object.entries(groups).sort(([a], [b]) => Number(b) - Number(a)));
   }, [filteredPosts]);
 
+  // Deep link: open modal if ?post=<id> is present
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const idParam = params.get('post');
+    if (!idParam) return;
+
+    const id = Number(idParam);
+    if (Number.isNaN(id)) return;
+
+    const post = blogPosts.find((p) => p.id === id);
+    if (post) setActivePost(post);
+  }, [location.search]);
+
   // Hash scroll to card
   useEffect(() => {
     if (!location.hash) return;
@@ -68,14 +87,63 @@ const News: React.FC = () => {
     return (colors as any)[category] || 'bg-gray-100 text-gray-800';
   };
 
-  // open modal from card (click or keyboard)
-  const openFromCard = (post: BlogPost) => setActivePost(post);
+  // Helpers to open/close via ID and keep URL in sync
+  const openById = (id: number) => {
+    const post = blogPosts.find((p) => p.id === id);
+    if (!post) return;
+    setActivePost(post);
+    navigate(
+      { pathname: location.pathname, search: `?post=${id}`, hash: `post-${id}` },
+      { replace: false }
+    );
+  };
+
+  const openFromCard = (post: BlogPost) => openById(post.id);
+
   const onCardKeyDown = (e: React.KeyboardEvent, post: BlogPost) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       openFromCard(post);
     }
   };
+
+  const closeModal = () => {
+    setActivePost(null);
+    const sp = new URLSearchParams(location.search);
+    if (sp.has('post')) sp.delete('post');
+    navigate(
+      { pathname: location.pathname, search: sp.toString() ? `?${sp.toString()}` : '', hash: '' },
+      { replace: true }
+    );
+  };
+
+  // Newsletter submit
+  async function handleSubscribe(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setMsg(null);
+
+    const value = email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      setMsg('Please enter a valid email.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch('https://ogopogosolar.ca/api/newsletter/subscribe.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: value }),
+      });
+      const data = await res.json();
+      setMsg(data.message || (data.ok ? 'Subscribed!' : 'Something went wrong.'));
+      if (data.ok) setEmail('');
+    } catch {
+      setMsg('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="animate-fade-in font-sans custom-cursor">
@@ -251,22 +319,35 @@ const News: React.FC = () => {
             <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 max-w-3xl mx-auto mb-6 md:mb-8">
               Subscribe to our newsletter to get the latest updates on our solar racing journey.
             </p>
-            <div className="max-w-md mx-auto">
+
+            <form onSubmit={handleSubscribe} className="max-w-md mx-auto">
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <input
                   type="email"
                   placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-[#ffc82e] focus:border-[#ffc82e] transition-colors text-white placeholder-gray-300"
                   aria-label="Email address"
+                  required
                 />
-                <button className="inline-flex items-center justify-center rounded-full px-8 py-3.5 text-lg font-semibold bg-[#ffc82e] text-white shadow-md hover:shadow-lg transition">
-                  SUBSCRIBE
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="inline-flex items-center justify-center rounded-full px-8 py-3.5 text-lg font-semibold bg-[#ffc82e] text-white shadow-md hover:shadow-lg transition disabled:opacity-60"
+                >
+                  {loading ? 'SUBSCRIBING…' : 'SUBSCRIBE'}
                 </button>
               </div>
-              <p className="text-sm text-white/70 mt-4">
+              {msg && (
+                <p className="text-sm text-white mt-3" role="status" aria-live="polite">
+                  {msg}
+                </p>
+              )}
+              <p className="text-sm text-white/70 mt-2">
                 No spam, unsubscribe at any time. We respect your privacy.
               </p>
-            </div>
+            </form>
           </div>
         </div>
       </section>
@@ -276,7 +357,7 @@ const News: React.FC = () => {
         <div className="custom-cursor">
           <BlogReaderModal
             post={activePost}
-            onClose={() => setActivePost(null)}
+            onClose={closeModal}
             getCategoryColor={getCategoryColor}
             formatDate={formatDate}
           />
