@@ -27,10 +27,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - run: npm ci
 
-      # Push trigger → send latest (no force)
+      # (optional) quick path sanity
+      - run: |
+          pwd
+          ls -la
+          echo '--- scripts ---'
+          ls -la scripts || true
+          echo '--- src/data ---'
+          ls -la src/data || true
+
+      # Push trigger → send latest
       - name: Send latest on push
         if: github.event_name == 'push'
         run: npm run broadcast:latest
@@ -45,4 +55,4 @@ jobs:
           ARGS=""
           if [ -n "${{ inputs.id }}" ]; then ARGS="$ARGS --id ${{ inputs.id }}"; fi
           if [ "${{ inputs.force }}" = "true" ]; then export BROADCAST_FORCE=1; fi
-          node -r ts-node/register scripts/broadcast-latest.ts $ARGS
+          npm run broadcast:latest -- $ARGS
