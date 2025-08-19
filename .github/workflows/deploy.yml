@@ -50,6 +50,6 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: dist/
-          server-dir: public_html/
+          server-dir: domains/ogopogosolar.ca/public_html/
           # Keep server-only stuff (e.g., /api, uploads) intact:
           dangerous-clean-slate: false
