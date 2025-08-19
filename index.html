@@ -3,20 +3,216 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="https://i.ibb.co/CQBPt1C/ogopogo-logo.webp" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Ogopogo Solar - UBC Okanagan Solar Racing Team</title>
 
-    <!-- Preconnect to Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <!-- Montserrat font family -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="description" content="UBC Okanagan's premier solar racing team - Driven by Curiosity, Powered by the Sun" />
 
-    <meta name="description" content="UBC Okanagan's premier solar racing team - Driven by Curiosity, Powered by the Sun">
+    <meta id="robots-meta" name="robots" content="noindex, nofollow" />
+
+    <style>
+      :root{
+        --brand: #015e37;  
+        --accent:#f4d000;  
+        --ink:#142021;      
+        --muted:#62707a;
+        --border: rgba(20,32,33,0.12);
+        --radius: clamp(14px, 2vw, 20px);
+        --pad: clamp(16px, 2.8vw, 32px);
+        --w-card: min(92vw, 760px);
+        --vh: 1vh; /* set via JS */
+        --shadow: 0 20px 60px rgba(0,0,0,.18);
+        --cursor-url: url('/assets/cursor.png') 16 16;
+      }
+
+      *{ box-sizing:border-box; }
+      html, body { height:100%; margin:0; }
+
+      body, .overlay, .card, .link, .badge {
+        cursor: var(--cursor-url), auto;
+      }
+
+      body{
+        font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: var(--ink);
+        background: var(--brand);
+      }
+
+      #root, #maintenance { display:none; }
+
+      .overlay{
+        position: fixed; inset: 0; z-index: 9999;
+        display: grid; place-items: center;
+        padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+        min-height: calc(var(--vh) * 100);
+        background: transparent;            
+        animation: fadeIn .28s ease-out both;
+      }
+      @keyframes fadeIn { from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none} }
+
+      .card{
+        width: var(--w-card);
+        background: #ffffff;                 
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        padding: var(--pad);
+        text-align: center;
+        box-shadow: var(--shadow);
+      }
+
+      .brand{
+        display:inline-flex; align-items:center; gap:12px;
+        padding: 10px 16px;
+        border:1px solid var(--border);
+        border-radius: 999px;
+        background:#fff;
+        margin-bottom: 10px;
+      }
+      .brand img{ width:44px; height:44px; border-radius:10px; }
+      .brand span{ font-weight:800; letter-spacing:.04em; font-size:14px; color:var(--ink); }
+
+      h1{ margin:14px 0 8px; font-size:clamp(22px,3.2vw,32px); color:var(--ink); }
+      p{ margin:0; color:var(--muted); line-height:1.6; font-size:clamp(14px,1.3vw,16px); }
+
+      .row{ margin-top:14px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+
+      .badge{
+        display:inline-flex; align-items:center; gap:8px;
+        border:1px solid var(--accent);    
+        background:#fffbea;               
+        color: var(--brand);                
+        padding:8px 12px;
+        border-radius:999px;
+        font-size:13px; font-weight:600;
+      }
+      .dot{
+        width:9px; height:9px; border-radius:50%;
+        background: var(--brand);
+        box-shadow: 0 0 0 3px rgba(1,94,55,0.18);
+      }
+      .spinner{
+        width:18px; height:18px; border-radius:50%;
+        border:2px solid rgba(1,94,55,0.25);
+        border-top-color: var(--brand);
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin{ to{ transform: rotate(360deg); } }
+
+      .links{ margin-top:16px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+      .link{
+        text-decoration:none; font-weight:700;
+        color: var(--brand);                 
+        border: 2px solid var(--brand);      
+        background: #ffffff;                 
+        padding: 10px 18px; border-radius:12px; font-size:14px;
+        transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease, color .12s ease;
+      }
+      .link:hover{
+        background: var(--accent);           
+        border-color: var(--accent);
+        color: #142021;                      
+        box-shadow: 0 0 0 6px rgba(244,208,0,0.25);
+        transform: translateY(-1px);
+      }
+
+      body.locked{ overflow:hidden; }
+    </style>
   </head>
   <body>
+
+    <div id="maintenance" class="overlay" role="dialog" aria-modal="true" aria-labelledby="maint-title" aria-describedby="maint-desc">
+      <div class="card">
+        <div class="brand">
+          <img src="https://i.ibb.co/CQBPt1C/ogopogo-logo.webp" alt="Ogopogo Solar logo" />
+          <span>OGOPOGO&nbsp;SOLAR</span>
+        </div>
+
+        <div class="row" aria-hidden="true">
+          <span class="badge"><span class="spinner" aria-hidden="true"></span> Deploying updates</span>
+          <span class="badge"><span class="dot" aria-hidden="true"></span> Maintenance mode</span>
+        </div>
+
+        <h1 id="maint-title">We’ll be right back</h1>
+        <p id="maint-desc">Refreshing the experience. Content is temporarily unavailable while we push changes.</p>
+
+        <div class="links">
+          <a class="link" href="mailto:ogopogosolar@gmail.com">Contact us</a>
+          <a class="link" href="https://www.instagram.com/ogopogosolar/" rel="noopener">Updates on Instagram</a>
+        </div>
+      </div>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <script>
+
+      const DEFAULT_MAINTENANCE = true; //  maintenance mode
+
+      const p = new URLSearchParams(location.search);
+      const q = p.get('maintenance');
+      const queryOverride = q === 'on' || q === '1' ? true : q === 'off' || q === '0' ? false : null;
+
+      const saved = localStorage.getItem('ogp_maintenance');
+      const storageOverride = saved === 'true' ? true : saved === 'false' ? false : null;
+
+      const MAINTENANCE_ACTIVE = (queryOverride ?? storageOverride ?? DEFAULT_MAINTENANCE) === true;
+
+      // Console helper
+      window.toggleMaintenance = (on) => {
+        localStorage.setItem('ogp_maintenance', on ? 'true' : 'false');
+        location.reload();
+      };
+
+      // Mobile 100vh fix
+      function setVH(){
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }
+      setVH();
+      window.addEventListener('resize', setVH);
+      window.addEventListener('orientationchange', setVH);
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const root = document.getElementById('root');
+        const maint = document.getElementById('maintenance');
+        const robots = document.getElementById('robots-meta');
+
+        if (MAINTENANCE_ACTIVE){
+          maint.style.display = 'grid';
+          root.style.display = 'none';
+          document.body.classList.add('locked');
+
+          if (robots && robots.content !== 'noindex, nofollow') {
+            robots.setAttribute('content', 'noindex, nofollow');
+          }
+
+          const stop = e => { e.stopPropagation(); return false; };
+          ['click','pointerdown','wheel','touchstart','contextmenu'].forEach(evt =>
+            window.addEventListener(evt, stop, { capture:true })
+          );
+        } else {
+          maint.style.display = 'none';
+          root.style.display = 'block';
+          document.body.classList.remove('locked');
+       
+          if (robots) robots.remove();
+        }
+      });
+    </script>
+
+    <noscript>
+      <div style="position:fixed;inset:0;display:grid;place-items:center;background:#015e37;color:#142021;z-index:1000000;padding:24px;">
+        <div style="text-align:center;max-width:640px;padding:24px;border:1px solid rgba(20,32,33,0.12);border-radius:16px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,.18);font-family:Montserrat,sans-serif;cursor: var(--cursor-url), auto;">
+          <h1 style="margin:0 0 8px;">We’ll be right back</h1>
+          <p style="margin:0;opacity:.8">JavaScript is disabled, and the site may be in maintenance mode.</p>
+          <p style="margin:10px 0 0;"><a href="mailto:ogopogosolar@gmail.com" style="color:#015e37;font-weight:700;text-decoration:none;">Contact us</a></p>
+        </div>
+      </div>
+    </noscript>
   </body>
 </html>
