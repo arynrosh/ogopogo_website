@@ -23,3 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .env
+dist/
+build/
+node_modules/
+Thumbs.db
