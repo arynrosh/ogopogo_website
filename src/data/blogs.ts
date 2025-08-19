@@ -28,7 +28,7 @@ export const blogPosts: BlogPost[] = [
         title: 'Ogopogo Solar Relaunches Its Website: A Fresh Start',
         excerpt: 'We’re excited to unveil our new and improved website — a clean, reliable hub for everything Ogopogo Solar.',
         image: 'https://i.ibb.co/v4TrBdW2/we-are-hiring-9.png',
-        date: '2025-08-23',
+        date: '2025-08-19',
         readTime: '5 min read',
         author: 'Aryan Roshan',
         category: 'Community',
