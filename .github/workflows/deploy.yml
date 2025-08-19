@@ -1,4 +1,4 @@
-name: Build & Deploy to Hostinger (FTP)
+name: Build & Deploy to Hostinger (FTP/FTPS)
 
 on:
   push:
@@ -23,21 +23,56 @@ jobs:
           npm ci
           npm run build
 
-      # Optional: include .htaccess via public/.htaccess (Vite copies public/ -> dist/)
+      # Sanity check: ensure secrets exist (prints only lengths)
+      - name: Debug secrets length
+        run: |
+          echo "HOST len: ${#HOSTINGER_FTP_HOST}"
+          echo "USER len: ${#HOSTINGER_FTP_USER}"
+          echo "PASS len: ${#HOSTINGER_FTP_PASS}"
+        env:
+          HOSTINGER_FTP_HOST: ${{ secrets.HOSTINGER_FTP_HOST }}
+          HOSTINGER_FTP_USER: ${{ secrets.HOSTINGER_FTP_USER }}
+          HOSTINGER_FTP_PASS: ${{ secrets.HOSTINGER_FTP_PASS }}
+
+      # DNS check (use your server IP in HOSTINGER_FTP_HOST to bypass DNS if needed)
+      - name: DNS resolve check
+        run: |
+          set -e
+          echo "Resolving: $HOST"
+          getent hosts "$HOST" || (echo "DNS failed; try using the server IP instead" && exit 2)
+        env:
+          HOST: ${{ secrets.HOSTINGER_FTP_HOST }}
+
       - name: Show dist contents (debug)
         run: |
           echo "---- dist/ ----"
           ls -la dist || true
 
-      - name: Deploy dist/ to Hostinger via FTP
+      # Preferred: FTPS (TLS) on port 21
+      - name: Deploy via FTPS
+        id: deploy_ftps
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_HOST }}   # tip: set this to the server IP to avoid DNS issues
+          username: ${{ secrets.HOSTINGER_FTP_USER }}
+          password: ${{ secrets.HOSTINGER_FTP_PASS }}
+          protocol: ftps
+          port: 21
+          local-dir: dist/
+          server-dir: public_html/
+          dangerous-clean-slate: true
+
+      # Optional fallback to plain FTP if FTPS fails
+      - name: Fallback via FTP
+        if: steps.deploy_ftps.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.HOSTINGER_FTP_HOST }}
           username: ${{ secrets.HOSTINGER_FTP_USER }}
           password: ${{ secrets.HOSTINGER_FTP_PASS }}
-          # If your host requires explicit FTPS, uncomment:
-          # protocol: ftps
+          protocol: ftp
+          port: 21
           local-dir: dist/
           server-dir: public_html/
-          # True on first setup (clears remote). Later you can set false if you keep server-only files.
           dangerous-clean-slate: true
