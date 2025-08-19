@@ -1,3 +1,4 @@
+# .github/workflows/broadcast.yml
 name: Broadcast on blog update
 
 on:

@@ -1,0 +1,42 @@
+name: Build & Deploy to Hostinger (FTP)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install & Build
+        run: |
+          npm ci
+          npm run build
+
+      # Optional: include .htaccess into dist if you keep it under public/
+      # (Vite copies everything from public/ to dist/)
+      - name: Show dist contents (debug)
+        run: |
+          echo "---- dist/ ----"
+          ls -la dist || true
+
+      - name: Deploy dist/ to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_HOST }}
+          username: ${{ secrets.HOSTINGER_FTP_USER }}
+          password: ${{ secrets.HOSTINGER_FTP_PASS }}
+          local-dir: dist/
+          server-dir: public_html/
+          # Set to true on first setup (clears remote). Consider false later if you keep server-only files.
+          dangerous-clean-slate: true
