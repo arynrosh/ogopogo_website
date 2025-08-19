@@ -24,108 +24,87 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
-    id: 1,
-    title: 'Ogopogo Solar Unveils New Test Vehicle',
-    excerpt:
-      'Our team proudly introduces the first stage of our solar-electric test vehicle — a crucial step toward competing on the global stage.',
-    image:
-      'https://images.pexels.com/photos/9818553/pexels-photo-9818553.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-    date: '2025-08-01',
-    readTime: '4 min read',
-    author: 'Aryan Roshan',
-    category: 'Engineering',
-    tags: ['Solar Car', 'Engineering', 'Prototype'],
-    contentBlocks: [
-      { type: 'p', text: 'We’re thrilled to share early rolling-chassis test results along with the design decisions that shaped our battery pack, drivetrain, and telemetry.' },
-      { type: 'p', text: 'This milestone is only the beginning. Expect more deep dives as we bring subsystems online, test in real-world conditions, and iterate toward a competition-ready car.' },
-    ],
-  },
-  {
-    id: 2,
-    title: 'Preparing for the 2026 Solar Car Challenge',
-    excerpt:
-      'We’re shifting our timeline to meet the 2026 Solar Car Challenge — here’s what that means for our build phases and testing schedule.',
-    image:
-      'https://images.pexels.com/photos/1106468/pexels-photo-1106468.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-    date: '2025-07-15',
-    readTime: '3 min read',
-    author: 'Team Ogopogo',
-    category: 'Competition',
-    tags: ['Competition', 'Timeline', 'Planning'],
-    contentBlocks: [
-      { type: 'p', text: 'Our roadmap emphasizes subsystem maturity across four fronts:' },
-      { type: 'ul', items: ['Battery safety', 'Drive reliability', 'Telemetry visibility', 'Serviceability'] },
-      { type: 'p', text: 'Key milestones include shakedown tests, endurance runs, and aero prototyping — all aligned with the 2026 Solar Car Challenge window.' },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Community Outreach: Inspiring the Next Generation',
-    excerpt:
-      'Our outreach program aims to spark interest in renewable energy and engineering among local students through interactive workshops.',
-    image:
-      'https://images.pexels.com/photos/3184303/pexels-photo-3184303.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
-    date: '2025-06-20',
-    readTime: '2 min read',
-    author: 'Samantha Lee',
-    category: 'Community',
-    tags: ['Community', 'STEM', 'Education'],
-    contentBlocks: [
-      { type: 'p', text: 'Our outreach program is built to spark curiosity about renewable energy.' },
-      { type: 'ul', items: ['Hands-on workshops', 'Interactive demonstrations', 'Mentorship sessions'] },
-      { type: 'p', text: 'By making solar tech approachable, we’re inspiring the next generation of engineers and innovators.' },
-    ],
-  },
-  {
-    id: 4,
-    title: 'Ogopogo Solar Launches Its Website: A New Digital Chapter',
-    excerpt:
-      'November 2nd, 2024 marks a major milestone: the launch of our official website — a central hub for our projects, people, and mission.',
-    image: 'https://i.ibb.co/ccNqCCM6/we-are-hiring-7.png',
-    date: '2025-08-18',
-    readTime: '5 min read',
-    author: 'Ryan Li & Aryan Roshan',
-    category: 'Community',
-    tags: ['Website', 'Team', 'Announcement'],
-    contentBlocks: [
-      {
-        type: 'p',
-        text:
-          'November 2nd, 2024, marks an exciting milestone for Ogopogo Solar. Just over a year since its inauguration, Ogopogo Solar proudly launched its very own website — a vision that was long in the making but is now a reality.'
-      },
-      {
-        type: 'p',
-        text:
-          'The journey to bring this project online wasn’t without its challenges. Our software leads, Ryan Li and Aryan Roshan, overcame numerous hurdles — from debugging complex syntax errors to navigating scheduling delays — to make this online presence possible.'
-      },
-      {
-        type: 'p',
-        text:
-          'The launch of our website represents more than just a digital home; it’s a powerful platform that allows us to share our work, goals, and mission with a wider audience. Our website is designed as a central hub for anyone interested in solar car technology, sustainability, and the mission of Ogopogo Solar. Here’s a glimpse of what you can explore:'
-      },
-      { type: 'h3', text: 'What You Can Explore' },
-      {
-        type: 'ul',
-        items: [
-          'Project Showcase — Discover the latest on our solar car projects, with insights into our engineering approaches, designs, and ambitious goals.',
-          'Team Spotlights — Meet the talented individuals behind Ogopogo Solar and learn about the roles they play in bringing our projects to life.',
-          'Event Updates — Stay informed about upcoming races, workshops, and community outreach initiatives that promote renewable energy.',
-          'Blog & News — Read about our milestones, explore solar technology topics, and catch up on competition updates.',
-          'Join Us — Passionate about renewable energy and innovation? Find out how you can get involved and be part of our journey.'
+        id: 1,
+        title: 'Ogopogo Solar Relaunches Its Website: A Fresh Start',
+        excerpt: 'We’re excited to unveil our new and improved website — a clean, reliable hub for everything Ogopogo Solar.',
+        image: 'https://i.ibb.co/v4TrBdW2/we-are-hiring-9.png',
+        date: '2025-08-23',
+        readTime: '5 min read',
+        author: 'Aryan Roshan',
+        category: 'Community',
+        tags: ['Website', 'Update', 'Announcement'],
+        contentBlocks: [
+          {
+            type: 'p',
+            text:
+              'On August 23rd, 2025, Ogopogo Solar is proud to relaunch its official website. After our first attempt last year — a rough but important step forward — we’ve rebuilt from the ground up to create a polished, reliable, and engaging online home for our team and community.'
+          },
+          {
+            type: 'p',
+            text:
+              'This new site is more than a facelift. It’s a platform that reflects who we are, what we’re building, and how you can follow or join our journey. From improved navigation to updated content, our goal was simple: make it easier than ever to connect with Ogopogo Solar.'
+          },
+          { type: 'h3', text: 'What’s New' },
+          {
+            type: 'ul',
+            items: [
+              'Streamlined design that\'s faster, cleaner, and mobile-friendly.',
+              'Updated project pages with clearer progress updates.',
+              'Team section highlighting our growing group of students.',
+              'Events & news with simpler ways to stay updated.',
+              'Better “Join Us” page for new members and supporters.'
+            ]
+          },
+          {
+            type: 'p',
+            text:
+              'The website is now ready to grow with us. As we continue developing our solar car and expanding our presence in the community, this platform will serve as the foundation for sharing our work and mission.'
+          },
+          {
+            type: 'quote',
+            text:
+              'This is just the beginning — welcome to the new Ogopogo Solar website!'
+          }
         ]
-      },
-      {
-        type: 'p',
-        text:
-          'With our website launch, we’re excited to build a stronger community around sustainable energy and solar technology. Dive into our projects, connect with our team, and be part of our drive toward a greener tomorrow.'
-      },
-      {
-        type: 'quote',
-        text:
-          'Welcome to Ogopogo Solar — where every visit supports a brighter, cleaner future!'
-      }
-    ]
-  },
+    },
+    // {
+    //   id: 2,
+    //   title: 'Welcoming Altair as Our New Sponsor',
+    //   excerpt: 'We’re proud to welcome Altair as a sponsor, equipping our team with world-class simulation tools to design and optimize our solar vehicle.',
+    //   image: 'https://i.ibb.co/MkBFrvF3/altairblog.png',
+    //   date: '2025-08-26',
+    //   readTime: '3 min read',
+    //   author: 'Aryan Roshan',
+    //   category: 'Partnerships',
+    //   tags: ['Altair', 'Partnership', 'Innovation'],
+    //   contentBlocks: [
+    //     {
+    //       type: 'p',
+    //       text:
+    //         'Ogopogo Solar is thrilled to announce Altair as a new sponsor of our team. Altair is a global leader in simulation-driven product development, trusted by top industries to push the boundaries of design and engineering. Their support marks a significant step forward in our mission to build a cutting-edge solar race car here at UBC Okanagan.'
+    //     },
+    //     {
+    //       type: 'p',
+    //       text:
+    //         'As part of this partnership, Altair has generously provided our team with access to the Altair HyperWorks Simulation Suite through five concurrent commercial licenses. These industry-standard tools will allow our engineering team to explore new designs, test structural integrity, and optimize performance in ways that were previously out of reach.'
+    //     },
+    //     {
+    //       type: 'p',
+    //       text:
+    //         'This collaboration is more than just software — it represents a shared commitment to sustainability, innovation, and empowering students to take on real-world engineering challenges. With Altair’s support, we’re better equipped to design a vehicle that embodies both efficiency and performance.'
+    //     },
+    //     {
+    //       type: 'quote',
+    //       text:
+    //         '“Altair’s sponsorship empowers our students to design like professionals and innovate with confidence. We’re excited to bring these tools into our workflow as we continue building the future of sustainable transportation.”'
+    //     },
+    //     {
+    //       type: 'p',
+    //       text:
+    //         'We’re grateful to Altair for believing in our vision and investing in the next generation of engineers. This partnership accelerates our journey, and we can’t wait to showcase what’s possible with their technology driving our design process.'
+    //     }
+    //   ]
+    // }
 ];
 
 export const blogCategories = ['Engineering', 'Competition', 'Team', 'Community', 'Partnerships'] as const;

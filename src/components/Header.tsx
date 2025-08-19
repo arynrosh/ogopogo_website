@@ -56,10 +56,12 @@ const Header: React.FC = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   const isActive = (path: string) => location.pathname === path;
 
-  // Opaque when scrolled (cheap to paint), transparent when at top (no blur)
+  // Always green on mobile/tablet; on desktop (lg+) switch based on scroll
   const headerClass = [
     'fixed top-0 left-0 right-0 z-50 transition-colors duration-300 font-sans',
-    isScrolled ? 'bg-[#004126] shadow-lg' : 'bg-transparent',
+    'bg-[#004126]',                   // default for small + md (always green)
+    isScrolled ? 'shadow-lg' : '',    // optional shadow on scroll (all breakpoints)
+    isScrolled ? 'lg:bg-[#004126]' : 'lg:bg-transparent', // desktop behavior
   ].join(' ');
 
   const linkBase = 'text-white hover:text-[#ffc82e]';

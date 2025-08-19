@@ -323,7 +323,6 @@ const Projects: React.FC = () => {
           </div>
         </div>
       </section>
-
       {/* FINAL CTA BUBBLE */}
       <section
         className="bg-white py-12 sm:py-16 md:py-20 content-auto"

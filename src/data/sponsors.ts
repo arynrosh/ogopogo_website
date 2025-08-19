@@ -39,14 +39,14 @@ export const sponsorTiers: Tier[] = [
     textColor: "text-amber-600",
     lineBgColor: "bg-amber-300",
     sponsors: [
-      // {
-      //   name: "SolarMax Industries",
-      //   logo:
-      //     "https://images.pexels.com/photos/9875445/pexels-photo-9875445.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop",
-      //   description: "High-efficiency solar panel manufacturer",
-      //   website: "https://solarmax.com",
-      //   partnership: "Solar panel technology and optimization",
-      // },
+      {
+        name: "Altair",
+        logo:
+          "https://i.ibb.co/svhQTF67/1200px-Altair-logo.png",
+        description: "High-efficiency solar panel manufacturer",
+        website: "https://altair.com/",
+        partnership: "Solar panel technology and optimization",
+      },
     ],
   },
   {

@@ -1,10 +1,10 @@
 // src/components/Footer.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin } from 'lucide-react';
 
 const Footer: React.FC = () => {
-  const SHOW_ABOUT = false; // flip to true when About is ready
+  const SHOW_ABOUT = false;
 
   const quickLinks = [
     { name: 'Home', path: '/' },
@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
     { name: 'Sponsors', path: '/sponsors' },
     { name: 'Blog Archive', path: '/news' },
     { name: 'Join Us', path: '/join' },
-  ].filter(l => !l.hidden);
+  ].filter((l) => !l.hidden);
 
   const socialLinks = [
     { icon: Instagram, href: 'https://instagram.com/ogopogosolar', label: 'Instagram' },
@@ -25,13 +25,91 @@ const Footer: React.FC = () => {
   const year = new Date().getFullYear();
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
+  // Newsletter state
+  const [email, setEmail] = useState('');
+  const [hp, setHp] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState<string>('');
+
+  // Same-origin in prod to avoid CORS; override in dev if needed
+  const host = typeof window !== 'undefined' ? window.location.hostname : '';
+  const isProd = /(^|\.)ogopogosolar\.ca$/i.test(host);
+  const SUBSCRIBE_URL = isProd
+    ? '/api/newsletter/subscribe.php'
+    : (import.meta as any).env?.VITE_NEWSLETTER_SUBSCRIBE_URL ??
+      'https://ogopogosolar.ca/api/newsletter/subscribe.php';
+
+  const validEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(v.trim());
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (hp.trim() !== '') return;
+    if (!validEmail(email)) {
+      setStatus('error');
+      setMessage('Please enter a valid email address.');
+      return;
+    }
+
+    try {
+      setStatus('loading');
+      setMessage('');
+
+      const body = new URLSearchParams({ email: email.trim() }).toString();
+      const res = await fetch(SUBSCRIBE_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Accept: 'application/json, text/plain, */*',
+        },
+        body,
+      });
+
+      const ct = res.headers.get('content-type') || '';
+      let okFromJson = false;
+      let serverMsg = '';
+
+      if (ct.includes('application/json')) {
+        try {
+          const data = await res.json();
+          okFromJson = !!data?.ok;
+          serverMsg = typeof data?.message === 'string' ? data.message : '';
+        } catch {
+          // fall through to text handling
+        }
+      }
+
+      if (!okFromJson) {
+        // Try reading text (covers empty body or non-JSON)
+        try {
+          const txt = await res.text();
+          serverMsg = serverMsg || txt || '';
+          // Heuristics: if 2xx and no “error” keywords, consider it success
+          if (res.ok && !/error|invalid|fail/i.test(txt)) {
+            okFromJson = true;
+          }
+        } catch {
+          /* ignore */
+        }
+      }
+
+      if (res.ok && okFromJson) {
+        setStatus('success');
+        setMessage(serverMsg || 'Subscribed! Please check your inbox for future updates.');
+        setEmail('');
+      } else {
+        setStatus('error');
+        setMessage(serverMsg || 'Subscription failed. Please try again.');
+      }
+    } catch {
+      setStatus('error');
+      setMessage('Network error — please try again.');
+    }
+  };
+
   return (
-    // Use only safe-area padding on the bottom to avoid a visible gap on iOS
     <footer className="bg-[#004126] text-white font-sans pb-[env(safe-area-inset-bottom)]">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14">
-        {/* Responsive grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
-          {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-5 sm:mb-6">
               <img
@@ -41,9 +119,7 @@ const Footer: React.FC = () => {
                 loading="lazy"
                 decoding="async"
               />
-              <h3 className="text-lg sm:text-xl font-bold text-[#ffc82e]">
-                OGOPOGO SOLAR
-              </h3>
+              <h3 className="text-lg sm:text-xl font-bold text-[#ffc82e]">OGOPOGO SOLAR</h3>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed text-sm sm:text-base">
               Driven by curiosity, powered by the sun. We’re a student-led solar racing team
@@ -65,7 +141,6 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">QUICK LINKS</h4>
             <nav className="grid grid-cols-2 sm:grid-cols-1 gap-3">
@@ -82,7 +157,6 @@ const Footer: React.FC = () => {
             </nav>
           </div>
 
-          {/* Contact */}
           <div>
             <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">CONTACT US</h4>
             <div className="space-y-4">
@@ -117,33 +191,64 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Newsletter */}
           <div>
             <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">STAY UPDATED</h4>
             <p className="text-gray-300 mb-4 text-sm sm:text-base">
               Get the latest news about our solar racing journey and upcoming events.
             </p>
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-3" aria-label="Newsletter subscription">
-              <label htmlFor="newsletter-email" className="sr-only">
-                Email address
-              </label>
+
+            <form onSubmit={handleSubmit} className="space-y-3" aria-label="Newsletter subscription">
+              <div className="hidden" aria-hidden="true">
+                <label>
+                  Do not fill this field
+                  <input
+                    type="text"
+                    value={hp}
+                    onChange={(e) => setHp(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </label>
+              </div>
+
+              <label htmlFor="newsletter-email" className="sr-only">Email address</label>
               <input
                 id="newsletter-email"
                 type="email"
                 placeholder="Enter your email"
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-[#00331E] border border-[#002A18] rounded-lg focus:ring-2 focus:ring-[#ffc82e] focus:border-[#ffc82e] transition-colors text-white placeholder-gray-400 text-sm sm:text-base"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={status === 'loading' || status === 'success'}
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-[#00331E] border border-[#002A18] rounded-lg focus:ring-2 focus:ring-[#ffc82e] focus:border-[#ffc82e] transition-colors text-white placeholder-gray-400 text-sm sm:text-base disabled:opacity-70"
+                aria-invalid={status === 'error' ? true : undefined}
+                aria-describedby="newsletter-feedback"
               />
+
               <button
                 type="submit"
-                className="w-full bg-[#ffc82e] text-black px-4 py-2.5 sm:py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/40 text-sm sm:text-base"
+                disabled={status === 'loading' || status === 'success'}
+                className="w-full bg-[#ffc82e] text-black px-4 py-2.5 sm:py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/40 text-sm sm:text-base disabled:cursor-not-allowed disabled:opacity-80"
               >
-                SUBSCRIBE
+                {status === 'loading' ? 'Subscribing…' : status === 'success' ? 'Subscribed ✓' : 'SUBSCRIBE'}
               </button>
+
+              <p
+                id="newsletter-feedback"
+                className={`min-h-[1.25rem] text-xs sm:text-sm ${
+                  status === 'error' ? 'text-red-300' : status === 'success' ? 'text-emerald-300' : 'text-gray-300'
+                }`}
+                aria-live="polite"
+              >
+                {message}
+              </p>
+
+              <p className="text-[11px] sm:text-xs text-gray-400">
+                By subscribing, you agree to receive updates from Ogopogo Solar. You can unsubscribe at any time.
+              </p>
             </form>
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="border-t border-[#00331E] mt-8 sm:mt-10 pt-6 sm:pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-xs sm:text-sm">

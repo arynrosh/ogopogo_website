@@ -132,7 +132,7 @@ const Team: React.FC = () => {
     <div className="animate-fade-in font-sans">
       {/* Hero (priority for LCP) */}
       <Hero
-        backgroundImage="https://i.ibb.co/n8sd4xZp/solar-web.jpg"
+        backgroundImage="https://i.ibb.co/RYvmh0n/team.webp"
         sizes="100vw"
         priority
         title={

@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "prebuild": "npm run export:blogfeed",
     "lint": "eslint .",
     "preview": "vite preview",
     "broadcast:latest": "tsx scripts/broadcast-latest.ts"
