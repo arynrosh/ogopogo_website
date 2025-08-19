@@ -23,20 +23,21 @@ jobs:
           npm ci
           npm run build
 
-      # Optional: include .htaccess into dist if you keep it under public/
-      # (Vite copies everything from public/ to dist/)
+      # Optional: include .htaccess via public/.htaccess (Vite copies public/ -> dist/)
       - name: Show dist contents (debug)
         run: |
           echo "---- dist/ ----"
           ls -la dist || true
 
       - name: Deploy dist/ to Hostinger via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.HOSTINGER_FTP_HOST }}
           username: ${{ secrets.HOSTINGER_FTP_USER }}
           password: ${{ secrets.HOSTINGER_FTP_PASS }}
+          # If your host requires explicit FTPS, uncomment:
+          # protocol: ftps
           local-dir: dist/
           server-dir: public_html/
-          # Set to true on first setup (clears remote). Consider false later if you keep server-only files.
+          # True on first setup (clears remote). Later you can set false if you keep server-only files.
           dangerous-clean-slate: true
