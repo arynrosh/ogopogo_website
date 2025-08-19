@@ -23,7 +23,7 @@ jobs:
           npm ci
           npm run build
 
-      # Sanity check: ensure secrets exist (prints only lengths)
+      # Optional: quick secret length sanity (no values printed)
       - name: Debug secrets length
         run: |
           echo "HOST len: ${#HOSTINGER_FTP_HOST}"
@@ -34,45 +34,22 @@ jobs:
           HOSTINGER_FTP_USER: ${{ secrets.HOSTINGER_FTP_USER }}
           HOSTINGER_FTP_PASS: ${{ secrets.HOSTINGER_FTP_PASS }}
 
-      # DNS check (use your server IP in HOSTINGER_FTP_HOST to bypass DNS if needed)
-      - name: DNS resolve check
-        run: |
-          set -e
-          echo "Resolving: $HOST"
-          getent hosts "$HOST" || (echo "DNS failed; try using the server IP instead" && exit 2)
-        env:
-          HOST: ${{ secrets.HOSTINGER_FTP_HOST }}
-
       - name: Show dist contents (debug)
         run: |
           echo "---- dist/ ----"
           ls -la dist || true
 
-      # Preferred: FTPS (TLS) on port 21
       - name: Deploy via FTPS
         id: deploy_ftps
-        continue-on-error: true
+        continue-on-error: false
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.HOSTINGER_FTP_HOST }}   # tip: set this to the server IP to avoid DNS issues
-          username: ${{ secrets.HOSTINGER_FTP_USER }}
+          server: ${{ secrets.HOSTINGER_FTP_HOST }}   # set to IP: 213.130.145.204 (no ftp://)
+          username: ${{ secrets.HOSTINGER_FTP_USER }} # e.g. u212330416
           password: ${{ secrets.HOSTINGER_FTP_PASS }}
           protocol: ftps
           port: 21
           local-dir: dist/
           server-dir: public_html/
-          dangerous-clean-slate: true
-
-      # Optional fallback to plain FTP if FTPS fails
-      - name: Fallback via FTP
-        if: steps.deploy_ftps.outcome == 'failure'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.HOSTINGER_FTP_HOST }}
-          username: ${{ secrets.HOSTINGER_FTP_USER }}
-          password: ${{ secrets.HOSTINGER_FTP_PASS }}
-          protocol: ftp
-          port: 21
-          local-dir: dist/
-          server-dir: public_html/
-          dangerous-clean-slate: true
+          # Keep server-only stuff (e.g., /api, uploads) intact:
+          dangerous-clean-slate: false
