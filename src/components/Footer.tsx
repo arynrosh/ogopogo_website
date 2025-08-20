@@ -227,7 +227,7 @@ const Footer: React.FC = () => {
               <button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className="w-full bg-[#ffc82e] text-black px-4 py-2.5 sm:py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/40 text-sm sm:text-base disabled:cursor-not-allowed disabled:opacity-80"
+                className="w-full bg-[#ffc82e] text-[fff] px-4 py-2.5 sm:py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/40 text-sm sm:text-base disabled:cursor-not-allowed disabled:opacity-80"
               >
                 {status === 'loading' ? 'Subscribing…' : status === 'success' ? 'Subscribed ✓' : 'SUBSCRIBE'}
               </button>
@@ -254,17 +254,6 @@ const Footer: React.FC = () => {
             <p className="text-gray-400 text-xs sm:text-sm">
               © {year} Ogopogo Solar Racing Team. All rights reserved.
             </p>
-            {/* <div className="flex flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm">
-              <a href="#" className="text-gray-400 hover:text-[#ffc82e] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffc82e] rounded">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-[#ffc82e] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffc82e] rounded">
-                Terms of Service
-              </a>
-              <a href="#" className="text-gray-400 hover:text-[#ffc82e] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffc82e] rounded">
-                Code of Conduct
-              </a>
-            </div> */}
           </div>
         </div>
       </div>
