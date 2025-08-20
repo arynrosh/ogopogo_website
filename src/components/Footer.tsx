@@ -254,7 +254,7 @@ const Footer: React.FC = () => {
             <p className="text-gray-400 text-xs sm:text-sm">
               © {year} Ogopogo Solar Racing Team. All rights reserved.
             </p>
-            <div className="flex flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm">
+            {/* <div className="flex flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm">
               <a href="#" className="text-gray-400 hover:text-[#ffc82e] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffc82e] rounded">
                 Privacy Policy
               </a>
@@ -264,7 +264,7 @@ const Footer: React.FC = () => {
               <a href="#" className="text-gray-400 hover:text-[#ffc82e] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffc82e] rounded">
                 Code of Conduct
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
