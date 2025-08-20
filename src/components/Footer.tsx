@@ -179,15 +179,15 @@ const Footer: React.FC = () => {
                   ogopogosolar@gmail.com
                 </a>
               </div>
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-[#ffc82e] flex-shrink-0" />
                 <a
-                  href="tel:+12507624445"
+                  href="tel:+17789808529"
                   className="text-gray-300 hover:text-[#ffc82e] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffc82e] rounded text-sm sm:text-base"
                 >
-                  (250) 762-4445
+                  (778) 980-8529
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
 
