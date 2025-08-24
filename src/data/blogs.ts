@@ -37,12 +37,12 @@ export const blogPosts: BlogPost[] = [
           {
             type: 'p',
             text:
-              'On August 23rd, 2025, Ogopogo Solar is proud to relaunch its official website. After our first attempt last year — a rough but important step forward — we’ve rebuilt from the ground up to create a polished, reliable, and engaging online home for our team and community.'
+              'On August 23rd, 2025, Ogopogo Solar is proud to relaunch its official website. After our first attempt last year which was a rough but important step forward — we’ve rebuilt from the ground up to create a polished, reliable and engaging online home for our team and community.'
           },
           {
             type: 'p',
             text:
-              'This new site is more than a facelift. It’s a platform that reflects who we are, what we’re building, and how you can follow or join our journey. From improved navigation to updated content, our goal was simple: make it easier than ever to connect with Ogopogo Solar.'
+              'This new site is more than a facelift. It’s a platform that reflects who we are, what we’re building and how you can follow or join our journey. From improved navigation to updated content, our goal was simple: make it easier than ever to connect with Ogopogo Solar.'
           },
           { type: 'h3', text: 'What’s New' },
           {
