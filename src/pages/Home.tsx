@@ -250,8 +250,8 @@ const Home: React.FC = () => {
                 FROM THE <span style={{ color: '#015e37' }}>BLOG</span>
               </h2>
               <Link
-                to="/news"
-                onClick={smoothNavigate('/news')}
+                to="/blog"
+                onClick={smoothNavigate('/blog')}
                 className="hidden md:inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold shadow-md transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-black/10 fluid-btn"
                 style={{ backgroundColor: '#ffc82e', color: '#fff' }}
               >
@@ -346,8 +346,8 @@ const Home: React.FC = () => {
           {/* Mobile "View all" */}
           <div className="md:hidden mt-8">
             <Link
-              to="/news"
-              onClick={smoothNavigate('/news')}
+              to="/blog"
+              onClick={smoothNavigate('/blog')}
               className="inline-flex w-full justify-center items-center gap-2 px-5 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-black/10 fluid-btn"
               style={{ backgroundColor: '#ffc82e', color: '#fff' }}
             >

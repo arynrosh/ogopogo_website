@@ -11,7 +11,7 @@ const About = lazy(() => import('./pages/About'));
 const Projects = lazy(() => import('./pages/Projects'));
 const Team = lazy(() => import('./pages/Team'));
 const Sponsors = lazy(() => import('./pages/Sponsors'));
-const News = lazy(() => import('./pages/News'));
+const Blog = lazy(() => import('./pages/Blog'));
 const Join = lazy(() => import('./pages/Join'));
 
 // Hook: only show cursor on desktop (>=1180px) AND fine pointer (i.e., a mouse)
@@ -103,7 +103,7 @@ function App() {
                 <Route path="projects" element={<Projects />} />
                 <Route path="team" element={<Team />} />
                 <Route path="sponsors" element={<Sponsors />} />
-                <Route path="news" element={<News />} />
+                <Route path="blog" element={<Blog />} />
                 <Route path="join" element={<Join />} />
               </Route>
             </Routes>

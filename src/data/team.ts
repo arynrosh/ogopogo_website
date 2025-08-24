@@ -39,7 +39,7 @@ export const members: Member[] = [
   // Business
   {
     name: 'Aryan Choudhary',
-    role: 'Finance Lead',
+    role: 'Op & Finance Lead',
     discipline: 'Business',
     image: 'https://i.ibb.co/Ss9gc8w/aryan-c-captain.jpg',
     linkedin: 'https://www.linkedin.com/in/aryankchoudhary',

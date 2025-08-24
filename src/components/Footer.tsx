@@ -1,7 +1,21 @@
 // src/components/Footer.tsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin } from 'lucide-react';
+import { Mail, MapPin, Instagram, Facebook, Linkedin } from 'lucide-react';
+
+/** Inline Discord icon (currentColor so it follows text color) */
+const DiscordIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 512 365.467"
+    fill="currentColor"
+    aria-hidden="true"
+    focusable="false"
+    {...props}
+  >
+    <path d="M378.186 365.028s-15.794-18.865-28.956-35.099c57.473-16.232 79.41-51.77 79.41-51.77-17.989 11.846-35.099 20.182-50.454 25.885-21.938 9.213-42.997 14.917-63.617 18.866-42.118 7.898-80.726 5.703-113.631-.438-25.008-4.827-46.506-11.407-64.494-18.867-10.091-3.947-21.059-8.774-32.027-14.917-1.316-.877-2.633-1.316-3.948-2.193-.877-.438-1.316-.878-1.755-.878-7.898-4.388-12.285-7.458-12.285-7.458s21.06 34.659 76.779 51.331c-13.163 16.673-29.395 35.977-29.395 35.977C36.854 362.395 0 299.218 0 299.218 0 159.263 63.177 45.633 63.177 45.633 126.354-1.311 186.022.005 186.022.005l4.388 5.264C111.439 27.645 75.461 62.305 75.461 62.305s9.653-5.265 25.886-12.285c46.945-20.621 84.236-25.885 99.592-27.64 2.633-.439 4.827-.878 7.458-.878 26.763-3.51 57.036-4.387 88.624-.878 41.68 4.826 86.43 17.111 132.058 41.68 0 0-34.66-32.906-109.244-55.281l6.143-7.019s60.105-1.317 122.844 45.628c0 0 63.178 113.631 63.178 253.585 0-.438-36.854 62.739-133.813 65.81zm-43.874-203.133c-25.006 0-44.75 21.498-44.75 48.262 0 26.763 20.182 48.26 44.75 48.26 25.008 0 44.752-21.497 44.752-48.26 0-26.764-20.182-48.262-44.752-48.262zm-160.135 0c-25.008 0-44.751 21.498-44.751 48.262 0 26.763 20.182 48.26 44.751 48.26 25.007 0 44.75-21.497 44.75-48.26.439-26.763-19.742-48.262-44.75-48.262z"/>
+  </svg>
+);
 
 const Footer: React.FC = () => {
   const SHOW_ABOUT = false;
@@ -12,11 +26,12 @@ const Footer: React.FC = () => {
     { name: 'Projects', path: '/projects' },
     { name: 'Team', path: '/team' },
     { name: 'Sponsors', path: '/sponsors' },
-    { name: 'Blog Archive', path: '/news' },
+  { name: 'Blog Archive', path: '/blog' },
     { name: 'Join Us', path: '/join' },
   ].filter((l) => !l.hidden);
 
   const socialLinks = [
+    { icon: DiscordIcon, href: 'https://discord.gg/hFnBzVTqFA', label: 'Discord' },
     { icon: Instagram, href: 'https://instagram.com/ogopogosolar', label: 'Instagram' },
     { icon: Facebook, href: 'https://www.facebook.com/profile.php?id=61552190377924', label: 'Facebook' },
     { icon: Linkedin, href: 'https://www.linkedin.com/company/ogopogosolar/', label: 'LinkedIn' },
@@ -29,7 +44,7 @@ const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [hp, setHp] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [message, setMessage] = useState<string>('');
+  const [message, setMessage] = useState('');
 
   // Same-origin in prod to avoid CORS; override in dev if needed
   const host = typeof window !== 'undefined' ? window.location.hostname : '';
@@ -43,7 +58,7 @@ const Footer: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (hp.trim() !== '') return;
+    if (hp.trim() !== '') return; // honeypot
     if (!validEmail(email)) {
       setStatus('error');
       setMessage('Please enter a valid email address.');
@@ -64,41 +79,14 @@ const Footer: React.FC = () => {
         body,
       });
 
-      const ct = res.headers.get('content-type') || '';
-      let okFromJson = false;
-      let serverMsg = '';
-
-      if (ct.includes('application/json')) {
-        try {
-          const data = await res.json();
-          okFromJson = !!data?.ok;
-          serverMsg = typeof data?.message === 'string' ? data.message : '';
-        } catch {
-          // fall through to text handling
-        }
-      }
-
-      if (!okFromJson) {
-        // Try reading text (covers empty body or non-JSON)
-        try {
-          const txt = await res.text();
-          serverMsg = serverMsg || txt || '';
-          // Heuristics: if 2xx and no “error” keywords, consider it success
-          if (res.ok && !/error|invalid|fail/i.test(txt)) {
-            okFromJson = true;
-          }
-        } catch {
-          /* ignore */
-        }
-      }
-
-      if (res.ok && okFromJson) {
+      if (res.ok) {
         setStatus('success');
-        setMessage(serverMsg || 'Subscribed! Please check your inbox for future updates.');
+        setMessage('Subscribed! Please check your inbox for future updates.');
         setEmail('');
       } else {
+        const txt = await res.text().catch(() => '');
         setStatus('error');
-        setMessage(serverMsg || 'Subscription failed. Please try again.');
+        setMessage(txt || 'Subscription failed. Please try again.');
       }
     } catch {
       setStatus('error');
@@ -110,6 +98,7 @@ const Footer: React.FC = () => {
     <footer className="bg-[#004126] text-white font-sans pb-[env(safe-area-inset-bottom)]">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
+          {/* Brand + Socials */}
           <div>
             <div className="flex items-center gap-3 mb-5 sm:mb-6">
               <img
@@ -141,6 +130,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
+          {/* Quick Links */}
           <div>
             <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">QUICK LINKS</h4>
             <nav className="grid grid-cols-2 sm:grid-cols-1 gap-3">
@@ -157,6 +147,7 @@ const Footer: React.FC = () => {
             </nav>
           </div>
 
+          {/* Contact */}
           <div>
             <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">CONTACT US</h4>
             <div className="space-y-4">
@@ -179,18 +170,10 @@ const Footer: React.FC = () => {
                   ogopogosolar@gmail.com
                 </a>
               </div>
-              {/* <div className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-[#ffc82e] flex-shrink-0" />
-                <a
-                  href="tel:+17789808529"
-                  className="text-gray-300 hover:text-[#ffc82e] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffc82e] rounded text-sm sm:text-base"
-                >
-                  (778) 980-8529
-                </a>
-              </div> */}
             </div>
           </div>
 
+          {/* Newsletter */}
           <div>
             <h4 className="text-base sm:text-lg font-bold mb-5 sm:mb-6">STAY UPDATED</h4>
             <p className="text-gray-300 mb-4 text-sm sm:text-base">
@@ -198,6 +181,7 @@ const Footer: React.FC = () => {
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-3" aria-label="Newsletter subscription">
+              {/* Honeypot */}
               <div className="hidden" aria-hidden="true">
                 <label>
                   Do not fill this field
@@ -227,7 +211,7 @@ const Footer: React.FC = () => {
               <button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className="w-full bg-[#ffc82e] text-[fff] px-4 py-2.5 sm:py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/40 text-sm sm:text-base disabled:cursor-not-allowed disabled:opacity-80"
+                className="w-full bg-[#ffc82e] text-white px-4 py-2.5 sm:py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/40 text-sm sm:text-base disabled:cursor-not-allowed disabled:opacity-80"
               >
                 {status === 'loading' ? 'Subscribing…' : status === 'success' ? 'Subscribed ✓' : 'SUBSCRIBE'}
               </button>
