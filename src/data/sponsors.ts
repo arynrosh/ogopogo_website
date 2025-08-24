@@ -33,22 +33,22 @@ export const sponsorTiers: Tier[] = [
       },
     ],
   },
-  {
-    name: "Gold Sponsor",
-    icon: Award,
-    textColor: "text-amber-600",
-    lineBgColor: "bg-amber-300",
-    sponsors: [
-      {
-        name: "Altair",
-        logo:
-          "https://i.ibb.co/svhQTF67/1200px-Altair-logo.png",
-        description: "High-efficiency solar panel manufacturer",
-        website: "https://altair.com/",
-        partnership: "Solar panel technology and optimization",
-      },
-    ],
-  },
+  // {
+  //   name: "Gold Sponsor",
+  //   icon: Award,
+  //   textColor: "text-amber-600",
+  //   lineBgColor: "bg-amber-300",
+  //   sponsors: [
+  //     {
+  //       name: "Altair",
+  //       logo:
+  //         "https://i.ibb.co/svhQTF67/1200px-Altair-logo.png",
+  //       description: "High-efficiency solar panel manufacturer",
+  //       website: "https://altair.com/",
+  //       partnership: "Solar panel technology and optimization",
+  //     },
+  //   ],
+  // },
   {
     name: "Silver Sponsor",
     icon: Medal,
