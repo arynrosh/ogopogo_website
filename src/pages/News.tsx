@@ -149,7 +149,7 @@ const News: React.FC = () => {
     <div className="animate-fade-in font-sans custom-cursor">
       {/* HERO (priority for LCP) */}
       <Hero
-        backgroundImage="https://i.ibb.co/B5CGFzsV/Get-Paid-Stock-com-6898dccd36be1.jpg"
+        backgroundImage="https://i.ibb.co/sJkMz0Mf/2d47fcbd-082f-4fcb-9efd-5dd9546dd6f2.jpg"
         sizes="100vw"
         priority
         title={

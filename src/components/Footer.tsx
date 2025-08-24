@@ -18,8 +18,8 @@ const Footer: React.FC = () => {
 
   const socialLinks = [
     { icon: Instagram, href: 'https://instagram.com/ogopogosolar', label: 'Instagram' },
-    { icon: Facebook, href: 'https://facebook.com/ogopogosolar', label: 'Facebook' },
-    { icon: Linkedin, href: 'https://linkedin.com/company/ogopogo-solar', label: 'LinkedIn' },
+    { icon: Facebook, href: 'https://www.facebook.com/profile.php?id=61552190377924', label: 'Facebook' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/company/ogopogosolar/', label: 'LinkedIn' },
   ];
 
   const year = new Date().getFullYear();

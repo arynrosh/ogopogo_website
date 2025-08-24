@@ -27,3 +27,6 @@ dist/
 build/
 node_modules/
 Thumbs.db
+
+# Local Netlify folder
+.netlify
