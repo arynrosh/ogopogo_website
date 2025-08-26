@@ -18,17 +18,28 @@ const DiscordIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 );
 
 const Footer: React.FC = () => {
-  const SHOW_ABOUT = false;
+  const SHOW = false;
+
+  // Toggle visibility for all footer quick links
+  const SHOW_LINKS = {
+    home: true,
+    about: true,
+    team: true,
+    sponsors: true,
+    projects: false,
+    blog: true,
+    join: true,
+  };
 
   const quickLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about', hidden: !SHOW_ABOUT },
-    { name: 'Projects', path: '/projects' },
-    { name: 'Team', path: '/team' },
-    { name: 'Sponsors', path: '/sponsors' },
-  { name: 'Blog Archive', path: '/blog' },
-    { name: 'Join Us', path: '/join' },
-  ].filter((l) => !l.hidden);
+    { name: 'Home', path: '/', show: SHOW_LINKS.home },
+    { name: 'About', path: '/about', show: SHOW_LINKS.about },
+    { name: 'Team', path: '/team', show: SHOW_LINKS.team },
+    { name: 'Sponsors', path: '/sponsors', show: SHOW_LINKS.sponsors },
+    { name: 'Projects', path: '/projects', show: SHOW_LINKS.projects },
+    { name: 'Blog Archive', path: '/blog', show: SHOW_LINKS.blog },
+    { name: 'Join Us', path: '/join', show: SHOW_LINKS.join },
+  ].filter((l) => l.show);
 
   const socialLinks = [
     { icon: DiscordIcon, href: 'https://discord.gg/hFnBzVTqFA', label: 'Discord' },

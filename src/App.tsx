@@ -8,7 +8,7 @@ import Layout from './components/Layout';
 // === Lazy-loaded routes (code-splitting) ===
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
-const Projects = lazy(() => import('./pages/Projects'));
+// const Projects = lazy(() => import('./pages/Projects'));
 const Team = lazy(() => import('./pages/Team'));
 const Sponsors = lazy(() => import('./pages/Sponsors'));
 const Blog = lazy(() => import('./pages/Blog'));
@@ -100,7 +100,7 @@ function App() {
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />
-                <Route path="projects" element={<Projects />} />
+                {/* <Route path="projects" element={<Projects />} /> */}
                 <Route path="team" element={<Team />} />
                 <Route path="sponsors" element={<Sponsors />} />
                 <Route path="blog" element={<Blog />} />

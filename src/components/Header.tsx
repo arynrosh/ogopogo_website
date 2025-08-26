@@ -14,10 +14,19 @@ const Header: React.FC = () => {
   const aboutRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<number | null>(null);
 
+const SHOW_NAV = {
+  home: true,
+  sponsors: true,
+  blog: true,
+  projects: false,
+  team: true,
+  about: true,
+};
+
   const navItems = [
-    { name: 'HOME', path: '/' },
-    { name: 'SPONSORS', path: '/sponsors' },
-  { name: 'BLOG ARCHIVE', path: '/blog' },
+    { name: 'HOME', path: '/', show: SHOW_NAV.home },
+    { name: 'SPONSORS', path: '/sponsors', show: SHOW_NAV.sponsors },
+    { name: 'BLOG ARCHIVE', path: '/blog', show: SHOW_NAV.blog },
   ];
 
   useEffect(() => {
@@ -126,9 +135,7 @@ const Header: React.FC = () => {
               aria-haspopup="menu"
               aria-expanded={aboutOpen}
               className={`uppercase tracking-widest transition-transform duration-150 hover:scale-105 flex items-center gap-1 pb-1 ${
-                location.pathname.startsWith('/about') ||
-                location.pathname.startsWith('/team') ||
-                location.pathname.startsWith('/projects')
+                location.pathname.startsWith('/about')
                   ? linkActive
                   : linkBase
               }`}
@@ -154,9 +161,9 @@ const Header: React.FC = () => {
               onMouseLeave={closeAboutWithDelay}
             >
               {[
-                { to: '/team', label: 'OUR TEAM' },
-                { to: '/projects', label: 'OUR PROJECTS' },
-              ].map((link) => (
+                { to: '/team', label: 'OUR TEAM', show: SHOW_NAV.team },
+                { to: '/projects', label: 'OUR PROJECTS', show: SHOW_NAV.projects },
+              ].filter(l => l.show).map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
@@ -170,7 +177,7 @@ const Header: React.FC = () => {
           </div>
 
           {navItems
-            .filter((n) => n.path !== '/')
+            .filter((n) => n.path !== '/' && n.show)
             .map((item) => (
               <Link
                 key={item.name}
@@ -238,7 +245,7 @@ const Header: React.FC = () => {
               <div id="about-mobile-accordion" className="ml-3 mt-1 space-y-1">
                 {[
                   { to: '/team', label: 'Our Team' },
-                  { to: '/projects', label: 'Our Projects' },
+
                 ].map((link) => (
                   <Link
                     key={link.to}
@@ -256,7 +263,7 @@ const Header: React.FC = () => {
             )}
 
             {navItems
-              .filter((n) => n.path !== '/')
+              .filter((n) => n.path !== '/' && n.show)
               .map((item) => (
                 <Link
                   key={item.name}
