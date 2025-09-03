@@ -76,7 +76,7 @@ const Home: React.FC = () => {
     <div className="animate-fade-in font-sans">
       {/* Full-screen Hero (priority for LCP) */}
       <Hero
-        backgroundImage="https://i.ibb.co/nsCR7z0V/Get-Paid-Stock-com-6898bce4f0b8f.jpg"
+        backgroundImage="https://i.ibb.co/Q7jPN7zG/Get-Paid-Stock-com-6898bce4f0b8f.jpg"
         sizes="100vw"
         priority
         title={

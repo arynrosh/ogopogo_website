@@ -10,7 +10,7 @@ const Sponsors: React.FC = () => {
     <div className="animate-fade-in font-sans">
       {/* HERO (priority for LCP) */}
       <Hero
-        backgroundImage="https://i.ibb.co/Vc40mxZM/Get-Paid-Stock-com-6898b8c59c166.jpg"
+        backgroundImage="https://i.ibb.co/5W5dQ0ZX/Get-Paid-Stock-com-6898b8c59c166.jpg"
         sizes="100vw"
         priority
         title={

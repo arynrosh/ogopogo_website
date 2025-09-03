@@ -149,7 +149,7 @@ const Blog: React.FC = () => {
     <div className="animate-fade-in font-sans custom-cursor">
       {/* HERO (priority for LCP) */}
       <Hero
-        backgroundImage="https://i.ibb.co/sJkMz0Mf/2d47fcbd-082f-4fcb-9efd-5dd9546dd6f2.jpg"
+        backgroundImage="https://i.ibb.co/9HY2B9xW/2d47fcbd-082f-4fcb-9efd-5dd9546dd6f2-1.jpg"
         sizes="100vw"
         priority
         title={

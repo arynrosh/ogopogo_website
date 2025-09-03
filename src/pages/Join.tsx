@@ -115,7 +115,7 @@ const Join: React.FC = () => {
     <div className="animate-fade-in font-sans">
       {/* HERO (priority for LCP) */}
       <Hero
-        backgroundImage="https://i.ibb.co/YF4Z3kWZ/520969944-627747130388080-5910705559209719374-n.jpg"
+        backgroundImage="https://i.ibb.co/mVvttjkD/520969944-627747130388080-5910705559209719374-n.jpg"
         sizes="100vw"
         priority
         title={
