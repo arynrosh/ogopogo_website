@@ -1,11 +1,12 @@
 // src/pages/Home.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Calendar, Clock, Tag, User, Target, Zap, Users } from 'lucide-react';
 import { blogPosts, type BlogPost } from '../data/blogs';
 import Hero from '../components/Hero';
 import BlogReaderModal from '../components/BlogReaderModal';
 import { sponsorTiers } from '../data/sponsors';
+import NewsletterModal from '../components/NewsletterModal';
 
 const logoHeights: Record<string, string> = {
   'Platinum Sponsor': 'h-52 sm:h-60 md:h-64',
@@ -32,9 +33,43 @@ const getCategoryColor = (category: string) => {
   return (colors as any)[category] || 'bg-gray-100 text-gray-800';
 };
 
+const NL_SEEN_KEY = 'ogopo:nl:seen:v2'; // bump version to re-show for everyone
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [activePost, setActivePost] = useState<BlogPost | null>(null);
+  const [showNewsletter, setShowNewsletter] = useState(false);
+
+  // Open the newsletter ONCE per device (browser) using localStorage + cookie fallback.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const hasCookie = () => {
+      try {
+        return document.cookie.split('; ').some((c) => c.startsWith(`${NL_SEEN_KEY}=1`));
+      } catch {
+        return false;
+      }
+    };
+
+    const hasSeen = () => {
+      try {
+        if (window.localStorage?.getItem(NL_SEEN_KEY) === '1') return true;
+      } catch {/* ignore */}
+      return hasCookie();
+    };
+
+    if (!hasSeen()) {
+      setShowNewsletter(true);
+      // mark as seen immediately so it won't reopen on refresh
+      try {
+        window.localStorage?.setItem(NL_SEEN_KEY, '1');
+      } catch {/* ignore */}
+      try {
+        document.cookie = `${NL_SEEN_KEY}=1; path=/; max-age=31536000; SameSite=Lax`;
+      } catch {/* ignore */}
+    }
+  }, []);
 
   const posts = [...blogPosts]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -385,7 +420,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Modal Reader on Home */}
+      {/* Modals */}
       {activePost && (
         <BlogReaderModal
           post={activePost}
@@ -394,6 +429,8 @@ const Home: React.FC = () => {
           formatDate={formatDate}
         />
       )}
+
+      {showNewsletter && <NewsletterModal onClose={() => setShowNewsletter(false)} />}
     </div>
   );
 };
