@@ -103,7 +103,7 @@ const PositionCard: React.FC<PositionCardProps> = ({ pos, index, openIndex, setO
 
 const Join: React.FC = () => {
   const formUrl =
-    'https://docs.google.com/forms/d/e/1FAIpQLSf6t7dIonuQrMJzpCJQUvvRn1OjqS5PglvScyKDP2Cb3sr9wg/viewform';
+    ' https://campus.hellorubric.com/?tab=memberships&s=9200';
 
   // Single-open accordion behavior
   const [openIndex, setOpenIndex] = useState<number | null>(null);

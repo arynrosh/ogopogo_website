@@ -24,6 +24,14 @@ export const sponsorTiers: Tier[] = [
     textColor: "text-gray-700",
     lineBgColor: "bg-gray-300",
     sponsors: [
+    ],
+  },
+  {
+    name: "Gold Sponsor",
+    icon: Award,
+    textColor: "text-amber-600",
+    lineBgColor: "bg-amber-300",
+    sponsors: [
       {
         name: "Altium",
         logo: "https://i.ibb.co/Ssd4z7n/Altium-Logo-BLK.png",
@@ -31,24 +39,22 @@ export const sponsorTiers: Tier[] = [
         website: "https://www.altium.com/",
         partnership: "Battery technology and charging infrastructure",
       },
+      {
+          name: "Alptraum Technologies Inc.",
+          logo: "https://i.ibb.co/ZzDYq23s/alptraum.png",
+          description: "Up-and-coming provider for PCBs and lab management solutions",
+          website: "#",
+          partnership: "PCB Development and software solutions",
+      },
+      {
+        name: "Dynamics Agitator Inc.",
+        logo: "https://i.ibb.co/Kp6NGTFy/dynamix-agitators-logo-4.png",
+        description: "Industrial mixing and agitation equipment manufacturer",
+        website: "https://dynamixinc.com/",
+        partnership: "Mixing technology and fluid dynamics",
+      },
     ],
   },
-  // {
-  //   name: "Gold Sponsor",
-  //   icon: Award,
-  //   textColor: "text-amber-600",
-  //   lineBgColor: "bg-amber-300",
-  //   sponsors: [
-  //     {
-  //       name: "Altair",
-  //       logo:
-  //         "https://i.ibb.co/svhQTF67/1200px-Altair-logo.png",
-  //       description: "High-efficiency solar panel manufacturer",
-  //       website: "https://altair.com/",
-  //       partnership: "Solar panel technology and optimization",
-  //     },
-  //   ],
-  // },
   {
     name: "Silver Sponsor",
     icon: Medal,
@@ -61,6 +67,14 @@ export const sponsorTiers: Tier[] = [
         description: "Lightweight composite materials supplier",
         website: "https://www.emsclad.com/",
         partnership: "Carbon fiber and composite materials",
+      },
+      {
+        name: "Altair",
+        logo:
+          "https://i.ibb.co/svhQTF67/1200px-Altair-logo.png",
+        description: "High-efficiency solar panel manufacturer",
+        website: "https://altair.com/",
+        partnership: "Solar panel technology and optimization",
       },
     ],
   },
