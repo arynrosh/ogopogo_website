@@ -39,13 +39,13 @@ export const sponsorTiers: Tier[] = [
         website: "https://www.altium.com/",
         partnership: "Battery technology and charging infrastructure",
       },
-      {
-          name: "Alptraum Technologies Inc.",
-          logo: "https://i.ibb.co/ZzDYq23s/alptraum.png",
-          description: "Up-and-coming provider for PCBs and lab management solutions",
-          website: "#",
-          partnership: "PCB Development and software solutions",
-      },
+      // {
+      //     name: "Alptraum Technologies Inc.",
+      //     logo: "https://i.ibb.co/ZzDYq23s/alptraum.png",
+      //     description: "Up-and-coming provider for PCBs and lab management solutions",
+      //     website: "#",
+      //     partnership: "PCB Development and software solutions",
+      // },
       {
         name: "Dynamics Agitator Inc.",
         logo: "https://i.ibb.co/Kp6NGTFy/dynamix-agitators-logo-4.png",
