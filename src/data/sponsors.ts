@@ -40,7 +40,7 @@ export const sponsorTiers: Tier[] = [
         partnership: "Battery technology and charging infrastructure",
       },
       // {
-      //     name: "Alptraum Technologies Inc.",
+      //     name: "Alptraum Technologies Inc. B",
       //     logo: "https://i.ibb.co/ZzDYq23s/alptraum.png",
       //     description: "Up-and-coming provider for PCBs and lab management solutions",
       //     website: "#",
