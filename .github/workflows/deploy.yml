@@ -50,7 +50,7 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: dist/
-          server-dir: ./
+          server-dir: public_html/
           # Keep server-only stuff (e.g., /api, uploads) intact:
           dangerous-clean-slate: false
 #pls work
