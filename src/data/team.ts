@@ -13,35 +13,35 @@ export type Member = {
 
 // Primary team roster
 export const members: Member[] = [
-  // Execs
-  {
-    name: 'Clement Halim',
-    role: 'Founder',
-    image: 'https://i.ibb.co/6b8JfB7/clem.jpg',
-    linkedin: 'https://www.linkedin.com/in/clement-halim',
-    email: '#',
-  },
-  {
-    name: 'Alan Zhu',
-    role: 'Co-Founder',
-    image: 'https://i.ibb.co/TH7RZ4Q/alan.jpgp',
-    linkedin: 'https://www.linkedin.com/in/alanzhu55b972174/',
-    email: 'Alanzhu1122@gmail.com',
-  },
+//   // Execs
+//   {
+//     name: 'Clement Halim',
+//     role: 'Founder',
+//     image: 'https://i.ibb.co/6b8JfB7/clem.jpg',
+//     linkedin: 'https://www.linkedin.com/in/clement-halim',
+//     email: '#',
+//   },
+//   {
+//     name: 'Alan Zhu',
+//     role: 'Co-Founder',
+//     image: 'https://i.ibb.co/TH7RZ4Q/alan.jpgp',
+//     linkedin: 'https://www.linkedin.com/in/alanzhu55b972174/',
+//     email: 'Alanzhu1122@gmail.com',
+//   },
   {
     name: 'Aryan Roshan',
     role: 'Team Captain',
-    image: 'https://i.ibb.co/kgrzzvD/aryan-roshan.jpg',
+    image: 'https://i.ibb.co/fzVtgkGH/Aryan-Edited-1.png',
     linkedin: 'https://www.linkedin.com/in/arynrosh',
     email: 'arynrosh@gmail.com',
   },
 
   // Business
   {
-    name: 'Aryan Choudhary',
+    name: 'Noah Zhang',
     role: 'Op & Finance Lead',
     discipline: 'Business',
-    image: 'https://i.ibb.co/Ss9gc8w/aryan-c-captain.jpg',
+    image: 'https://i.ibb.co/Xx3mYgLD/Noah-Edited-1.png',
     linkedin: 'https://www.linkedin.com/in/aryankchoudhary',
     email: 'Aryan1712@hotmail.com',
   },
@@ -49,7 +49,7 @@ export const members: Member[] = [
     name: 'Jiayi Chen',
     role: 'Marketing Lead',
     discipline: 'Business',
-    image: 'https://i.ibb.co/M511Fk2/jiayi.webp',
+    image: 'https://i.ibb.co/21HXCwQY/Jiayi-Edited-1.png',
     linkedin: 'https://www.linkedin.com/in/jiayi-chen-8800711ba/',
     email: 'jiayicheen0810@gmail.com',
   },
@@ -69,7 +69,7 @@ export const members: Member[] = [
     name: 'Ran Tao',
     role: 'Electrical Lead',
     discipline: 'Electrical',
-    image: 'https://i.ibb.co/1RQdFTn/ran-tao.jpg',
+    image: 'https://i.ibb.co/jvCRFsfX/Aryan-Edited-Ran-Edited-2.png',
     linkedin: 'https://www.linkedin.com/in/ran-tao-755bb91a2/',
     email: 'tao.ran@student.ubc.ca',
   },
@@ -87,7 +87,7 @@ export const members: Member[] = [
     name: 'Aryan Roshan',
     role: 'Software Lead',
     discipline: 'Software',
-    image: 'https://i.ibb.co/kgrzzvD/aryan-roshan.jpg',
+    image: 'https://i.ibb.co/fzVtgkGH/Aryan-Edited-1.png',
     linkedin: 'https://www.linkedin.com/in/arynrosh',
     email: 'arynrosh@gmail.com',
   },

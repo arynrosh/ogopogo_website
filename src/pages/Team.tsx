@@ -132,16 +132,15 @@ const Team: React.FC = () => {
     <div className="animate-fade-in font-sans">
       {/* Hero (priority for LCP) */}
       <Hero
-        backgroundImage="https://i.ibb.co/chhvDLzg/IMG-2974.jpg"
+        backgroundImage="https://i.ibb.co/7NXr0BpG/upscalemedia-transformed-3-min.jpg"
         sizes="100vw"
         priority
+        focus="50% 70%"
         title={
-          <div className="flex flex-col justify-center items-center min-h-screen px-4">
+          <div className="flex flex-col items-center min-h-screen px-4 pt-24 sm:pt-36 lg:pt-32">
             <h2 className="text-center leading-[0.88] tracking-tight balance">
-              <span className="block font-extrabold text-white break-words fluid-hero-1">MEET</span>
-              <span className="block font-extrabold break-words fluid-hero-2" style={{ color: '#ffc82e' }}>
-                OUR TEAM
-              </span>
+              <span className="font-extrabold text-white whitespace-nowrap fluid-hero-1">MEET</span>
+              <span className="ml-3 font-extrabold text-[#ffc82e] whitespace-nowrap fluid-hero-2">OUR TEAM</span>
             </h2>
           </div>
         }
